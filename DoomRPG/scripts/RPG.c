@@ -667,7 +667,11 @@ NamedScript DECORATE int AddHealthDirect(int HealthAmount, int MaxPercent)
         return 0;
 
     if (Player.ActualHealth + HealthAmount > RealMax)
+    {
+        if (Player.OverHeal && MaxPercent == 200)
+		    Player.OverHeal = false;
         HealthAmount = RealMax - Player.ActualHealth;
+    }
 
     // Add Vitality XP for using healing items
     if (GetCVar("drpg_levelup_natural") && !Player.Stim.Active)
