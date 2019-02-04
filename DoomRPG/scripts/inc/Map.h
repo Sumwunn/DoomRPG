@@ -101,7 +101,8 @@ NamedScript void RainbowEvent();
 NamedScript void SinstormEvent();
 NamedScript void SinstormSpawner(int);
 
-NumberedScript(MAP_EXIT_SCRIPTNUM) MapSpecial void MapExit(bool);
+NumberedScript(MAP_EXIT_SCRIPTNUM) MapSpecial void MapExit(bool, bool, int, int, int);
+NumberedScript(MAP_EXIT_SCRIPTNUM) MapSpecial void MapExitTeleport(int, int, int);
 NamedScript MapSpecial void AddUnknownMap(str, str, int, int);
 
 int LevelSort(void const *, void const *);

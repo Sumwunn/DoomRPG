@@ -1,0 +1,197 @@
+This will no longer be updated. Please refer to Releases/Commits for future changes.
+
+BUILDs 1 - 3 are based on DoomRPG Sep 22 2016 v0.10.1. BUILD 4 brings it up to date with the GitHub version minus DRLA compat fixes for unreleased version.
+
+11/29/2017 - BUILD 1 - Compiled with GDCC v0.13.2 64-bit.
+Renamed DRPG's own Round math function to DRPGMath_Round to avoid definition conflict with GDCC.
+Completely removed everything TURRET. It's gone. Also updated Outpost.wad to reflect those changes.
+
+11/30/2017 - BUILD 2 - Compiled with GDCC v0.13.2 64-bit.
+Removed Bomb2.ogg and its respective code.
+Fixed runaway script during bulk withdraw if you are already carrying a type of weapon stored in your locker.
+Updated MAX_TIPS & MAX_MENU to reflect turret removal.
+
+12/2/2017 - BUILD 3 - Compiled with GDCC dev v0.13.2.22 64-bit.
+Compiled with a dev build of GDCC which resolves the blank extra weapon page that came out of nowhere.
+Added compatibilty for Jimmy's Jukebox Instant Randomizer. This allows DRPG's level event & Outpost music to play.
+Updated RLArsenal's & WadSmoosh's MENUDEF.txt to reflect turret removal.
+Reduced stim timers by roughly half.
+RLHeavyHuntingShotgun & RLNapalmLauncher sprites are now aligned properly in the weapons shop.
+Restored original credit payout sound.
+Removed incomplete PDA & Payment system.
+Removed incomplete Outpost2.wad and its reference from MAPINFO.txt
+
+12/4/2017 - BUILD 4 - Compiled with GDCC dev v0.13.2.22 64-bit.
+Mod is now called Doom RPG Lite.
+Combined both Tip calls in Map.c.
+Firewalled crates now have their own sprite instead of a floating fire icon.
+Removed incomplete new GUI.
+Removed 3D Healthbars.
+Removed code that drew the turret sprite on DRPG's menu (I think this is the last of the turret stuff).
+Reduced stim timers even further (think of them as a temp boost :D).
+
+- Included the following commits from DRPG's GitHub which brings it up to date:
+https://github.com/Kyle873/DoomRPG/commit/f9389b0c8630c1f64a127d729430e97f69cbe8a6
+https://github.com/Kyle873/DoomRPG/commit/3420244b186d33397567f91a0c5572b489ca772f
+https://github.com/Kyle873/DoomRPG/commit/97727c95c31c7c4abd7e1d889d21a3699f480d22
+https://github.com/Kyle873/DoomRPG/commit/65d91d09e307a16fbdeca48f351d4cca22efabad
+https://github.com/Kyle873/DoomRPG/commit/5253f0882a24cb5c0038d61283222265a6c273bf
+https://github.com/Kyle873/DoomRPG/commit/c129d04b9e59127b7cf758383e42b9c84bb58a01
+- Commits not included because they are related to DRLA and I'm unsure if they are for the unreleased version:
+https://github.com/Kyle873/DoomRPG/commit/8bd81f1b91a30897a4c5c5d9f3e4868b1c605181
+https://github.com/Kyle873/DoomRPG/commit/6e6ef29859a956c18b6e8d81bd2fb0678961340f
+https://github.com/Kyle873/DoomRPG/commit/187b45f370edeb438d9bbfc5a8dcafbc3a604c02
+https://github.com/Kyle873/DoomRPG/commit/f9c3c373ff42c73b9a5007e271c7ac28326d2f9b
+https://github.com/Kyle873/DoomRPG/commit/8d8f7cbe2bd8c47203e5cf8a7827a8f014a08774
+https://github.com/Kyle873/DoomRPG/commit/5882cb88e300a9e96e6004be7926a74062793827
+https://github.com/Kyle873/DoomRPG/commit/790b3c8f8eff9b2f2bc926faab8b2d8f3343bd7b
+https://github.com/Kyle873/DoomRPG/commit/05fde658ded457c1820f3463916e836b521894f3
+https://github.com/Kyle873/DoomRPG/commit/817f6c9641e8ffeec8af5e41fa15fffb9bf86880
+https://github.com/Kyle873/DoomRPG/commit/2ec074d7160b9c7fb38f05f2519e7d0f05dfab1c
+https://github.com/Kyle873/DoomRPG/commit/31bff2f989613fa4f41a7e1dd0926a809d9897e5
+https://github.com/Kyle873/DoomRPG/commit/f48e913fe555a1818858156f5e8b1782faf1eefc
+https://github.com/Kyle873/DoomRPG/commit/b704c70a9b5df314c4f9ceb560ac6043c84d6a75
+
+12/5/2017 - BUILD 5 - Compiled with GDCC dev v0.13.2.22 64-bit.
+New firewalled crate sprites from BUILD 4 are now animated.
+Removed fancy stat up.
+Reorganised Mission Info & Reward description and added colour coded mission icons.
+
+12/7/2017 - BUILD 6 - Compiled with GDCC dev v0.13.2.22 64-bit.
+Renamed mod from Lite to Redux.
+Reorganised DRPG Menu.
+DRPG Menu, its submenus and mission bbs now have blue borders and a darkened background.
+Finding & using a medkit now has separate sounds.
+Removed left over turret sounds.
+
+12/8/2017 - BUILD 7 - Compiled with GDCC dev v0.13.2.22 64-bit.
+Vicious Downpour & Dark Zone events now have their own sky textures.
+Vicious Downpour rain background sound is somewhat quieter now.
+DRPG Menu background border & image can now be turned off via options.
+Moved DRLA's "Info" keys from MENUDEF to KEYCONF. They will now show up in later GZDoom versions.
+
+12/10/2017 - BUILD 8 - Compiled with GDCC dev v0.13.2.22 64-bit.
+Changed DRPG's logo to blue.
+Fixed DRPG's menu not disappearing when viewing mission info.
+
+12/13/2017 - BUILD 9 - Compiled with GDCC v0.12.0 64-bit.
+Downgraded GDCC version as latest was causing issues with DRPG's bitwise's. Char Save & Arena work again.
+New Outpost music consisting of 4 ambient tracks from MDK2. Selected randomly.
+New Outpost mission, alarm & menu sounds from System Shock 2.
+New Transport sound from evecdsp-v2e.wad.
+Transport FX is now BLUE!
+
+12/14/2017 - BUILD 10 - Compiled with GDCC v0.12.0 64-bit.
+Gave the Outpost a new look using the textures left over from the incomplete Outpost2.
+Transporter, Mission BBS, Shop & Skill Computer now have illuminated signs.
+New sound for the Skill Computer from System Shock 2.
+
+12/15/2017 - BUILD 11 - Compiled with GDCC v0.12.0 64-bit.
+Mod renamed to SE (Sumwunn's Edition).
+Removed Run Pickup Behaviour.
+Added alarm sprites to the Outpost left over from the incomplete Outpost2 (animated!).
+Swapped onscreen key binding descriptions so they are more readable.
+DRPG's option menu now shows up in later GZDoom versions without breaking compatibility with the older versions.
+One Monster level event now has its own music (Man In Action from MDK2).
+Moved mission info furthest to the left to help with long item reward names.
+
+12/17/2017 - BUILD 12 - Compiled with GDCC v0.12.0 64-bit.
+Added a 5 minute cooldown timer to the Outpost's EP pad to prevent abuse.
+Replaced "CONSUME YOU" level event music with "Corrupted Core" from the Doom PSX extended soundtrack.
+
+01/03/2018 - BUILD 13 - Compiled with GDCC v0.12.0 64-bit.
+Merged latest DRPG commits except these as they do not apply to my version:
+https://github.com/Kyle873/DoomRPG/commit/c379109980c9cd9e4508f99dc6af863d386dbf39
+https://github.com/Kyle873/DoomRPG/commit/0b9fa278acfd73b8dcb851dfc5f98888f978e10d
+https://github.com/Kyle873/DoomRPG/commit/f65de594ce16c30057846649e8aced45d5b78467
+https://github.com/Kyle873/DoomRPG/commit/84d2b3052668385280fc9a4e245b5d810fe2c487
+
+01/06/2018 - BUILD 14 - Compiled with GDCC v0.12.0 64-bit.
+Fixed binding text errors in Shop/Locker.
+
+Merged latest DRPG commits except for:
+Applies to unreleased DRLA only:
+https://github.com/Kyle873/DoomRPG/commit/ee8bf6cf0edf7af1ab1381986995941a7b262668
+
+01/12/2018 - BUILD 15 - Compiled with GDCC v0.12.0 64-bit.
+Support for GZDoom v2.1.1 deprecated.
+Removed redundant CONFUSION_NONSENSE_ID.
+Added a sound effect and message for when you try to use a skill while silenced. 
+Character menu options made compatible with GZDoom v3.2+ menudef changes.
+Raised Stim timers a bit.
+
+02/11/2018 - BUILD 16 - Compiled with GDCC v0.12.0 64-bit.
+Fixed bug (I'm 75% sure) in GetRewardItem that affected Pandora's box not dropping any legendary loot (99% of the time).
+Fixed bug where monsters were not being replaced/removed (MegaBoss, One Monster events etc...)
+Music is stopped when players get the message "Everything falls silent." after completing related event.
+Replaced One Monster event music with "Hard Boiled" from MDK2.
+Reverted commit: https://github.com/Kyle873/DoomRPG/commit/2d7e5af21e82f77e3e3f8eb778871075bfa9c6a8
+- The hack is not required with GDCC v0.12.0 64-bit.
+DRPG's in-game menu options are now green, grey when highlighted and flash yellow when selected.
+Text containing "HOLD" in DRPG's key bindings in-menus are now orange to help with usability.
+
+02/13/2018 - BUILD 17 - Compiled with GDCC v0.12.0 64-bit.
+Outpost Transporter & Item Roulette now have blue borders and a darkened background.
+Added header & help to Item Roulette.
+Moved Item Roulette next to Skill Computer.
+Changed all signs to blue neon and placed more around the outpost.
+Fixed GiveTip() spitting out junk once in a while. (MAX_TIPS was just off by one)
+
+02/18/2018 - BUILD 18 - Compiled with GDCC v0.12.0 64-bit.
+The fix for GetRewardItem from BUILD 16 was causing Item Roulette to spit out junk. 
+- Upon further investigation it seems only Legendary stuff (rarity 10) need the fix. So the fix (cough*hack*cough) now applies to them only.
+More key bindings displayed for Item Roulette.
+Changed Item Roulette wheel sound from transfer/loop to menu/click and lowered volume by .2
+Arena Wave & Bonus selection now have blue borders and a darkened background.
+You can now take everything out of crates at once.
+Renamed DRPGMath_Round to RoundInt.
+Fixed Demon Artifact alignment in Shop/Locker.
+Fixed missing Shredder Pistol sprite in Shop/Locker.
+Updated PostPic.png to reflect Outpost changes.
+
+02/21/2018 - BUILD 19 - Compiled with GDCC v0.12.0 64-bit.
+GetMissionMonsterActor() now checks for empty strings which resolved GZDoom spewing: "Warning: ACS function strlen called with invalid string argument."
+xlat is no more. Level exits are now replaced via ZSCRIPT which allows compatibility for all map types. GZDoom v3.2.5 is now mandatory.
+- Some UDMF maps exit via scripts, bypassing DRPG's own script. Those will need to edited manually in SLADE. Replace the following exits in SLADE:
+-- Exit_Normal(0); is replaced with: ACS_Execute(30000, 0, 0, 0, 0);
+--- Exit_Secret(0); is replaced with: ACS_Execute(30000, 0, 1, 0, 0);
+---- Teleport_NewMap(X,Y,Z); is replaced with: ACS_Execute(30001, 0, X, Y, Z); - Replace X,Y,Z with the arguments from Teleport_NewMap()
+----- Then compile the edited script in SLADE and then delete the old BEHAVIOUR file (should be just after the map marker) after the new one is spat out.
+
+02/24/2018 - BUILD 20 - Compiled with GDCC v0.12.0 64-bit.
+Events that altered lighting now get sector counts instead of iterating up to 65536, resulting in a massive speed up.
+A proper fix has replaced the GetMissionMonsterActor() hack fix from BUILD 19.
+New "Skill Up" sound from Prey (2017);
+
+02/25/2018 - BUILD 20.1 - Compiled with GDCC v0.12.0 64-bit.
+Fixed broken reinforcement mission caused by the "monsters not being replaced/removed fix" from BUILD 16.
+
+02/26/2018 - BUILD 20.2 - Compiled with GDCC v0.12.0 64-bit.
+Fixed broken DRLA starting options (RPG.c Init needed DRLA ATID check).
+
+03/04/2018 - BUILD 21 - Compiled with GDCC v0.12.0 64-bit.
+Stim times can now be multiplied via the new slider located in the "Stats System" options.
+Stim starting options were lowered to prevent runaway script (this would never happen really unless you set the values really high).
+Outpost got a new single skybox texture. Also removed a lot of Skybox pickers (no longer needed) which should help with FPS a bit.
+Moved Outpost teleport next to 1st player spawn.
+Reorganised Health Bar and its stats. I think it's much nicer now.
+Brightmap for Low Power Event Generator.
+Minor text fixes.
+
+03/05/2018 - BUILD 21.1 - Compiled with GDCC v0.12.0 64-bit.
+Reintroduced Run Pickup Behaviour with some optimisation.
+Deleted unconnected lines in Outpost.
+
+03/24/2018 - BUILD 21.2 - Compiled with GDCC v0.12.0 64-bit.
+Separated natural stat increases from base values.
+New M_DOOMs with RGB lighting.
+
+03/25/2018 - BUILD 21.3 - Compiled with GDCC v0.12.0 64-bit.
+- Manually merged: https://github.com/worldendDominator/DoomRPG/commit/3035874a21b1205b8bb8a25887e2810b17803267
+Fixed runaway termination in starting vials script (it never happened anyway).
+Fixed infinite ammo powerups not working with DRLA.
+Extra lives now teleports you to the start of the map.
+
+03/26/2018 - BUILD 21.4 - Compiled with GDCC v0.12.0 64-bit.
+Fixed missing textures on Outpost teleport pad.
+Moved Shield Menu's bindings help lower to prevent Shield Component Descripton from overlapping it. 

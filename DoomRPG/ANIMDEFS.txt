@@ -13,30 +13,6 @@ texture FIRESK00
 // --------------------------------------------------
 // MENU
 
-// GUI Background Static
-texture GStatic1
-	pic GStatic1 tics 1
-	pic GStatic2 tics 1
-	pic GStatic3 tics 1
-	pic GStatic4 tics 1
-	pic GStatic1 tics 1
-	pic GStatic3 tics 1
-	pic GStatic4 tics 1
-	pic GStatic2 tics 1
-	pic GStatic3 tics 1
-	pic GStatic1 tics 1
-	pic GStatic4 tics 1
-	pic GStatic2 tics 1
-	pic GStatic1 tics 1
-	pic GStatic3 tics 1
-	pic GStatic2 tics 1
-	pic GStatic4 tics 1
-
-// Payout Tab
-texture TPayout
-	pic TPayout rand 350 1400
-	pic TPayout2 rand 5 35
-
 // Doomguy
 texture PLAYA1
 	pic PLAYA1 tics 6
@@ -260,6 +236,25 @@ texture P5UPA0
     pic P5UPB0 tics 4
     pic P5UPC0 tics 4
     pic P5UPD0 tics 4
+    
+// Blanks
+texture P1UBA0
+    pic P1UBA0 tics 4
+    pic P1UBB0 tics 4
+    pic P1UBC0 tics 4
+    pic P1UBD0 tics 4
+    
+texture P3UBA0
+    pic P3UBA0 tics 4
+    pic P3UBB0 tics 4
+    pic P3UBC0 tics 4
+    pic P3UBD0 tics 4
+    
+texture P5UBA0
+    pic P5UBA0 tics 4
+    pic P5UBB0 tics 4
+    pic P5UBC0 tics 4
+    pic P5UBD0 tics 4
 
 // Time Sphere
 texture TIMEA0
@@ -293,13 +288,6 @@ texture GCELA0
     pic GCELD0 tics 6
     pic GCELC0 tics 6
     pic GCELB0 tics 6
-
-// Payout PDA
-texture PAYPDA
-	pic PAYPDA tics 2
-	pic PAYPDA2 tics 2
-	pic PAYPDA3 tics 2
-	pic PAYPDA4 tics 2
 
 // --------------------------------------------------
 // INVENTORY BAR

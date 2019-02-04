@@ -1,0 +1,214 @@
+// --------------------------------------------------
+// Revenant
+//
+
+// Revenant Spawner
+ACTOR Colourset1RPG : Colourset1 Replaces DRPGRevenant
+{
+}
+
+// Common Revenant
+ACTOR CommonRevenantRPG : CommonRevenant Replaces CommonRevenant
+{
+	Tag "Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Revenant
+ACTOR GreenRevenantRPG : GreenRevenant Replaces GreenRevenant
+{
+	Tag "Uncommon Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Revenant
+ACTOR BlueRevenantRPG : BlueRevenant Replaces BlueRevenant
+{
+	Tag "Rare Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Revenant
+ACTOR PurpleRevenantRPG : PurpleRevenant Replaces PurpleRevenant
+{
+	Tag "Epic Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Revenant
+ACTOR YellowRevenantRPG : YellowRevenant Replaces YellowRevenant
+{
+	Tag "Ghostly Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR SpecialSoulRPG : SpecialSoul Replaces SpecialSoul
+{
+	Tag "Soul"
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Red Revenant
+ACTOR RedRevenantRPG : RedRevenant Replaces RedRevenant
+{
+	Tag "Bloody Revenant"
+
+	States
+	{
+	Spawn:
+		RASK A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		RASK A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Revenant
+ACTOR BlackRevenant3RPG : BlackRevenant3 Replaces BlackRevenant3
+{
+	Tag "The Black Knight"
+
+	States
+	{
+	Spawn:
+		DKNT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		DKNT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR BlackRev2RPG : BlackRev2 Replaces BlackRev2
+{
+	Tag "The Black Knight"
+
+	States
+	{
+	Spawn:
+		DKNT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		DKNT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Black Revenant EX
+ACTOR BlackRevenantEXRPG : BlackRevenantEX Replaces BlackRevenantEX
+{
+	Tag "The Black Knight Unleashed"
+
+	States
+	{
+	Spawn:
+		DKNT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		DKNT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Fireblu Revenant
+ACTOR FireBLURevenant2RPG : FireBLURevenant2 Replaces FireBLURevenant2
+{
+	Tag "Enchanted Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Gray Revenant
+ACTOR GrayRevenant2RPG : GrayRevenant2 Replaces GrayRevenant2
+{
+	Tag "Ancient Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Revenant
+ACTOR AbyssRevenant2RPG : AbyssRevenant2 Replaces AbyssRevenant2
+{
+	Tag "Abyssal Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

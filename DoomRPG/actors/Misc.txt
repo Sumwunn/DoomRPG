@@ -438,7 +438,7 @@ Actor DRPGSpeed : PowerupGiver
     +INVENTORY.AUTOACTIVATE
     
     Powerup.Type DoubleFiringSpeed
-    Powerup.Duration 2
+    Powerup.Duration 4
 }
 
 Actor DRPGShotSpawn

@@ -13,7 +13,6 @@ extern int RPGMap NotorietySpotTID;
 extern int RPGMap MarineTID;
 extern int RPGMap MarineMaxTID;
 extern int RPGMap MarineBossTID;
-extern int RPGMap TurretTID;
 extern int RPGMap BossSpotTID;
 extern int RPGMap ForcefieldID;
 extern int RPGMap ForcefieldGeneratorID;

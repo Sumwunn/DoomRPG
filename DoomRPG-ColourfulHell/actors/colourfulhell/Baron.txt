@@ -1,0 +1,263 @@
+// --------------------------------------------------
+// Baron of Hell
+//
+
+// Baron of Hell Spawner
+ACTOR Colourset13RPG : Colourset13 Replaces DRPGBaronOfHell
+{
+}
+
+// Common Baron
+ACTOR CommonBaronRPG : CommonBaron Replaces CommonBaron
+{
+	Tag "Baron of Hell"
+
+	States
+	{
+	Spawn:
+		BOSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Baron
+ACTOR GreenBaronRPG : GreenBaron Replaces GreenBaron
+{
+	Tag "Uncommon Baron of Hell"
+
+	States
+	{
+	Spawn:
+		BOSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Baron
+ACTOR BlueBaronRPG : BlueBaron Replaces BlueBaron
+{
+	Tag "Rare Baron of Hell"
+
+	States
+	{
+	Spawn:
+		BOSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Baron
+ACTOR PurpleBaronRPG : PurpleBaron Replaces PurpleBaron
+{
+	Tag "Epic Baron of Hell"
+
+	States
+	{
+	Spawn:
+		BOSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Baron
+ACTOR YellowBaronRPG : YellowBaron Replaces YellowBaron
+{
+	Tag "Grand Baron of Hell"
+
+	States
+	{
+	Spawn:
+		LOHS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		LOHS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Baron
+ACTOR RedBaron1RPG : RedBaron1 Replaces RedBaron1
+{
+	Tag "Raging Red Baron"
+
+	States
+	{
+	Spawn:
+		BOS4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOS4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR RedBaron3RPG : RedBaron3 Replaces RedBaron3
+{
+	Tag "Powerful Red Baron"
+
+	States
+	{
+	Spawn:
+		BOS4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOS4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR RedBaron2RPG : RedBaron2 Replaces RedBaron2
+{
+	Tag "Flying Red Baron"
+
+	States
+	{
+	Spawn:
+		FALN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		FALN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Baron
+ACTOR BlackBaron2RPG : BlackBaron2 Replaces BlackBaron2
+{
+	Tag "Baron of the Abyss"
+
+	States
+	{
+	Spawn:
+		CUTH A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		CUTH A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Baron
+ACTOR WhiteBaron2RPG : WhiteBaron2 Replaces WhiteBaron2
+{
+	Tag "Valkyrie of Hell"
+
+	States
+	{
+	Spawn:
+		HQAC A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		HQAC A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR DeepTentacleRPG : DeepTentacle Replaces DeepTentacle
+{
+	Tag "Deep Tentacle"
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		TEN1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+ACTOR RoseTentacleRPG : RoseTentacle Replaces RoseTentacle
+{
+	Tag "Rose Tentacle"
+
+	States
+	{
+	Spawn:
+		ROSX A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		ROSX A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Gray Baron
+ACTOR GrayBaron2RPG : GrayBaron2 Replaces GrayBaron2
+{
+	Tag "Ancient Baron of Hell"
+
+	States
+	{
+	Spawn:
+		BOS4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOS4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Fireblu Baron
+ACTOR FireBluBaron2RPG : FireBluBaron2 Replaces FireBluBaron2
+{
+	Tag "Enchanted Baron of Hell"
+
+	States
+	{
+	Spawn:
+		BOS4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BOS4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Baron
+ACTOR AbyssBaron2RPG : AbyssBaron2 Replaces AbyssBaron2
+{
+	Tag "Abyssal Baron of Hell"
+
+	States
+	{
+	Spawn:
+		AZEW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		AZEW A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR AbyssBaronSoulRPG : AbyssBaronSoul Replaces AbyssBaronSoul
+{
+    Tag "???"
+
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		SSUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SSUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}

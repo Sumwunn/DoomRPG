@@ -70,7 +70,11 @@ actor DRPGAura : Inventory
 // Aura Skills
 actor DRPGGreenAuraIronFeet : PowerIronFeet             { Powerup.Duration 5 }
 actor DRPGPinkAuraDrain : PowerDrain                    { Powerup.Duration 5 }
-actor DRPGDarkBlueAuraInfiniteAmmo : PowerInfiniteAmmo  { Powerup.Duration 5 }
+actor DRPGDarkBlueAuraInfiniteAmmo2 : PowerupGiver {
+    +Inventory.AutoActivate
+    Powerup.Type PowerInfiniteAmmo
+    Powerup.Duration 5
+}
 
 // Bullet-Time Skill
 actor DRPGSkillBulletTime : PowerupGiver
@@ -430,7 +434,7 @@ actor DRPGSkillPlasmaBeam1 : CustomInventory
     {
     Pickup:
         TNT1 A 0 A_AlertMonsters
-        TNT1 A 0 A_RailAttack(4, 0, false, "None", "Orange", RGF_SILENT | RGF_NOPIERCING, 0, "DRPGSkillPlasmaBeam1FirePuff", 0, 0, 1024, 0, 16.0, 0, "DRPGSkillPlasmaBeam1FlameSpark", -8)
+        TNT1 A 0 A_RailAttack(4, 0, false, "None", "Orange", RGF_SILENT | RGF_NOPIERCING, 0, "DRPGSkillPlasmaBeam1FirePuff", 0, 0, 1024, 0, 32.0, 0, "DRPGSkillPlasmaBeam1FlameSpark", -8)
         Stop
     }
 }
@@ -535,9 +539,7 @@ actor DRPGSkillPlasmaBeam1FlameEmber
         Stop
     Death:
     ShrinkAway:
-        PTCL L 1 Bright A_SetScale(ScaleX - 0.0005)
-        PTCL L 0 Bright A_JumpIf(ScaleX <= 0, "Disappear")
-        Loop
+        PTCL LLLLLLLLLLLLLLLLLLLL 1 Bright A_SetScale(ScaleX - 0.001)
     Disappear:
         PTCL L 0 Bright
         Stop
@@ -552,8 +554,8 @@ actor DRPGSkillPlasmaBeam2 : CustomInventory
     {
     Pickup:
         TNT1 A 0 A_AlertMonsters
-        TNT1 A 0 A_RailAttack(6, 0, false, "None", "Orange", RGF_SILENT,  0, "DRPGSkillPlasmaBeam1FirePuff",     0, 0, 2048, 0, 16.0, 0, "DRPGSkillPlasmaBeam1FlameSpark",    -8)
-        TNT1 A 0 A_RailAttack(6, 0, false, "None", "White",  RGF_SILENT, 32, "DRPGSkillPlasmaBeam2ElectricPuff", 0, 0, 2048, 0,  1.0, 0, "DRPGSkillPlasmaBeam2ElectricSpark", -8)
+        TNT1 A 0 A_RailAttack(6, 0, false, "None", "Orange", RGF_SILENT,  0, "DRPGSkillPlasmaBeam1FirePuff",     0, 0, 2048, 0, 32.0, 0, "DRPGSkillPlasmaBeam1FlameSpark",    -8)
+        TNT1 A 0 A_RailAttack(6, 0, false, "None", "White",  RGF_SILENT, 32, "DRPGSkillPlasmaBeam2ElectricPuff", 0, 0, 2048, 0,  8.0, 0, "DRPGSkillPlasmaBeam2ElectricSpark", -8)
         Stop
     }
 }
@@ -575,17 +577,11 @@ actor DRPGSkillPlasmaBeam2ElectricSpark : DRPGShieldLightningParticle
     States
     {
     Spawn:
-        TNT1 A 0 NoDelay A_Jump(24, 1)
+        TNT1 A 0 NoDelay A_Jump(96, 1)
         Goto Death
-        TNT1 A 0 A_SetUserVar("user_parttime", 20)
-        // TNT1 A 0 A_ChangeVelocity(FRandom(-0.33, 0.33),FRandom(-0.33, 0.33),FRandom(-0.33, 0.33))
     DecayLoop:
-        SLGT A 1 Bright
-        //TNT1 A 0 A_ChangeVelocity(0,0,-0.025)
-        TNT1 A 0 A_SetScale(0.05 - (0.05 * Cos(user_parttime * 90.0 / 20.0)))
-        TNT1 A 0 A_SetUserVar("user_parttime", user_parttime - 1)
-        TNT1 A 0 A_JumpIf(user_parttime <= 0, "Death")
-        Loop
+        SLGT A 5
+        SLGT AAAAAAAAAAAAAAA 1 Bright A_SetScale(ScaleX - 0.0025)
     Death:
         TNT1 A 0
         Stop
@@ -600,9 +596,9 @@ actor DRPGSkillPlasmaBeam3 : CustomInventory
     {
     Pickup:
         TNT1 A 0 A_AlertMonsters
-        TNT1 A 0 A_RailAttack( 0, 0, false, "None", "SkyBlue",    RGF_SILENT, 32, "DRPGSkillPlasmaBeam3DarknessPuff", 0, 0, 4096, 0,  1.0, 0, "DRPGSkillPlasmaBeam3ElectricSpark",     -12)
-        TNT1 A 0 A_RailAttack( 0, 0, false, "None", "Maroon",     RGF_SILENT, 32, "DRPGSkillPlasmaBeam3DarknessPuff", 0, 0, 4096, 0,  1.0, 0, "DRPGSkillPlasmaBeam3DarkElectricSpark", -12)
-        TNT1 A 0 A_RailAttack(20, 0, false, "None", "DarkViolet", RGF_SILENT,  0, "DRPGSkillPlasmaBeam3DarknessPuff", 0, 0, 4096, 0, 16.0, 0, "DRPGSkillPlasmaBeam3DarkFlameSpark",    -12)
+        TNT1 A 0 A_RailAttack( 0, 0, false, "None", "SkyBlue",    RGF_SILENT, 32, "DRPGSkillPlasmaBeam3DarknessPuff", 0, 0, 4096, 0,  8.0, 0, "DRPGSkillPlasmaBeam3ElectricSpark",     -12)
+        TNT1 A 0 A_RailAttack( 0, 0, false, "None", "Maroon",     RGF_SILENT, 32, "DRPGSkillPlasmaBeam3DarknessPuff", 0, 0, 4096, 0,  8.0, 0, "DRPGSkillPlasmaBeam3DarkElectricSpark", -12)
+        TNT1 A 0 A_RailAttack(20, 0, false, "None", "DarkViolet", RGF_SILENT,  0, "DRPGSkillPlasmaBeam3DarknessPuff", 0, 0, 4096, 0, 32.0, 0, "DRPGSkillPlasmaBeam3DarkFlameSpark",    -12)
         Stop
     }
 }
@@ -630,9 +626,7 @@ actor DRPGSkillPlasmaBeam3DarkFlameSpark
     Spawn:
         //PTCL N 0 Bright NoDelay A_Warp(AAPTR_DEFAULT, FRandom(-4,4),FRandom(-4,4),FRandom(-4,4), 0, WARPF_INTERPOLATE)
     ShrinkAway:
-        PTCL N 1 Bright A_SetScale(ScaleX - (0.075 / 35.0))
-        PTCL N 0 Bright A_JumpIf(ScaleX <= 0, "Disappear")
-        Loop
+        PTCL NNNNNNNNNNNNNNNNNNNN 1 Bright A_SetScale(ScaleX - 0.003)
     Disappear:
         PTCL N 0 Bright
         Stop
@@ -652,17 +646,10 @@ actor DRPGSkillPlasmaBeam3ElectricSpark : DRPGShieldLightningParticle
     States
     {
     Spawn:
-        PTCL M 0 NoDelay A_Jump(12, 1)
+        PTCL M 0 NoDelay A_Jump(48, 1)
         Goto Death
-        PTCL M 0 A_SetUserVar("user_parttime", 20)
-        // TNT1 A 0 A_ChangeVelocity(FRandom(-0.33, 0.33),FRandom(-0.33, 0.33),FRandom(-0.33, 0.33))
-    DecayLoop:
-        PTCL M 1 Bright
-        //TNT1 A 0 A_ChangeVelocity(0,0,-0.025)
-        PTCL M 0 A_SetScale(0.025 - (0.025 * Cos(user_parttime * 90.0 / 20.0)))
-        PTCL M 0 A_SetUserVar("user_parttime", user_parttime - 1)
-        PTCL M 0 A_JumpIf(user_parttime <= 0, "Death")
-        Loop
+        PTCL M 5
+        PTCL MMMMMMMMMMMMMMM 1 Bright A_SetScale(ScaleX - 0.00125)
     Death:
         PTCL M 0
         Stop
@@ -673,4 +660,3 @@ actor DRPGSkillPlasmaBeam3DarkElectricSpark : DRPGSkillPlasmaBeam3ElectricSpark
 {
     RenderStyle Subtract
 }
-

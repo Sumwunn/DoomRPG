@@ -1,0 +1,188 @@
+// --------------------------------------------------
+// Spectre
+//
+
+// Spectre Spawner
+ACTOR Colourset6RPG : Colourset6 Replaces DRPGSpectre
+{
+}
+
+// Common Spectre
+ACTOR CommonSpectreRPG : CommonSpectre Replaces CommonSpectre
+{
+	Tag "Spectre"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Spectre
+ACTOR GreenSpectreRPG : GreenSpectre Replaces GreenSpectre
+{
+	Tag "Uncommon Spectre"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Spectre
+ACTOR BlueSpectreRPG : BlueSpectre Replaces BlueSpectre
+{
+	Tag "Rare Spectre"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Spectre
+ACTOR PurpleSpectreRPG : PurpleSpectre Replaces PurpleSpectre
+{
+	Tag "Spectre"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Spectre
+ACTOR YellowSpectreRPG : YellowSpectre Replaces YellowSpectre
+{
+	Tag "Legendary Spectre"
+
+	States
+	{
+	Spawn:
+		SRG2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SRG2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Spectre
+ACTOR RedSpectreRPG : RedSpectre Replaces RedSpectre
+{
+	Tag "Demonic Spectre"
+
+	States
+	{
+	Spawn:
+		SRG2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SRG2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Spectre
+ACTOR BlackSpectre2RPG : BlackSpectre2 Replaces BlackSpectre2
+{
+	Tag "The Rogue"
+
+	States
+	{
+	Spawn:
+		SHDW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SHDW A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Spectre
+ACTOR WhiteSpectre2RPG : WhiteSpectre2 Replaces WhiteSpectre2
+{
+	Tag "???"
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		TNT1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR WakawakaRPG : Wakawaka Replaces Wakawaka
+{
+	Tag "Worm"
+
+	States
+	{
+	Spawn:
+		EWRM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		EWRM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Gray Spectre
+ACTOR GraySpectre2RPG : GraySpectre2 Replaces GraySpectre2
+{
+	Tag "Ancient Spectre"
+
+	States
+	{
+	Spawn:
+		TRIT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		TRIT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+
+// FireBlu Spectre
+ACTOR FireBluSpectre2RPG : FireBluSpectre2 Replaces FireBluSpectre2
+{
+	Tag "Enchanted Spectre"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		TNT1 A 0
+		Goto Super::See
+	}
+}

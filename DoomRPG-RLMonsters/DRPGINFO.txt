@@ -1,2 +1,2 @@
 Name=DoomRL Arsenal - Monster Pack
-Requires=DoomRL Arsenal
+Conflicts=Colourful Hell

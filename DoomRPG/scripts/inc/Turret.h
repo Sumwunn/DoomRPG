@@ -10,14 +10,9 @@ NamedScript DECORATE void TurretSetOffset(int, int, int);
 NamedScript DECORATE void TurretUseAmmo(int);
 NamedScript DECORATE int TurretGetProjectileDamage(int);
 NamedScript DECORATE int TurretGetProjectileProperty(int);
-NamedScript DECORATE void TurretPostSelfDestruct();
 
 NamedScript Type_ENTER void TurretLoop();
 NamedScript Type_ENTER void TurretLoopMaintenance();
-NamedScript void TurretSensors();
-NamedScript void TurretItemSensorThink();
-NamedScript void TurretCrateSensorThink();
-NamedScript void TurretPickStimMenu();
 
 // Turret AI
 NamedScript void TurretAI(int);
@@ -41,10 +36,8 @@ bool TurretTeleport(int);
 void TurretMaintenance();
 bool TurretLoadAmmo(int);
 void TurretCommand(int);
-bool TurretStim();
 int TurretUpgradeCost(int);
 void TurretPassVars();
-int TurretSensorDistanceComparison(void const *, void const *);
 
 void TurretSpawn();
 void TurretDespawn();

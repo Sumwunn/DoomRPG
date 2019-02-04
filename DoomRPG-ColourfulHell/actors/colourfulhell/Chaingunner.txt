@@ -1,0 +1,248 @@
+// --------------------------------------------------
+// Chaingunner
+//
+
+// Chaingunner Spawner
+ACTOR Colourset12RPG : Colourset12 Replaces DRPGChaingunGuy
+{
+}
+
+// Common Chaingunner
+ACTOR CommonCguyRPG : CommonCguy Replaces CommonCguy
+{
+	Tag "Former Commando"
+
+	States
+	{
+	Spawn:
+		CPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		CPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Chaingunner
+ACTOR GreenCguyRPG : GreenCguy Replaces GreenCguy
+{
+	Tag "Uncommon Former Commando"
+
+	States
+	{
+	Spawn:
+		SPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Chaingunner
+ACTOR BlueCguyRPG : BlueCguy Replaces BlueCguy
+{
+	Tag "Rare Former Commando"
+
+	States
+	{
+	Spawn:
+		SPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Chaingunner
+ACTOR PurpleCguyRPG : PurpleCguy Replaces PurpleCguy
+{
+	Tag "Epic Former Commando"
+
+	States
+	{
+	Spawn:
+		SPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Chaingunner
+ACTOR YellowCguyRPG : YellowCguy Replaces YellowCguy
+{
+	Tag "Legendary Former Commando"
+
+	States
+	{
+	Spawn:
+		PZOW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PZOW A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Chaingunner
+ACTOR RedCguyRPG : RedCguy Replaces RedCguy
+{
+	Tag "Demonic Former Commando"
+
+	States
+	{
+	Spawn:
+		CPS2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		CPS2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Chaingunner
+ACTOR BlackCguy2RPG : BlackCguy2 Replaces BlackCguy2
+{
+	Tag "Mr. General"
+
+	States
+	{
+	Spawn:
+		BFGZ A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BFGZ A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Chaingunner
+ACTOR WhiteCguy2RPG : WhiteCguy2 Replaces WhiteCguy2
+{
+	Tag "Crazy Lady Scientist"
+
+	States
+	{
+	Spawn:
+		FSZS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		FSZS A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Slimy Worm
+ACTOR SlimyWormRPG : SlimyWorm Replaces SlimyWorm
+{
+	Tag "Slimy Worm"
+
+	States
+	{
+	Spawn:
+		WORM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		WORM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Volatile Caco
+ACTOR VolativeCacoRPG : VolativeCaco Replaces VolativeCaco
+{
+	Tag "Unstable Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Spliced Baron
+ACTOR SpliceBaronRPG : SpliceBaron Replaces SpliceBaron
+{
+	Tag "Spliced Baron"
+
+	States
+	{
+	Spawn:
+		ARBR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		ARBR A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Baby Caco
+ACTOR BabyCacoRPG : BabyCaco Replaces BabyCaco
+{
+	Tag "Baby Cacodemon"
+
+	States
+	{
+	Spawn:
+		CACB A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		CACB A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Gray Chaingunner
+ACTOR GrayCguy2RPG : GrayCguy2 Replaces GrayCguy2
+{
+	Tag "Ancient Former Commando"
+
+	States
+	{
+	Spawn:
+		PZOW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PZOW A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Fireblu Chaingunner
+ACTOR FireBluCguy2RPG : FireBluCguy2 Replaces FireBluCguy2
+{
+	Tag "Enchanted Commando"
+
+	States
+	{
+	Spawn:
+		PZOW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PZOW A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Chaingunner
+ACTOR AbyssCGuy2RPG : AbyssCGuy2 Replaces AbyssCGuy2
+{
+	Tag "Abyssal Commando"
+
+	States
+	{
+	Spawn:
+		PZOW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PZOW A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

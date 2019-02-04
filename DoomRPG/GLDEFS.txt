@@ -919,8 +919,9 @@ object DRPGPandoraBox
     frame PBOXQ { light PANDORABOXRED   }
 }
 
+
 // TURRET
-// --------------------------------------------------
+// -------------------------------------------------- 
 
 pointlight TURRETBULLET
 {
@@ -966,6 +967,16 @@ Object DRPGPortableTurret
 // OUTPOST STUFF
 // --------------------------------------------------
 
+// Signs
+pulselight OUTPOSTSIGN
+{
+	color 0.0 0.5 1.0
+	size 100
+	secondarySize 50
+	interval 5
+}
+
+// Stuff
 pulselight OUTPOSTALARM
 {
 	color 1.0 0.25 0.0

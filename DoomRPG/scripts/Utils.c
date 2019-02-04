@@ -19,11 +19,13 @@
 
 // --------------------------------------------------
 // Variables
-// 
+//
 
 int const AuraTID = 20000;
+static bool CheckInputRepeat;
+static int CheckInputRepeatTimer;
 
-str const ColorNames[22] =
+str const ColorNames[26] =
 {
     "Brick",
     "Tan",
@@ -47,9 +49,13 @@ str const ColorNames[22] =
     "Purple",
     "Dark Grey",
     "Cyan"
+    "Ice"
+    "Fire"
+    "Sapphire"
+    "Teal"
 };
 
-str const ColorCodes[22] =
+str const ColorCodes[26] =
 {
     "\Ca",
     "\Cb",
@@ -73,6 +79,10 @@ str const ColorCodes[22] =
     "\Ct",
     "\Cu",
     "\Cv"
+    "\Cw"
+    "\Cx"
+    "\Cy"
+    "\Cz"
 };
 
 
@@ -105,7 +115,7 @@ str const AuraIcons[AURA_MAX + 1] =
 
 // --------------------------------------------------
 // DECORATE
-// 
+//
 
 NamedScript DECORATE int InOutpost()
 {
@@ -121,12 +131,16 @@ NamedScript DECORATE int GetAmmoMax(int Type)
 {
     switch (Type)
     {
-    case AMMO_CLIP:     return GetAmmoCapacity("Clip");
-    case AMMO_SHELL:    return GetAmmoCapacity("Shell");
-    case AMMO_ROCKET:   return GetAmmoCapacity("RocketAmmo");
-    case AMMO_CELL:     return GetAmmoCapacity("Cell");
+    case AMMO_CLIP:
+        return GetAmmoCapacity("Clip");
+    case AMMO_SHELL:
+        return GetAmmoCapacity("Shell");
+    case AMMO_ROCKET:
+        return GetAmmoCapacity("RocketAmmo");
+    case AMMO_CELL:
+        return GetAmmoCapacity("Cell");
     }
-    
+
     return 0;
 }
 
@@ -178,11 +192,11 @@ NamedScript DECORATE int CheckAugBatteryMax()
 // Get the max inventory size
 NamedScript DECORATE int CheckInventoryMax()
 {
-    int MaxItems = Player.Capacity * 2;
-    
+    int MaxItems = Player.CapacityTotal * 2;
+
     if (MaxItems > 200)
         MaxItems = 200;
-    
+
     return MaxItems;
 }
 
@@ -191,9 +205,9 @@ NamedScript DECORATE int CheckCapacity()
 {
     int Items = 0;
     int MaxItems = CheckInventoryMax();
-    
+
     // Add Capacity XP for total carried items
-    if (GetCVar("drpg_levelup_natural") && Timer() % 7 == 0 && !Player.Stim.Active)
+    if (GetCVar("drpg_levelup_natural") && Timer() % 7 == 0)
     {
         fixed Scale = GetCVarFixed("drpg_capacity_scalexp");
         if (GetCVar("drpg_allow_spec"))
@@ -203,10 +217,10 @@ NamedScript DECORATE int CheckCapacity()
         }
         Player.CapacityXP += (int)(Player.InvItems * Scale / MaxItems * 20);
     }
-    
+
     // Don't do checks if you have the system disabled
     if (!GetCVar("drpg_inv_capacity")) return true;
-    
+
     str const ItemList[] =
     {
         // Health
@@ -216,7 +230,7 @@ NamedScript DECORATE int CheckCapacity()
         "DRPGXLMedikit",
         "DRPGMedPack",
         "DRPGSurgeryKit",
-        
+
         // Armor
         "DRPGGreenArmor",
         "DRPGBlueArmor",
@@ -228,7 +242,7 @@ NamedScript DECORATE int CheckCapacity()
         "DRPGReinforcedYellowArmor",
         "DRPGReinforcedRedArmor",
         "DRPGReinforcedWhiteArmor",
-        
+
         // Powerups
         "DRPGInvulnerabilityCharge",
         "DRPGInvisibilityCharge",
@@ -239,44 +253,43 @@ NamedScript DECORATE int CheckCapacity()
         "DRPGAllMap",
         "DRPGBerserk",
         "DRPGWings",
-        
+
         // Stims
         "DRPGStimDetox",
-        
+
         // Batteries
         "DRPGBatterySmall",
         "DRPGBatteryLarge",
         NULL
     };
-    
-    
+
+
     for (int i = 0; ItemList[i] != NULL; i++)
         if (CheckInventory(ItemList[i]) > 0)
             Items += CheckInventory(ItemList[i]);
-        
+
     if (CompatMode == COMPAT_DRLA)
-    {        
+    {
         str const ItemListRL[] =
-            {
-                // DoomRL - Powerups
-                "InvulnerabilityCharge2",
-                "RadSuit2",
-                "InvisibilityCharge2",
-                "RadSuit2",
-                "Infrared2",
-                "Berserk2",
-                
-                // End of List
-                NULL
-            };
-    
+        {
+            // DoomRL - Powerups
+            "InvulnerabilityCharge2",
+            "RadSuit2",
+            "InvisibilityCharge2",
+            "Infrared2",
+            "Berserk2",
+
+            // End of List
+            NULL
+        };
+
         for (int i = 0; ItemListRL[i] != NULL; i++)
             if (CheckInventory(ItemListRL[i]) > 0)
                 Items += CheckInventory(ItemListRL[i]);
     };
-    
+
     Player.InvItems = Items;
-    
+
     if (Items >= MaxItems)
         return false;
     else
@@ -292,7 +305,7 @@ NamedScript DECORATE int GetTimer()
 // Returns the Agility for A_SetTics calls in DECORATE
 NamedScript DECORATE int GetSpeed(int Tics)
 {
-    return (Tics + 1) - (Tics * Player.Agility / 100);
+    return (Tics + 1) - (Tics * Player.AgilityTotal / 100);
 }
 
 // Used by DECORATE to check if both your Health and EP are at max
@@ -305,16 +318,16 @@ NamedScript DECORATE int HPEPMax()
 NamedScript DECORATE int PowersuitCheck()
 {
     bool ValidPlayer = false;
-    
+
     SetActivatorToTarget(0);
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (ActivatorTID() == Players(i).TID)
         {
             ValidPlayer = true;
             break;
         }
-    
+
     if (ValidPlayer)
     {
         if (CheckInventory("PowerRLReactiveShieldSystemBullet"))
@@ -324,14 +337,14 @@ NamedScript DECORATE int PowersuitCheck()
         if (CheckInventory("PowerRLReactiveShieldSystemFire") || CheckInventory("RLInquisitorsSetBonusActive"))
             return 3; // Fire
         if (CheckInventory("PowerInvulnerable") ||
-            CheckInventory("PowerTimeFreezer") ||
-            CheckInventory("DRPGPowerStimIndestructible") ||
-            CheckInventory("DRPGPowerImmunityBullet") ||
-            CheckInventory("DRPGPowerImmunityBullet") ||
-            CheckInventory("DRPGPowerImmunityMelee") ||
-            CheckInventory("DRPGPowerImmunityPlasma") ||
-            CheckInventory("RLPlasmaShieldArmorToken"))
+                CheckInventory("PowerTimeFreezer") ||
+                CheckInventory("DRPGPowerStimIndestructible") ||
+                CheckInventory("DRPGPowerImmunityBullet") ||
+                CheckInventory("DRPGPowerImmunityMelee") ||
+                CheckInventory("DRPGPowerImmunityPlasma"))
             return 4; // Powerups/Immunities for Anti Demon Field
+        else
+            return 0;
     }
     else
         return -1;
@@ -341,10 +354,10 @@ NamedScript DECORATE void RadiationDamage(int damageamount)
 {
     if (CheckInventory("PowerIronFeet") || CheckInventory("DRPGSkillIronFeet"))
         return;
-    
+
     int mytid = UniqueTID();
     int oldtid = ActivatorTID();
-    
+
     Thing_ChangeTID(0, mytid);
     SetActivator(0, AAPTR_NULL);
     Thing_Damage2(mytid, damageamount, "Radiation");
@@ -355,10 +368,10 @@ NamedScript DECORATE void CauseCorrosion()
 {
     if (CheckInventory("PowerIronFeet") || CheckInventory("DRPGSkillIronFeet"))
         return;
-    
+
     if (Random(0, 3))
         return;
-    
+
     if (CheckInventory("BasicArmor") && Random(0, 3))
     {
         if (!Player.StatusType[SE_CORROSION] || Player.StatusTimer[SE_CORROSION] < 10500)
@@ -390,7 +403,7 @@ NamedScript DECORATE int StatusEffectSeverity(int Effect)
 {
     if (!Player.StatusType[Effect])
         return 0;
-    
+
     return (int)Player.StatusIntensity[Effect];
 }
 
@@ -398,27 +411,27 @@ NamedScript DECORATE int StatusEffectTimer(int Effect)
 {
     if (!Player.StatusType[Effect])
         return 0;
-    
+
     return (int)Player.StatusTimer[Effect];
 }
 
 // Super pulsating rainbow translation effect
 NamedScript DECORATE void RainbowTranslationPulse(int Time)
 {
-    Start:
-    
+Start:
+
     if (ClassifyActor(0) == ACTOR_WORLD) return;
-    
+
     fixed Red = 1.5 + (Sin(((fixed)Timer()) / (fixed)Time) * 1.5);
     fixed Green = 1.5 + (Sin(((fixed)Timer() + 11.55) / (fixed)Time) * 1.5);
     fixed Blue = 1.5 + (Sin(((fixed)Timer() + 23.45) / (fixed)Time) * 1.5);
-    
+
     CreateTranslationStart(63);
     CreateTranslationDesat(0, 255, 0, 0, 0, Red, Green, Blue);
     CreateTranslationEnd();
-    
+
     Thing_SetTranslation(0, 63);
-    
+
     Delay(1);
     goto Start;
 }
@@ -430,18 +443,18 @@ NamedScript DECORATE int CheckActorSky()
 
 // --------------------------------------------------
 // Monsters
-// 
+//
 
 // For calling from DECORATE
 NamedScript DECORATE void HealMonster(int HealPercent, int MaxPercent)
 {
     MonsterStatsPtr Stats = &Monsters[GetMonsterID(0)];
     long int Health = GetActorProperty(0, APROP_Health);
-    long int HealAmount = Stats->HealthMax * HealPercent / 100;  
+    long int HealAmount = Stats->HealthMax * HealPercent / 100;
     long int HealMax = Stats->HealthMax * MaxPercent / 100;
-    
+
     SetActorProperty(0, APROP_Health, Health + HealAmount);
-    
+
     if (GetActorProperty(0, APROP_Health) >= HealMax)
         SetActorProperty(0, APROP_Health, HealMax);
 }
@@ -452,7 +465,7 @@ NamedScript DECORATE void TeleportMonster()
     int TID = UniqueTID();
     bool Success = false;
     Position *ChosenPosition = NULL;
-    
+
     // Check the position
     while (!Success)
     {
@@ -461,7 +474,7 @@ NamedScript DECORATE void TeleportMonster()
         Thing_Remove(TID);
         Delay(1);
     }
-    
+
     // Teleport to this position
     SetActorPosition(0, ChosenPosition->X, ChosenPosition->Y, ChosenPosition->Z, true);
     SetActorAngle(0, ChosenPosition->Angle);
@@ -472,7 +485,7 @@ void DropMoney(int Killer, int TID, int Amount)
 {
     int Total = Amount;
     int Drops;
-    
+
     Drops = Total / 1000;
     while (Drops--) DropMonsterItem(Killer, TID, "DRPGCredits1000", 256);
     Total %= 1000;
@@ -496,7 +509,7 @@ void DropMoney(int Killer, int TID, int Amount)
     Drops = Total / 5;
     while (Drops--) DropMonsterItem(Killer, TID, "DRPGCredits5", 256);
     Total %= 5;
-    
+
     Drops = Total;
     while (Drops--) DropMonsterItem(Killer, TID, "DRPGCredits1", 256);
 }
@@ -505,10 +518,10 @@ int DropMonsterItem(int Killer, int TID, str Item, int Chance, fixed XAdd, fixed
 {
     // if this is an invalid killer, return
     if (!(Killer > -1)) return 0;
-    
+
     // Chance
     if (!(Random(1, 256) <= Chance)) return 0;
-    
+
     fixed Angle = GetActorAngle(TID);
     fixed X = GetActorX(TID) + XAdd;
     fixed Y = GetActorY(TID) + YAdd;
@@ -517,49 +530,48 @@ int DropMonsterItem(int Killer, int TID, str Item, int Chance, fixed XAdd, fixed
     fixed YSpeed = GetCVarFixed("drpg_monster_dropdist") + YVelAdd;
     fixed ZSpeed = 8.0 + ZVelAdd;
     int ItemTID = UniqueTID();
-    bool Success = false;
-    
+
     // Spawn the Item
-    Success = SpawnForced(Item, X, Y, Z, ItemTID, Angle);
-    
+    bool Success = SpawnForced(Item, X, Y, Z, ItemTID, Angle);
+
     // Spawn successful
     if (Success)
     {
         // Set Velocity
         if (Players(Killer).Stim.PowerupTimer[STIM_MAGNETIC] <= 0) // Don't toss the item if we're Magnetic, it'll just confuse things
             SetActorVelocity(ItemTID, RandomFixed(-XSpeed, XSpeed), RandomFixed(-YSpeed, YSpeed), ZSpeed, false, false);
-        
+
         // Array has grown too big, resize it
         if (Players(Killer).DropTID.Position == Players(Killer).DropTID.Size)
             ArrayResize(&Players(Killer).DropTID);
-        
+
         // Add item's TID to drop array
         ((int *)Players(Killer).DropTID.Data)[Players(Killer).DropTID.Position++] = ItemTID;
     }
-    
+
     return ItemTID;
 }
 
 // --------------------------------------------------
 // Players
-// 
+//
 
 // Used by the RegenSphere to temporarily increase regen rates
 NamedScript DECORATE void RegenBoost()
 {
-    Player.RegenBoostTimer += (35 * 5) + ((Player.Regeneration / 13.33) * 35);
+    Player.RegenBoostTimer += (35 * 5) + ((Player.RegenerationTotal / 13.33) * 35);
 }
 
 // Set Skill Level during the game
 NamedScript KeyBind void SetSkill(int NewSkill)
 {
-    if (NewSkill < 0 || NewSkill > (CompatMode == COMPAT_DRLA ? 5 : 4))
+    if (NewSkill < 0 || NewSkill > (CompatMonMode == COMPAT_DRLA ? 5 : 4))
     {
         HudMessage("Invalid Skill Level");
         EndHudMessage(HUDMSG_FADEOUT, 0, "Red", 0.5, 0.5, 2.0, 1.0);
         return;
     }
-    
+
     FadeRange(255, 255, 255, 0.5, 255, 255, 255, 0.0, 0.5);
     ChangeSkill(NewSkill);
     CurrentSkill = NewSkill;
@@ -567,7 +579,7 @@ NamedScript KeyBind void SetSkill(int NewSkill)
     SetFont("BIGFONT");
     HudMessage("\CjSkill Level has been changed to\n\n%S", SkillLevels[NewSkill]);
     EndHudMessageBold(HUDMSG_FADEOUT, 0, "White", 1.5, 0.5, 2.0, 1.0);
-   
+
     // YOU FOOL!
     if (NewSkill == 5)
     {
@@ -581,7 +593,7 @@ NamedScript KeyBind void Respec(bool DoStats, bool DoSkills)
 {
     int Modules;
     int OldCredits;
-    
+
     // Respec Stats
     if (DoStats)
     {
@@ -594,7 +606,7 @@ NamedScript KeyBind void Respec(bool DoStats, bool DoSkills)
         Modules += (int)((fixed)Player.Agility * (fixed)MODULE_STAT_MULT * GetCVarFixed("drpg_module_statfactor"));
         Modules += (int)(((fixed)Player.Capacity - 10) * (fixed)MODULE_STAT_MULT * GetCVarFixed("drpg_module_statfactor"));
         Modules += (int)((fixed)Player.Luck * (fixed)MODULE_STAT_MULT * GetCVarFixed("drpg_module_statfactor"));
-        
+
         // Reset Stats
         Player.Strength = 0;
         Player.Defense = 0;
@@ -604,22 +616,32 @@ NamedScript KeyBind void Respec(bool DoStats, bool DoSkills)
         Player.Agility = 0;
         Player.Capacity = 10;
         Player.Luck = 0;
-        
+
+        // Reset Natural Bonuses
+        Player.StrengthNat = 0;
+        Player.DefenseNat = 0;
+        Player.VitalityNat = 0;
+        Player.EnergyNat = 0;
+        Player.RegenerationNat = 0;
+        Player.AgilityNat = 0;
+        Player.CapacityNat = 0;
+        Player.LuckNat = 0;
+
         // Reset Stat XP
         Player.StrengthXP = 0;
         Player.DefenseXP = 0;
-        Player.VitalityXP = XPTable[9];
-        Player.EnergyXP = XPTable[9];
+        Player.VitalityXP = 0;
+        Player.EnergyXP = 0;
         Player.RegenerationXP = 0;
         Player.AgilityXP = 0;
-        Player.CapacityXP = XPTable[9];
+        Player.CapacityXP = 0;
         Player.LuckXP = 0;
-        
+
         // Reset Shield
         Player.Shield.Charge = 0;
         Player.Shield.Timer = 375;
     }
-    
+
     // Respec Skills
     if (DoSkills)
     {
@@ -633,18 +655,18 @@ NamedScript KeyBind void Respec(bool DoStats, bool DoSkills)
                         Player.SkillLevel[i][j].CurrentLevel--;
                         Player.SkillLevel[i][j].Level--;
                     }
-        
+
         // Remove Auras
         RemoveAura();
     }
-    
+
     // Give Respecced Modules
     GiveInventory("DRPGModule", Modules);
-    
+
     // Take 1/2 Credits
     GiveInventory("DRPGCredits", OldCredits);
     TakeInventory("DRPGCredits", CheckInventory("DRPGCredits") / 2);
-    
+
     // FX
     FadeRange(255, 255, 255, 0.75, 0, 0, 0, 0.0, 2.5);
     SetFont("BIGFONT");
@@ -671,14 +693,14 @@ NamedScript DECORATE int GetToxicity()
 NamedScript DECORATE int GetStimPowerupActive()
 {
     bool Active = false;
-    
+
     for (int i = 0; i < STIM_MAX - 1; i++)
         if (Player.Stim.PowerupTimer[i] > 0)
         {
             Active = true;
             break;
         }
-    
+
     return Active;
 }
 
@@ -686,18 +708,18 @@ NamedScript DECORATE int GetStimPowerupActive()
 NamedScript DECORATE void AddToxicity(int Amount)
 {
     int PrevToxicity = Player.Toxicity;
-    
+
     Player.Toxicity += Amount;
     Player.ToxicTimer = 0;
     Player.ToxicOffset = 0;
     Player.ToxicStage = 0;
-    
+
     if (Player.Toxicity < 0)
         Player.Toxicity = 0;
-    
+
     if ((PrevToxicity < 25 && Player.Toxicity >= 25) ||
-        (PrevToxicity < 50 && Player.Toxicity >= 50) ||
-        (PrevToxicity < 75 && Player.Toxicity >= 75))
+            (PrevToxicity < 50 && Player.Toxicity >= 50) ||
+            (PrevToxicity < 75 && Player.Toxicity >= 75))
         ActivatorSound("misc/toxic", 127);
 }
 
@@ -721,11 +743,11 @@ NamedScript KeyBind void PurgeDrops()
     {
         if (ClassifyActor(TID[i]) == ACTOR_NONE)
             continue;
-        
+
         SpawnSpot("TeleportFog", TID[i], 0, 0);
         Thing_Remove(TID[i]);
     }
-    
+
     CleanDropTIDArray();
     Print("\CdRemoved \Cgall\Cd monster-dropped items");
 }
@@ -740,7 +762,7 @@ NamedScript Console void CheckArmorStats()
     Log("\C[Green]Max Full Absorb: \C[Brick]%i%%", GetArmorInfo(ARMORINFO_MAXFULLABSORB));
 }
 
-// Returns whether your stats are all currently capped or not1
+// Returns whether your stats are all currently capped or not
 bool StatsCapped()
 {
     return (Player.Strength >= Player.StatCap &&
@@ -757,16 +779,16 @@ int AveragePlayerLevel()
 {
     int NumPlayers;
     int TotalLevel;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
     {
         // Skip player if they're not ingame
         if (!PlayerInGame(i)) continue;
-        
+
         TotalLevel += Players(i).Level;
         NumPlayers++;
     }
-    
+
     return TotalLevel / NumPlayers;
 }
 
@@ -774,16 +796,16 @@ int AveragePlayerRank()
 {
     int NumPlayers;
     int TotalRank;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
     {
         // Skip player if they're not ingame
         if (!PlayerInGame(i)) continue;
-        
+
         TotalRank += Players(i).RankLevel;
         NumPlayers++;
     }
-    
+
     return TotalRank / NumPlayers;
 }
 
@@ -791,16 +813,16 @@ int AveragePlayerCredits()
 {
     int NumPlayers;
     int TotalCredits;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
     {
         // Skip player if they're not ingame
         if (!PlayerInGame(i)) continue;
-        
+
         TotalCredits += CheckActorInventory(Players(i).TID, "DRPGCredits");
         NumPlayers++;
     }
-    
+
     return TotalCredits / NumPlayers;
 }
 
@@ -808,16 +830,16 @@ int AveragePlayerLuck()
 {
     int NumPlayers;
     int TotalLuck;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
     {
         // Skip player if they're not ingame
         if (!PlayerInGame(i)) continue;
-        
-        TotalLuck += Players(i).Luck;
+
+        TotalLuck += Players(i).LuckTotal;
         NumPlayers++;
     }
-    
+
     return TotalLuck / NumPlayers;
 }
 
@@ -826,7 +848,7 @@ bool HaveStatusEffect()
     for (int i = 0; i < SE_MAX; i++)
         if (Player.StatusType[i])
             return true;
-    
+
     return false;
 }
 
@@ -841,23 +863,24 @@ bool DropPlayerItem(str Item)
     int TID = UniqueTID();
     bool SpawnOK = Spawn(Item, X, Y, Z, TID, Angle);
     bool SightOK = CheckSight(TID, 0, 0);
-    
+
     // Remove the item if it fails the sight check
     if (!SightOK)
         Thing_Remove(TID);
-    
+
     // Apply Velocity
     if (SpawnOK && SightOK)
         SetActorVelocity(TID, XSpeed, YSpeed, 0, false, false);
-    
+
     return (SpawnOK && SightOK);
 }
 
 bool IsPlayerMoving()
 {
-    return (GetPlayerInput(PlayerNumber(), MODINPUT_FORWARDMOVE) ||
-            GetPlayerInput(PlayerNumber(), MODINPUT_SIDEMOVE) ||
-            GetPlayerInput(PlayerNumber(), MODINPUT_UPMOVE));
+    if (Player.InMenu)
+        return false;
+    else
+        return CheckInput(BT_FORWARD | BT_BACK | BT_MOVELEFT | BT_MOVERIGHT, KEY_HELD, true, PlayerNumber());
 }
 
 int FindPlayerID(int TID)
@@ -865,8 +888,22 @@ int FindPlayerID(int TID)
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (Players(i).TID == TID)
             return i;
-    
+
     return -1;
+}
+
+// Returns true if any players are within TID's specified distance.
+bool CheckPlayersDistanceTID(int TID, int DistanceTID)
+{
+    for (int i = 0; i < MAX_PLAYERS; i++)
+    {
+        // Player is not in-game
+        if (!PlayerInGame(i)) break;
+
+        if (Distance(Players(i).TID, TID) < DistanceTID) return true;
+    }
+
+    return false;
 }
 
 OptionalArgs(1) bool SetActivatorToTargetExtended(int TID, int NumCycles)
@@ -879,25 +916,25 @@ OptionalArgs(1) bool SetActivatorToTargetExtended(int TID, int NumCycles)
     fixed OriginPitch = GetActorPitch(TID);
     bool GotTarget = false;
     int SecondaryCheckerTID = UniqueTID();
-    
+
     if (SetActivatorToTarget(TID))
         return true;
-    
+
     for (int i = 1; i < NumCycles; i++)
     {
         fixed CheckDistance = i * 1024.0;
         fixed NewX = OriginX + (CheckDistance * Cos(OriginAngle) * Cos(-OriginPitch));
         fixed NewY = OriginY + (CheckDistance * Sin(OriginAngle) * Cos(-OriginPitch));
         fixed NewZ = OriginZ + (CheckDistance * Sin(-OriginPitch));
-        
+
         if (!Spawn("MapSpot", NewX, NewY, NewZ, SecondaryCheckerTID, 0))
         {
             break;
         }
-        
+
         SetActorAngle(SecondaryCheckerTID, OriginAngle);
         SetActorPitch(SecondaryCheckerTID, OriginPitch);
-        
+
         if (SetActivator(SecondaryCheckerTID, AAPTR_GET_LINETARGET) && CheckSight(TID, 0, 0))
         {
             GotTarget = true;
@@ -906,10 +943,10 @@ OptionalArgs(1) bool SetActivatorToTargetExtended(int TID, int NumCycles)
         }
         else
             SetActivator(TID);
-        
+
         Thing_Remove(SecondaryCheckerTID);
     }
-    
+
     return GotTarget;
 }
 
@@ -917,16 +954,16 @@ bool IsTimeFrozen()
 {
     for (int i = 0; i < MAX_PLAYERS; i++)
         if (CheckActorInventory(Players(i).TID, "PowerTimeFreezer") ||
-            CheckActorInventory(Players(i).TID, "PowerShieldTimeFreezer") ||
-            CheckActorInventory(Players(i).TID, "PowerRLChronotrooperFreeze")) // DoomRL
+                CheckActorInventory(Players(i).TID, "PowerShieldTimeFreezer") ||
+                CheckActorInventory(Players(i).TID, "PowerRLChronotrooperFreeze")) // DoomRL
             return true;
-    
+
     return false;
 }
 
 // --------------------------------------------------
 // Inventory
-// 
+//
 
 int CheckInventoryTID(int TID, str Item)
 {
@@ -936,24 +973,24 @@ int CheckInventoryTID(int TID, str Item)
 int SetInventory(str Item, int Count)
 {
     int n = Count - CheckInventory(Item);
-    
+
     if (n > 0)
         GiveInventory(Item, n);
     else if (n < 0)
         TakeInventory(Item, -n);
-    
+
     return n;
 }
 
 int SetActorInventory(int tid, str item, int count)
 {
     int n = count - CheckActorInventory (tid, item);
-    
+
     if (n > 0)
         GiveActorInventory(tid, item, n);
     else if (n < 0)
         TakeActorInventory(tid, item, -1 * n);
-    
+
     return n;
 }
 
@@ -970,7 +1007,7 @@ void DropEntireInventory()
         { "MedPack" },
         { "SurgeryKit" },
         { "Continue" },
-        
+
         // Armor
         { "GreenArmor" },
         { "UsedGreenArmor" },
@@ -982,7 +1019,7 @@ void DropEntireInventory()
         { "UsedRedArmor" },
         { "WhiteArmor" },
         { "UsedWhiteArmor" },
-        
+
         // Powerups
         { "InvulnerabilitySphere" },
         { "InvulnerabilityCharge" },
@@ -997,7 +1034,7 @@ void DropEntireInventory()
         { "StimSmall" },
         { "StimMedium" },
         { "StimLarge" },
-        
+
         // DoomRL - Powerups
         { "InvulnerabilitySphere2" },
         { "RadSuit2" },
@@ -1017,22 +1054,22 @@ void DropEntireInventory()
         { "RLModLimit", true, true, 4 },
         { "RLScavengerModLimit", true, true, 8 },
         { "RLArmorModItemInInventory", true },
-        
+
         // End of list
         { NULL }
     };
-    
+
     for (int i = 0; ItemList[i].Actor != NULL; i++)
         for (int j = 0; j < CheckInventory(ItemList[i].Actor); j++)
         {
             // Limit the drops if you have more than 25 to prevent massive amounts of lag
             if (j >= 25) break;
-            
+
             if (ItemList[i].TakeAll)
                 TakeInventory(ItemList[i].Actor, ItemList[i].Max);
             else
                 TakeInventory(ItemList[i].Actor, 1);
-            
+
             if (!ItemList[i].NoDrop)
                 DropItem(0, ItemList[i].Actor, 1, 255);
         }
@@ -1040,13 +1077,13 @@ void DropEntireInventory()
 
 // --------------------------------------------------
 // Items
-// 
+//
 
 // Return the amount of ammo corresponding to an ammo pickup
 int GetAmmoAmount(str Item)
 {
     int Amount = 1;
-    
+
     if (Item == "Clip")         Amount = 10;
     if (Item == "ClipBox")      Amount = 50;
     if (Item == "Shell")        Amount = 4;
@@ -1055,13 +1092,13 @@ int GetAmmoAmount(str Item)
     if (Item == "RocketBox")    Amount = 5;
     if (Item == "Cell")         Amount = 20;
     if (Item == "CellPack")     Amount = 100;
-    
+
     return Amount;
 }
 
 // --------------------------------------------------
 // Health
-// 
+//
 
 NamedScript DECORATE int GetHealthPercent(int Percent)
 {
@@ -1089,7 +1126,7 @@ NamedScript DECORATE void CapHealthItem()
 
 // --------------------------------------------------
 // Shield
-// 
+//
 
 // Returns the active state of your Shield
 NamedScript DECORATE bool ShieldActive()
@@ -1117,28 +1154,28 @@ NamedScript DECORATE bool ShieldHealthMax()
 
 // --------------------------------------------------
 // EP
-// 
+//
 
 NamedScript DECORATE void AddEP(int Amount, bool NoFlash)
 {
     if (Player.EP + Amount > Player.EPMax)
         Amount = Player.EPMax - Player.EP;
-    
+
     if (Amount <= 0)
         return;
-    
+
     fixed FlashStrength = 0.01 * (Amount * 100 / Player.EPMax);
     fixed FlashDuration = 0.03 * (Amount * 100 / Player.EPMax);
-    
+
     if (FlashStrength > 0.5)
         FlashStrength = 0.5;
-    
+
     if (FlashDuration > 3.0)
         FlashDuration = 3.0;
-    
+
     if (!NoFlash)
         FadeRange(0, 255, 255, FlashStrength, 0, 255, 255, 0, FlashDuration);
-    
+
     Player.EP += Amount;
 }
 
@@ -1164,30 +1201,30 @@ NamedScript DECORATE int GetEPMax()
 
 // --------------------------------------------------
 // Skills
-// 
+//
 
 NamedScript KeyBind void PlayerTeleport(int PlayerNum)
 {
     bool NearPlayers = true;
-    
+
     if (PlayerNum == PlayerNumber() || !PlayerInGame(PlayerNum))
     {
         PrintError("Not a valid player");
         ActivatorSound("menu/error", 127);
         return;
     }
-    
+
     // Teleport
     GiveInventory("DRPGPlayerTeleportGhost", 1);
     SetActorPosition(Player.TID, GetActorX(Players(PlayerNum).TID), GetActorY(Players(PlayerNum).TID), GetActorZ(Players(PlayerNum).TID), true);
     SetActorAngle(Player.TID, GetActorAngle(Players(PlayerNum).TID));
     SetActorProperty(Player.TID, APROP_RenderStyle, STYLE_Translucent);
-    
+
     while (NearPlayers)
     {
         // Reset the flag
         NearPlayers = false;
-        
+
         // Make sure you're not inside or near any other players before we solidify
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
@@ -1198,10 +1235,10 @@ NamedScript KeyBind void PlayerTeleport(int PlayerNum)
                 break;
             }
         }
-        
+
         // Player Flashyness
         SetActorPropertyFixed(Player.TID, APROP_Alpha, 0.75 + (Sin(Timer() / 32.0) * 0.25));
-        
+
         // Solidify
         if (!NearPlayers)
         {
@@ -1209,7 +1246,7 @@ NamedScript KeyBind void PlayerTeleport(int PlayerNum)
             SetActorProperty(Player.TID, APROP_RenderStyle, STYLE_Normal);
             SetActorPropertyFixed(Player.TID, APROP_Alpha, 1.0);
         }
-        
+
         Delay(1);
     }
 }
@@ -1227,13 +1264,13 @@ bool FireProjectile(str Type)
     fixed ZSpeed = -Sin(Pitch) * 16.0;
     fixed FireHeight = GetActorViewHeight(0) * 0.8;
     int TID = UniqueTID();
-    
+
     SpawnProjectile(0, Type, 0, 0, 0, 0, TID);
     SetActorVelocity(TID, XSpeed, YSpeed, ZSpeed, 0, 0);
     SetActorAngle(TID, Angle);
     SetActorPosition(TID, X, Y, Z + FireHeight, 0);
     Thing_ChangeTID(TID, 0);
-    
+
     return true;
 }
 
@@ -1251,36 +1288,36 @@ bool Nova(str Type, int Projectiles)
     fixed FireHeight = GetActorViewHeight(0) * 0.8;
     int TID = UniqueTID();
     fixed AngleAdd;
-    
+
     AngleAdd = 1.0 / Projectiles;
-    
+
     for (int i = 0; i < Projectiles; i++)
     {
         XSpeed = Cos(Angle) * 16.0;
         YSpeed = Sin(Angle) * 16.0;
         ZSpeed = -Sin(Pitch) * 16.0;
-        
+
         SpawnProjectile(0, Type, 0, 0, 0, 0, TID);
         SetActorVelocity(TID, XSpeed, YSpeed, ZSpeed, 0, 0);
         SetActorAngle(TID, Angle);
         SetActorPosition(TID, X, Y, Z + FireHeight, 0);
         Thing_ChangeTID(TID, 0);
-        
+
         Angle += AngleAdd;
     }
-    
+
     return true;
 }
 
 // --------------------------------------------------
 // Auras
-// 
+//
 
 NamedScript DECORATE void GetAuraTokens()
 {
     MonsterStatsPtr Stats = &Monsters[GetMonsterID(0)];
     AuraInfo RPGMap *Aura = &Stats->Aura;
-    
+
     if (Aura->Type[AURA_RED].Active)
         SetInventory("DRPGRedAuraToken", 1);
     if (Aura->Type[AURA_GREEN].Active)
@@ -1318,7 +1355,7 @@ void SpawnAuras(int TID, bool ForceFancy)
         "DRPGBlueAura",
         "DRPGYellowAura"
     };
-    
+
     fixed X = GetActorX(TID);
     fixed Y = GetActorY(TID);
     fixed Z = GetActorZ(TID);
@@ -1333,7 +1370,7 @@ void SpawnAuras(int TID, bool ForceFancy)
     AuraInfo RPGMap *MonsterAura = &Monsters[GetMonsterID(TID)].Aura;
     int AuraCount = 0;
     int AuraAdd = 0;
-    
+
     // WHYYYYYYYYYYYYYYYYYYYYYYY.YPEG
     if (IsPlayer)
     {
@@ -1341,7 +1378,7 @@ void SpawnAuras(int TID, bool ForceFancy)
         for (int i = 0; i < AURA_MAX; i++)
             if (PlayerAura->Type[i].Active)
                 AuraCount++;
-        
+
         // Spawn the Aura
         if (AuraCount >= AURA_MAX) // Shadow
         {
@@ -1364,7 +1401,7 @@ void SpawnAuras(int TID, bool ForceFancy)
                         Y = GetActorY(TID) + Cos(((fixed)Timer() + AngleOffset) / 128.0) * (Radius * 2.0);
                         Z = GetActorZ(TID) + 4.0 + Sin(Timer() / 64.0) * 4.0;
                     };
-                
+
                     // Spawn
                     if (!Simple)
                         SpawnForced(AuraActors[i], X, Y, Z + Height / 2.0, AuraTID, Angle);
@@ -1384,7 +1421,7 @@ void SpawnAuras(int TID, bool ForceFancy)
         // Return if the monster is stealthy and NOT shadow
         if (IsStealth(TID) && AuraCount < AURA_MAX)
             return;
-        
+
         // LOS Checks
         if (GameType() == GAME_SINGLE_PLAYER)
         {
@@ -1397,7 +1434,7 @@ void SpawnAuras(int TID, bool ForceFancy)
             {
                 if (!PlayerInGame(i))
                     continue;
-                
+
                 if (CheckSight(Players(i).TID, TID, CSF_NOBLOCKALL))
                 {
                     SpawnOK = true;
@@ -1405,11 +1442,11 @@ void SpawnAuras(int TID, bool ForceFancy)
                 }
             }
         }
-        
+
         // Return if LOS checks failed
         if (!SpawnOK && !InTitle)
             return;
-        
+
         // Spawn the Aura
         if (GetActorProperty(TID, APROP_Friendly)) // Friendly
         {
@@ -1438,7 +1475,7 @@ void SpawnAuras(int TID, bool ForceFancy)
                         Y = GetActorY(TID) + Cos(((fixed)Timer() + AngleOffset) / 128.0) * (Radius * 2.0);
                         Z = GetActorZ(TID) + 4.0 + Sin(Timer() / 64.0) * 4.0;
                     }
-                
+
                     // Spawn
                     if (!Simple)
                         SpawnForced(AuraActors[i], X, Y, Z + Height / 2.0, AuraTID, Angle);
@@ -1447,14 +1484,14 @@ void SpawnAuras(int TID, bool ForceFancy)
                 }
         }
     }
-    
+
     // Pass Radius and Height to the Auras for DECORATE usage
     if (!Simple)
     {
         SetUserVariable(AuraTID, "user_radius", (int)Radius);
         SetUserVariable(AuraTID, "user_height", (int)Height);
     }
-    
+
     // Remove the TID
     Thing_ChangeTID(AuraTID, 0);
 }
@@ -1463,63 +1500,63 @@ void SpawnAuras(int TID, bool ForceFancy)
 bool IsStealth(int tid)
 {
     return
-    (
-        // Fuzzy
-        GetActorProperty(tid, APROP_RenderStyle) == STYLE_Fuzzy ||
-        GetActorProperty(tid, APROP_RenderStyle) == STYLE_OptFuzzy ||
-        // Translucent
-        (GetActorProperty(tid, APROP_RenderStyle) == STYLE_Translucent &&
-            GetActorPropertyFixed(tid, APROP_Alpha) < 0.5) ||
-        (GetActorProperty(tid, APROP_RenderStyle) == STYLE_TranslucentStencil &&
-            GetActorPropertyFixed(tid, APROP_Alpha) < 0.5) ||
-        (GetActorProperty(tid, APROP_RenderStyle) == STYLE_Add &&
-            GetActorPropertyFixed(tid, APROP_Alpha) < 0.5) ||
-        // Totally invisible
-        GetActorProperty(tid, APROP_RenderStyle) == STYLE_None ||
-        // Actor flags
-        // These two cases are already handled by the RenderStyle checks above
-        // CheckFlag(tid, "STEALTH") ||
-        // CheckFlag(tid, "SHADOW") ||
-        CheckFlag(tid, "INVISIBLE")
-    );
+        (
+            // Fuzzy
+            GetActorProperty(tid, APROP_RenderStyle) == STYLE_Fuzzy ||
+            GetActorProperty(tid, APROP_RenderStyle) == STYLE_OptFuzzy ||
+            // Translucent
+            (GetActorProperty(tid, APROP_RenderStyle) == STYLE_Translucent &&
+             GetActorPropertyFixed(tid, APROP_Alpha) < 0.5) ||
+            (GetActorProperty(tid, APROP_RenderStyle) == STYLE_TranslucentStencil &&
+             GetActorPropertyFixed(tid, APROP_Alpha) < 0.5) ||
+            (GetActorProperty(tid, APROP_RenderStyle) == STYLE_Add &&
+             GetActorPropertyFixed(tid, APROP_Alpha) < 0.5) ||
+            // Totally invisible
+            GetActorProperty(tid, APROP_RenderStyle) == STYLE_None ||
+            // Actor flags
+            // These two cases are already handled by the RenderStyle checks above
+            // CheckFlag(tid, "STEALTH") ||
+            // CheckFlag(tid, "SHADOW") ||
+            CheckFlag(tid, "INVISIBLE")
+        );
 }
 
 bool PlayerHasAura(int PlayerNum)
 {
     bool HaveAura = false;
-    
+
     for (int i = 0; i < AURA_MAX; i++)
         if (Players(PlayerNum).Aura.Type[i].Active)
         {
             HaveAura = true;
             break;
         };
-    
+
     return HaveAura;
 }
 
 bool MonsterHasAura(MonsterStatsPtr Stats)
 {
     bool HaveAura = false;
-    
+
     for (int i = 0; i < AURA_MAX; i++)
         if (Stats->Aura.Type[i].Active)
         {
             HaveAura = true;
             break;
         }
-    
+
     return HaveAura;
 }
 
 bool PlayerHasShadowAura(int PlayerNum)
 {
     int AuraCount;
-    
+
     for (int i = 0; i < AURA_MAX; i++)
         if (Player.Aura.Type[i].Active)
             AuraCount++;
-    
+
     if (AuraCount >= AURA_MAX)
         return true;
 
@@ -1529,11 +1566,11 @@ bool PlayerHasShadowAura(int PlayerNum)
 bool MonsterHasShadowAura(MonsterStatsPtr Stats)
 {
     int AuraCount;
-    
+
     for (int i = 0; i < AURA_MAX; i++)
         if (Stats->Aura.Type[i].Active)
             AuraCount++;
-    
+
     if (AuraCount >= AURA_MAX)
         return true;
 
@@ -1542,17 +1579,17 @@ bool MonsterHasShadowAura(MonsterStatsPtr Stats)
 
 // --------------------------------------------------
 // Drawing
-// 
+//
 
 int HudMessage(str Format, ...)
 {
     va_list Args;
     int NumChars;
     va_start (Args, Format);
-    
+
     BeginPrint ();
     NumChars = __vnprintf_str (Format, Args);
-    
+
     va_end (Args);
     return NumChars;
 }
@@ -1571,10 +1608,10 @@ str StrParam(str Format, ...)
 {
     va_list Args;
     va_start (Args, Format);
-    
+
     BeginStrParam();
     __vnprintf_str(Format, Args);
-    
+
     va_end (Args);
     return EndStrParam();
 }
@@ -1590,9 +1627,9 @@ NamedScript void PrintTextWiggle(char *Text, int ID, int Color, int X, int Y, fi
 {
     int Time = (int)(HoldTime * 35.0);
     int TimeMax = Time;
-    
+
     SetHudSize(640, 480, false);
-    
+
     while (Time > 0)
     {
         for (int i = 0; Text[i] != NULL; i++)
@@ -1602,7 +1639,7 @@ NamedScript void PrintTextWiggle(char *Text, int ID, int Color, int X, int Y, fi
             HudMessage("%c", Text[i]);
             EndHudMessage(HUDMSG_PLAIN | HUDMSG_ALPHA, ID + i, ColorNames[Color], (int)XOff, (int)YOff, 0.05, ((fixed)Time / (fixed)TimeMax));
         };
-        
+
         Time--;
         Delay(1);
     }
@@ -1621,74 +1658,62 @@ NamedScript void DrawStatUp(int Stat)
         "\ChCapacity",
         "\CfLuck"
     };
-    
+
     int StatAmount[STAT_MAX] =
     {
-        Player.Strength,
-        Player.Defense,
-        Player.Vitality,
-        Player.Energy,
-        Player.Regeneration,
-        Player.Agility,
-        Player.Capacity,
-        Player.Luck
+        Player.StrengthNat,
+        Player.DefenseNat,
+        Player.VitalityNat,
+        Player.EnergyNat,
+        Player.RegenerationNat,
+        Player.AgilityNat,
+        Player.CapacityNat,
+        Player.LuckNat
     };
-    
+
     // Log
     if (InMultiplayer)
-        Log("%tS\C-'s %S\C- has increased to \C%c%d", PlayerNumber() + 1, StatNames[Stat], StatNames[Stat][1], StatAmount[Stat]);
+        Log("%tS\C-'s %S\C- bonus has increased to \C%c%d", PlayerNumber() + 1, StatNames[Stat], StatNames[Stat][1], StatAmount[Stat]);
     else
-        Log("Your %S\C- has increased to \C%c%d", StatNames[Stat], StatNames[Stat][1], StatAmount[Stat]);
-    
+        Log("Your %S\C- bonus has increased to \C%c%d", StatNames[Stat], StatNames[Stat][1], StatAmount[Stat]);
+
     // Fade
     switch (Stat)
     {
-        case STAT_STRENGTH:     FadeRange(255, 0, 0, 0.25, 255, 0, 0, 0.0, 0.5);        break;
-        case STAT_DEFENSE:      FadeRange(0, 255, 0, 0.25, 0, 255, 0, 0.0, 0.5);        break;
-        case STAT_VITALITY:     FadeRange(255, 0, 255, 0.25, 255, 0, 255, 0.0, 0.5);    break;
-        case STAT_ENERGY:       FadeRange(0, 255, 255, 0.25, 0, 255, 255, 0.0, 0.5);    break;
-        case STAT_REGENERATION: FadeRange(128, 0, 128, 0.25, 128, 0, 128, 0.0, 0.5);    break;
-        case STAT_AGILITY:      FadeRange(255, 128, 0, 0.25, 255, 128, 0, 0.0, 0.5);    break;
-        case STAT_CAPACITY:     FadeRange(0, 0, 255, 0.25, 0, 0, 255, 0.0, 0.5);        break;
-        case STAT_LUCK:         FadeRange(255, 255, 0, 0.25, 255, 255, 0, 0.0, 0.5);    break;
+    case STAT_STRENGTH:
+        FadeRange(255, 0, 0, 0.25, 255, 0, 0, 0.0, 0.5);
+        break;
+    case STAT_DEFENSE:
+        FadeRange(0, 255, 0, 0.25, 0, 255, 0, 0.0, 0.5);
+        break;
+    case STAT_VITALITY:
+        FadeRange(255, 0, 255, 0.25, 255, 0, 255, 0.0, 0.5);
+        break;
+    case STAT_ENERGY:
+        FadeRange(0, 255, 255, 0.25, 0, 255, 255, 0.0, 0.5);
+        break;
+    case STAT_REGENERATION:
+        FadeRange(128, 0, 128, 0.25, 128, 0, 128, 0.0, 0.5);
+        break;
+    case STAT_AGILITY:
+        FadeRange(255, 128, 0, 0.25, 255, 128, 0, 0.0, 0.5);
+        break;
+    case STAT_CAPACITY:
+        FadeRange(0, 0, 255, 0.25, 0, 0, 255, 0.0, 0.5);
+        break;
+    case STAT_LUCK:
+        FadeRange(255, 255, 0, 0.25, 255, 255, 0, 0.0, 0.5);
+        break;
     }
-    
-    int Time = 35 * 5;
-    int DisplayTime = Time;
+
     fixed TextX = 0.1 + ((Stat % 4) * 0.25);
     fixed TextY = 0.75 + (Stat >= 4 ? 0.05 : 0);
-    fixed Radius = 0.25;
-    
-    // Text and whooshy icon
-    if (!GetActivatorCVar("drpg_toaster") && GetActivatorCVar("drpg_fancy_statup"))
-    {
-        while (DisplayTime-- > 0)
-        {
-            fixed Angle = (0.1 * Stat) + (fixed)Timer() / 64.0;
-            fixed XOff = Cos(Angle) * Radius;
-            fixed YOff = Sin(Angle) * Radius;
-            fixed Alpha = (fixed)DisplayTime / (fixed)Time;
-            
-            SetHudSize(0, 0, false);
-            SetFont("BIGFONT");
 
-            HudMessage("%S +", StatNames[Stat]);
-            EndHudMessage(HUDMSG_ALPHA, 0, "White", TextX, TextY, 0.05, Alpha);
-            PrintSpriteAlpha(StrParam("STAT%d", Stat + 1), 0, 0.525 + XOff, 0.5 + YOff, 0.05, Alpha);
-            
-            Radius -= 0.0025;
-            
-            Delay(1);
-        }
-    }
-    else
-    {
-        SetHudSize(0, 0, false);
-        SetFont("BIGFONT");
-        
-        HudMessage("%S +", StatNames[Stat]);
-        EndHudMessage(HUDMSG_FADEOUT, 0, "White", TextX, TextY, 3.0, 2.0);
-    }
+    SetHudSize(0, 0, false);
+    SetFont("BIGFONT");
+
+    HudMessage("%S +", StatNames[Stat]);
+    EndHudMessage(HUDMSG_FADEOUT, 0, "White", TextX, TextY, 3.0, 2.0);
 }
 
 // PrintSprite Utility Functions
@@ -1709,7 +1734,7 @@ void PrintSpriteAlpha(str Sprite, int ID, fixed X, fixed Y, fixed DelayTime, fix
 void PrintSpritePulse(str Sprite, int ID, fixed X, fixed Y, fixed Alpha, fixed Speed, fixed Radius, bool AddBlend)
 {
     SetFont(Sprite);
-    
+
     if (AddBlend)
     {
         HudMessage("A");
@@ -1726,7 +1751,7 @@ void PrintMessage(str Message, int ID, fixed Offset)
 {
     int Width = GetActivatorCVar("drpg_hud_width");
     int Height = GetActivatorCVar("drpg_hud_height");
-    
+
     SetHudSize(Width, Height, false);
     SetFont("BIGFONT");
     HudMessage("%S", Message);
@@ -1738,7 +1763,7 @@ void PrintError(str Message)
 {
     int Width = GetActivatorCVar("drpg_hud_width");
     int Height = GetActivatorCVar("drpg_hud_height");
-    
+
     SetHudSize(Width, Height, false);
     SetFont("BIGFONT");
     HudMessage("%S", Message);
@@ -1753,7 +1778,7 @@ void DrawBattery()
     fixed Y = GetActivatorCVar("drpg_aug_y");
     int HoldTime = (GetActivatorCVar("drpg_aug_showbattery") ? 0.05 : 3.0);
     int FadeTime = (GetActivatorCVar("drpg_aug_showbattery") ? 0.05 : 2.0);
-    
+
     SetHudSize(Width, Height, false);
     PrintSpriteFade("AUGBATT", BATTERY_ID, X + 0.4, Y + 0.4, HoldTime, FadeTime);
     SetFont("BIGFONT");
@@ -1764,7 +1789,7 @@ void DrawBattery()
 void DrawShieldInfo(int ID, fixed X, fixed Y, int DrawID)
 {
     PlayerData *CurrentPlayer = (ID == -1 ? &Player : &Players(ID));
-    
+
     if (CurrentPlayer->Shield.Body != 0 || CurrentPlayer->Shield.Battery != 0 || CurrentPlayer->Shield.Capacitor != 0)
     {
         // Epic Shield Name
@@ -1774,52 +1799,52 @@ void DrawShieldInfo(int ID, fixed X, fixed Y, int DrawID)
         if (CurrentPlayer->Shield.Body)      ShieldName = StrParam("%S \C-%S", ShieldName, CurrentPlayer->Shield.Body->Name);
         if (CurrentPlayer->Shield.Accessory) ShieldName = StrParam("%S \C-%S", ShieldName, CurrentPlayer->Shield.Accessory->Name);
         ShieldName = StrParam("%S\C- Shield", ShieldName);
-        
+
         SetFont("SMALLFONT");
-        
+
         // Shield Name
         HudMessage("%S", ShieldName);
-        EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X + 0.1, Y + 0.1, 0.05);
-        
+        EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X, Y, 0.05);
+
         // Shield Stats
         HudMessage(" \CvCapacity: %d / %d", CurrentPlayer->Shield.Charge, CurrentPlayer->Shield.Capacity);
-        EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X + 0.1, Y + 8.1, 0.05);
+        EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X, Y + 15.0, 0.05);
         if (CurrentPlayer->Shield.Accessory && CurrentPlayer->Shield.Accessory->PassiveEffect == SHIELD_PASS_KILLSCHARGE)
         {
             HudMessage(" \CgDoes not recharge automatically");
-            EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X + 0.1, Y + 16.1, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X, Y + 15.0, 0.05);
         }
         else
         {
             HudMessage(" \CdCharge: %d", CurrentPlayer->Shield.ChargeRate);
-            EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X + 0.1, Y + 16.1, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X, Y + 30.0, 0.05);
             HudMessage(" \CaDelay: %.2k", CurrentPlayer->Shield.DelayRate);
-            EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X + 0.1, Y + 24.1, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, (DrawID == 0 ? 0 : DrawID++), "White", X, Y + 45.0, 0.05);
         }
-        
+
         // Draw Shield Model
-        DrawShieldModel(ID, X - 14.0, Y + 33.0, DrawID);
+        DrawShieldModel(ID, X + 15.0, Y + 25.0, DrawID);
     }
 }
 
 void DrawShieldModel(int ID, fixed X, fixed Y, int DrawID)
 {
     PlayerData *CurrentPlayer = (ID == -1 ? &Player : &Players(ID));
-    
+
     // [KS] These need to be reversed because 0 draws behind the last graphic printed
 
     // Accessory
     if (CurrentPlayer->Shield.Accessory)
         PrintSprite(CurrentPlayer->Shield.Accessory->Icon, (DrawID == 0 ? 0 : DrawID++), X + 0.1, Y + 0.1, 0.05);
-    
+
     // Battery
     if (CurrentPlayer->Shield.Battery)
         PrintSprite(CurrentPlayer->Shield.Battery->Icon, (DrawID == 0 ? 0 : DrawID++), X + 0.1, Y + 0.1, 0.05);
-    
+
     // Capacitor
     if (CurrentPlayer->Shield.Capacitor)
         PrintSprite(CurrentPlayer->Shield.Capacitor->Icon, (DrawID == 0 ? 0 : DrawID++), X + 0.1, Y + 0.1, 0.05);
-    
+
     // Body
     if (CurrentPlayer->Shield.Body)
         PrintSprite(CurrentPlayer->Shield.Body->Icon, (DrawID == 0 ? 0 : DrawID++), X + 0.1, Y + 0.1, 0.05);
@@ -1827,52 +1852,62 @@ void DrawShieldModel(int ID, fixed X, fixed Y, int DrawID)
 
 void DrawMissionInfo(MissionInfo *Mission, fixed X, fixed Y, bool Active)
 {
-    // Basic Info
+    // Header
     SetFont("BIGFONT");
+    HudMessage("- MISSION INFO -");
+    EndHudMessage(HUDMSG_PLAIN, 0, "Grey", X + 0.1, Y, 0.05);
+    HudMessage("- REWARD -");
+    EndHudMessage(HUDMSG_PLAIN, 0, "Grey", X + 250.1, Y, 0.05);
+
+    // Mission Info
+    SetFont("SMALLFONT");
     HudMessage("Type: %S", MissionTypes[Mission->Type]);
-    EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y, 0.05);
-    HudMessage("Difficulty: %S", MissionDifficulties[Mission->Difficulty]);
     EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 16.0, 0.05);
-    HudMessage("XP: %lu", Mission->RewardXP);
+    HudMessage("Difficulty: %S", MissionDifficulties[Mission->Difficulty]);
     EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 32.0, 0.05);
+    // Reward
+    HudMessage("XP: %lu", Mission->RewardXP);
+    EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 250.1, Y + 16.0, 0.05);
     HudMessage("Rank: %lu", Mission->RewardRank);
-    EndHudMessage(HUDMSG_PLAIN, 0, "Yellow", X + 0.1, Y + 48.0, 0.05);
+    EndHudMessage(HUDMSG_PLAIN, 0, "Yellow", X + 250.1, Y + 32.0, 0.05);
     HudMessage("Credits: %d", Mission->RewardCredits);
-    EndHudMessage(HUDMSG_PLAIN, 0, "Gold", X + 0.1, Y + 64.0, 0.05);
+    EndHudMessage(HUDMSG_PLAIN, 0, "Gold", X + 250.1, Y + 48.0, 0.05);
     HudMessage("Modules: %d", Mission->RewardModules);
-    EndHudMessage(HUDMSG_PLAIN, 0, "Green", X + 0.1, Y + 80.0, 0.05);
+    EndHudMessage(HUDMSG_PLAIN, 0, "Green", X + 250.1, Y + 64.0, 0.05);
     HudMessage("\CiItem: \C-%S", Mission->RewardItem->Name);
-    EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 96.1, 0.05);
-    
+    EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 250.1, Y + 80.0, 0.05);
+
     // Mission Objective
     switch (Mission->Type)
     {
     case MT_COLLECT:
-        HudMessage("Type: \Ci%S", Mission->Item->Name);
-        EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+        HudMessage("Item: \Ci%S", Mission->Item->Name);
+        EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         if (Active)
         {
             HudMessage("Amount: \Cd%d / %d", Mission->Current, Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 144.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 64.0, 0.05);
         }
         else
         {
-            HudMessage("Amount: \Cd%3d\C-        You have: \Cd%3d", Mission->Amount, CheckInventory(Mission->Item->Actor));
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 144.0, 0.05);
+            HudMessage("Amount: \Cd%d", Mission->Amount);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 64.0, 0.05);
+            HudMessage("Carrying: \Cd%d", CheckInventory(Mission->Item->Actor));
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 80.0, 0.05);
         }
         break;
     case MT_KILL:
-        HudMessage("Type: \Cg%S", Mission->Monster->Name);
-        EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+        HudMessage("Target: \Cg%S", Mission->Monster->Name);
+        EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         if (Active)
         {
             HudMessage("Amount: \Ca%d / %d", Mission->Current, Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 144.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 64.0, 0.05);
         }
         else
         {
             HudMessage("Amount: \Ca%d", Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 144.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 64.0, 0.05);
         }
         break;
     case MT_KILLAURAS:
@@ -1880,52 +1915,52 @@ void DrawMissionInfo(MissionInfo *Mission, fixed X, fixed Y, bool Active)
         if (Active)
         {
             HudMessage("Amount: \Ca%d / %d", Mission->Current, Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         else
         {
             HudMessage("Amount: \Ca%d", Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         break;
     case MT_ASSASSINATION:
-        HudMessage("Type: \Cg%S", Mission->Monster->Name);
-        EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+        HudMessage("Target: \Cg%S", Mission->Monster->Name);
+        EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         break;
     case MT_SECRETS:
         if (Active)
         {
             HudMessage("Amount: \Ck%d / %d", Mission->Current, Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         else
         {
             HudMessage("Amount: \Ck%d", Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         break;
     case MT_ITEMS:
         if (Active)
         {
             HudMessage("Amount: \Cn%d / %d", Mission->Current, Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         else
         {
             HudMessage("Amount: \Cn%d", Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         break;
     case MT_COMBO:
         if (Active)
         {
             HudMessage("Amount: \Ct%d / %d", Mission->Current, Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         else
         {
             HudMessage("Amount: \Ct%d", Mission->Amount);
-            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 128.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "White", X + 0.1, Y + 48.0, 0.05);
         }
         break;
     }
@@ -1935,7 +1970,7 @@ OptionalArgs(1) void DrawBar(str Fill, int X, int Y, int Amount, bool Pulse)
 {
     if (GetActivatorCVar("drpg_toaster"))
         Pulse = false;
-    
+
     for (int i = 0; i < Amount; i++)
         if (Pulse)
             PrintSpriteAlpha(Fill, 0, X + 0.1 + (i * 1.0), Y, 0.05, 0.75 + Sin((Timer() + i) / 32.0) * 0.25);
@@ -1954,14 +1989,34 @@ void DrawProgressBar(str Message, int Percent)
     SetHudClipRect(0, 0, 0, 0);
 }
 
+void DrawBorder(str Prefix, int StartID, int BorderSize, int X, int Y, int Width, int Height)
+{
+    // Border corners
+    PrintSprite(StrParam("%STL", Prefix), (StartID == 0 ? 0 : StartID++), X + 0.1, Y + 0.1, 0.03);
+    PrintSprite(StrParam("%STR", Prefix), (StartID == 0 ? 0 : StartID++), X + Width + 0.2, Y + 0.1, 0.03);
+    PrintSprite(StrParam("%SBL", Prefix), (StartID == 0 ? 0 : StartID++), X + 0.1, Y + Height + 0.2, 0.03);
+    PrintSprite(StrParam("%SBR", Prefix), (StartID == 0 ? 0 : StartID++), X + Width + 0.2, Y + Height + 0.2, 0.03);
+
+    // Border sides
+    SetHudClipRect(X, Y + BorderSize, BorderSize, Height - (BorderSize * 2));
+    PrintSprite(StrParam("%SL", Prefix), (StartID == 0 ? 0 : StartID++), X + 0.1, Y + 0.1, 0.03);
+    SetHudClipRect(X + Width - BorderSize, Y + BorderSize, BorderSize, Height - (BorderSize * 2));
+    PrintSprite(StrParam("%SR", Prefix), (StartID == 0 ? 0 : StartID++), X + Width + 0.2, Y + 0.1, 0.03);
+    SetHudClipRect(X + BorderSize, Y, Width - (BorderSize * 2), BorderSize);
+    PrintSprite(StrParam("%ST", Prefix), (StartID == 0 ? 0 : StartID++), X + BorderSize + 0.1, Y + 0.1, 0.03);
+    SetHudClipRect(X + BorderSize, Y + Height - BorderSize, Width - (BorderSize * 2), BorderSize);
+    PrintSprite(StrParam("%SB", Prefix), (StartID == 0 ? 0 : StartID), X + BorderSize + 0.1, Y + Height + 0.2, 0.03);
+    SetHudClipRect(0, 0, 0, 0);
+}
+
 // --------------------------------------------------
 // Compatibility/Extensions
-// 
+//
 
 void RemoveDRLAItem(int Category, int Index)
 {
     str ItemActor = ItemData[Category][Index].Actor;
-    
+
     if (Category == 0) // Weapons
     {
         unsigned char CompatMods = ItemData[Category][Index].CompatMods;
@@ -1983,7 +2038,7 @@ void RemoveDRLAItem(int Category, int Index)
             SetInventory(StrParam("%SNanoMod", ItemActor), 0);
         if (CompatMods & RL_DEMON_MOD)
             SetInventory(StrParam("%SDemonArtifacts", ItemActor), 0);
-        
+
         TakeInventory("RLWeaponLimit", 1);
         CheckDRLASetWeapons();
     }
@@ -2036,33 +2091,33 @@ void CheckDRLASetWeapons()
         "RLHighPowerNuclearPlasmaPistol",
         "RLStormNuclearPlasmaPistol",
         "RLSuperchargedNuclearPlasmaPistol",
-        
+
         // Nuclear Plasma Shotgun
         "RLNuclearPlasmaShotgun",
-        
+
         // Nuclear Plasma Rifle
         "RLNuclearPlasmaRifle",
         "RLHighPowerNuclearPlasmaRifle",
         "RLAssaultRifleNuclearPlasmaRifle",
         "RLBurstCannonNuclearPlasmaRifle",
-        
+
         // Nuclear Plasma RIfle Mk II
         "RLNuclearPlasmaRifleMkII",
-        
+
         // Nuclear BFG 9000
         "RLNuclearBFG9000",
         "RLHighPowerNuclearBFG9000",
-        
+
         // Nuclear VBFG 9000
         "RLNuclearVBFG9000",
-        
+
         // Nuclear Biggest Fucking Gun
         "RLNuclearBiggestFuckingGun",
-        
+
         // Onslought
         "RLNuclearOnslaught"
     };
-    
+
     // Weapon portion of Nuclear Set Bonus Checking
     for (int i = 0; i < 15; i++)
         if (!CheckInventory(NuclearWeapons[i]))
@@ -2071,7 +2126,7 @@ void CheckDRLASetWeapons()
             TakeInventory("RLNuclearWeaponSetBonusActive", 1);
             break;
         }
-    
+
     // Tristar blaster Set Bonus Checking
     if (!CheckInventory("RLTristarBlaster") || !CheckInventory("RLHighPowerTristarBlaster") || !CheckInventory("RLNanomanufactureAmmoTristarBlaster"))
     {
@@ -2082,7 +2137,7 @@ void CheckDRLASetWeapons()
 
 // --------------------------------------------------
 // Math
-// 
+//
 
 // This function is specifically to avoid dividing by zero in the event that that can happen.
 int CalcPercent(int Current, int Maximum)
@@ -2120,7 +2175,7 @@ fixed AbsFixed(fixed x)
 {
     if (x < 0.0)
         return -x;
-    
+
     return x;
 }
 
@@ -2128,7 +2183,7 @@ fixed Min(fixed x, fixed y)
 {
     if (x < y)
         return x;
-    
+
     return y;
 }
 
@@ -2136,7 +2191,7 @@ fixed Max(fixed x, fixed y)
 {
     if (x > y)
         return x;
-    
+
     return y;
 }
 
@@ -2146,17 +2201,7 @@ fixed Distance(int TID1, int TID2)
     fixed X = GetActorX(TID1) - GetActorX(TID2);
     fixed Y = GetActorY(TID1) - GetActorY(TID2);
     fixed Z = GetActorZ(TID1) - GetActorZ(TID2);
-    
-    return VectorLength(VectorLength(X, Y), Z);
-}
 
-// Gets the distance between two points
-fixed Distance3D(fixed X1, fixed Y1, fixed Z1, fixed X2, fixed Y2, fixed Z2)
-{
-    fixed X = X1 - X2;
-    fixed Y = Y1 - Y2;
-    fixed Z = Z1 - Z2;
-    
     return VectorLength(VectorLength(X, Y), Z);
 }
 
@@ -2165,7 +2210,7 @@ fixed Distance2D(int X1, int Y1, int X2, int Y2)
 {
     fixed X = X1 - X2;
     fixed Y = Y1 - Y2;
-    
+
     return VectorLength(X, Y);
 }
 
@@ -2184,7 +2229,7 @@ void Interpolate(InterpData *Data)
             Data->TimerMax = 35 * Data->TimerMaxCap;
         Data->Timer = Data->TimerMax - 1;
     }
-    
+
     if (Data->Timer > 0)
     {
         long int Percent = (Data->TimerMax * Data->TimerMax) - (Data->Timer * Data->Timer);
@@ -2196,7 +2241,7 @@ void Interpolate(InterpData *Data)
 }
 
 /* Super SidDoyle Math Functions(TM)
-   
+
    I'm not quite sure how I came up with this. I have to use this myself, now.
    Thank you for asking me to do this. :D
 
@@ -2205,9 +2250,9 @@ void Interpolate(InterpData *Data)
    end at 75. Now let's say we need a value from this curve -- maybe we
    have a defense value of 67 and need to know what percent damage that
    absorbs. You would call the following:
- 
+
    fixed result = curve(67, 1, 200, 1, 75);
-   
+
    Coincidentally, that value is close to 42, if you round up. Have fun.
 */
 
@@ -2234,7 +2279,7 @@ fixed AltCurve(fixed Value, fixed Low1, fixed High1, fixed Low2, fixed High2)
 
 // --------------------------------------------------
 // Strings
-// 
+//
 
 OptionalArgs(1) bool StartsWith(str InString, str Prefix, bool NoCase)
 {
@@ -2247,7 +2292,7 @@ OptionalArgs(1) bool EndsWith(str InString, str Suffix, bool NoCase)
 {
     if (StrLen(InString) < StrLen(Suffix))
         return false;
-    
+
     if (NoCase)
         return !StrICmp(StrRight(InString, StrLen(Suffix)), Suffix);
     return !StrCmp(StrRight(InString, StrLen(Suffix)), Suffix);
@@ -2257,17 +2302,17 @@ OptionalArgs(1) bool Contains(str InString, str SubString, bool NoCase)
 {
     int TargLen = StrLen(InString);
     int SubLen = StrLen(SubString);
-    
+
     if (TargLen < SubLen)
         return false;
-    
+
     for (int i = 0; i <= TargLen - SubLen; i++)
     {
         str Part = StrMid(InString, i, SubLen);
         if ((!NoCase && !StrCmp(Part, SubString)) || (NoCase && !StrICmp(Part, SubString)))
             return true;
     }
-    
+
     return false;
 }
 
@@ -2278,23 +2323,23 @@ str FormatTime(int t)
     int Minutes = t / 35 / 60 % 60;
     int Seconds = t / 35 % 60;
     str Time = "";
-    
+
     // Hours
     if (Hours > 0)
         Time = StrParam("%d:", Hours);
-    
+
     // Minutes
     if (Hours > 0 && Minutes < 10)
         Time = StrParam("%S0%d:", Time, Minutes);
     else
         Time = StrParam("%S%d:", Time, Minutes);
-    
+
     // Seconds
     if (Seconds < 10)
         Time = StrParam("%S0%d", Time, Seconds);
     else
         Time = StrParam("%S%d", Time, Seconds);
-    
+
     return Time;
 }
 
@@ -2310,7 +2355,7 @@ str ColorCodeFromName(str s)
 
 // --------------------------------------------------
 // Debugging/Cheats
-// 
+//
 
 // HAAAAAAAAAAAAAAAX
 NamedScript Console void Cheat(int StatBoost)
@@ -2322,11 +2367,11 @@ NamedScript Console void Cheat(int StatBoost)
         ActivatorSound("mission/gottarget2", 127);
         return;
     }
-    
+
     // Max Level/Rank
     Player.XP = XPTable[MAX_LEVEL - 1];
     Player.Rank = RankTable[MAX_RANK - 1];
-    
+
     // Stats
     Player.Strength = StatBoost;
     Player.Defense = StatBoost;
@@ -2336,26 +2381,26 @@ NamedScript Console void Cheat(int StatBoost)
     Player.Agility = StatBoost;
     Player.Capacity = StatBoost;
     Player.Luck = StatBoost;
-    
+
     // Max out all Skills
     AllSkills();
-    
+
     // Items - Modules
     SetInventory("DRPGModule", 1000000000);
-    
+
     // Items - Powerups
     SetInventory("PowerInvulnerable", 1);
     SetInventory("PowerShadow", 1);
     SetInventory("PowerIronFeet", 1);
     SetInventory("PowerLightAmp", 1);
     SetInventory("PowerStrength", 1);
-    
+
     // Items - Ammo
     SetInventory("Clip", GetAmmoCapacity("Clip") * 2);
     SetInventory("Shell", GetAmmoCapacity("Shell") * 2);
     SetInventory("RocketAmmo", GetAmmoCapacity("RocketAmmo") * 2);
     SetInventory("Cell", GetAmmoCapacity("Cell") * 2);
-    
+
     // Items - Keys
     SetInventory("DRPGRedCard", 1);
     SetInventory("DRPGYellowCard", 1);
@@ -2363,14 +2408,14 @@ NamedScript Console void Cheat(int StatBoost)
     SetInventory("DRPGRedSkull", 1);
     SetInventory("DRPGYellowSkull", 1);
     SetInventory("DRPGBlueSkull", 1);
-    
+
     // Items - Stims
     SetInventory("DRPGStimSmall", 1000);
     SetInventory("DRPGStimMedium", 1000);
     SetInventory("DRPGStimLarge", 1000);
     SetInventory("DRPGStimXL", 1000);
     SetInventory("DRPGStimDetox", 1000);
-    
+
     // Items - Misc
     SetInventory("DRPGLife", 1000);
     SetInventory("DRPGChipGold", 1000);
@@ -2379,7 +2424,7 @@ NamedScript Console void Cheat(int StatBoost)
     GiveCredits(0);
     FullShield();
     GiveCompounds(40000);
-    
+
     // Restore HP/EP/Shields
     Player.ActualHealth = Player.HealthMax * 2;
     Player.EP = Player.EPMax;
@@ -2402,14 +2447,30 @@ NamedScript Console void ModStat(int Stat, int Value)
 {
     switch (Stat - 1)
     {
-    case STAT_STRENGTH:     Player.Strength = Value;        break;
-    case STAT_DEFENSE:      Player.Defense = Value;         break;
-    case STAT_VITALITY:     Player.Vitality = Value;        break;
-    case STAT_ENERGY:       Player.Energy = Value;          break;
-    case STAT_REGENERATION: Player.Regeneration = Value;    break;
-    case STAT_AGILITY:      Player.Agility = Value;         break;
-    case STAT_CAPACITY:     Player.Capacity = Value;        break;
-    case STAT_LUCK:         Player.Luck = Value;            break;
+    case STAT_STRENGTH:
+        Player.Strength = Value;
+        break;
+    case STAT_DEFENSE:
+        Player.Defense = Value;
+        break;
+    case STAT_VITALITY:
+        Player.Vitality = Value;
+        break;
+    case STAT_ENERGY:
+        Player.Energy = Value;
+        break;
+    case STAT_REGENERATION:
+        Player.Regeneration = Value;
+        break;
+    case STAT_AGILITY:
+        Player.Agility = Value;
+        break;
+    case STAT_CAPACITY:
+        Player.Capacity = Value;
+        break;
+    case STAT_LUCK:
+        Player.Luck = Value;
+        break;
     }
 }
 
@@ -2417,14 +2478,30 @@ NamedScript Console void ModStatXP(int Stat, long int Value)
 {
     switch (Stat - 1)
     {
-    case STAT_STRENGTH:     Player.StrengthXP = Value;          break;
-    case STAT_DEFENSE:      Player.DefenseXP = Value;           break;
-    case STAT_VITALITY:     Player.VitalityXP = Value;          break;
-    case STAT_ENERGY:       Player.EnergyXP = Value;            break;
-    case STAT_REGENERATION: Player.RegenerationXP = Value;      break;
-    case STAT_AGILITY:      Player.AgilityXP = Value;           break;
-    case STAT_CAPACITY:     Player.CapacityXP = Value;          break;
-    case STAT_LUCK:         Player.LuckXP = Value;              break;
+    case STAT_STRENGTH:
+        Player.StrengthXP = Value;
+        break;
+    case STAT_DEFENSE:
+        Player.DefenseXP = Value;
+        break;
+    case STAT_VITALITY:
+        Player.VitalityXP = Value;
+        break;
+    case STAT_ENERGY:
+        Player.EnergyXP = Value;
+        break;
+    case STAT_REGENERATION:
+        Player.RegenerationXP = Value;
+        break;
+    case STAT_AGILITY:
+        Player.AgilityXP = Value;
+        break;
+    case STAT_CAPACITY:
+        Player.CapacityXP = Value;
+        break;
+    case STAT_LUCK:
+        Player.LuckXP = Value;
+        break;
     }
 }
 
@@ -2454,7 +2531,7 @@ NamedScript Console void GiveAugs(int Canisters, int Upgrades, int Slots)
     GiveInventory("DRPGAugCanister", Canisters);
     GiveInventory("DRPGAugUpgradeCanister", Upgrades);
     GiveInventory("DRPGAugSlotUpgrade", Slots);
-    
+
     for (int i = 0; i < AUG_MAX; i++)
     {
         AugInfoPtr AugPtr = &AugData[i];
@@ -2471,7 +2548,7 @@ NamedScript Console void FullShield()
         ShieldPartPtr Part = &ShieldParts[0][i];
         GiveInventory(Part->Actor, 1);
     }
-    
+
     // Batteries
     for (int i = 0; i < ShieldPartsMax[1]; i++)
     {
@@ -2485,7 +2562,7 @@ NamedScript Console void FullShield()
         ShieldPartPtr Part = &ShieldParts[2][i];
         GiveInventory(Part->Actor, 1);
     }
-    
+
     // Accessories
     for (int i = 0; i < MAX_ACCESSORIES; i++)
     {
@@ -2500,7 +2577,6 @@ NamedScript Console void FullLocker(int Amount)
     for (int i = 0; i < ItemCategories; i++)
         for (int j = 0; j < ItemMax[i]; j++)
         {
-            ItemInfoPtr ItemPtr = &ItemData[i][j];
             Player.Locker[i][j] = Amount;
         }
 }
@@ -2508,21 +2584,21 @@ NamedScript Console void FullLocker(int Amount)
 // Give all Stim Compounds
 NamedScript Console void GiveCompounds(int Amount)
 {
-    GiveInventory("DRPGStimSmall", Player.Capacity);
-    GiveInventory("DRPGStimMedium", Player.Capacity);
-    GiveInventory("DRPGStimLarge", Player.Capacity);
-    GiveInventory("DRPGStimXL", Player.Capacity);
-    
+    GiveInventory("DRPGStimSmall", Player.CapacityTotal);
+    GiveInventory("DRPGStimMedium", Player.CapacityTotal);
+    GiveInventory("DRPGStimLarge", Player.CapacityTotal);
+    GiveInventory("DRPGStimXL", Player.CapacityTotal);
+
     for (int i = 0; i < STIM_MAX; i++)
         if (Amount == 0)
-            Player.Stim.Vials[i] = Player.Capacity * 10;
+            Player.Stim.Vials[i] = Player.CapacityTotal * 10;
         else
             Player.Stim.Vials[i] += Amount;
 }
 
 // --------------------------------------------------
 // System
-// 
+//
 
 void CreateTranslations()
 {
@@ -2530,7 +2606,7 @@ void CreateTranslations()
     CreateTranslationStart(DNUM_CRITICAL);
     CreateTranslationDesat(0, 255, 0, 0, 0, 1.5, 0, 0);
     CreateTranslationEnd();
-    
+
     // Damage Numbers - Healed
     CreateTranslationStart(DNUM_HEAL);
     CreateTranslationDesat(0, 255, 0, 0, 0, 0, 1.5, 0);
@@ -2540,7 +2616,7 @@ void CreateTranslations()
     CreateTranslationStart(DNUM_SCRATCH);
     CreateTranslationDesat(0, 255, 0, 0, 0, 0.75, 0.75, 0.75);
     CreateTranslationEnd();
-    
+
     // Credit Gain
     CreateTranslationStart(DNUM_CREDGAIN);
     CreateTranslationDesat(0, 255, 0, 0, 0, 1.5, 1.5, 0);
@@ -2550,176 +2626,181 @@ void CreateTranslations()
     CreateTranslationStart(DNUM_CREDLOSS);
     CreateTranslationDesat(0, 255, 0, 0, 0, 1.5, 0.75, 0);
     CreateTranslationEnd();
-    
+
     // EP Gain
     CreateTranslationStart(DNUM_EPGAIN);
     CreateTranslationDesat(0, 255, 0, 0, 0, 0, 1.5, 1.5);
     CreateTranslationEnd();
-    
+
     // EP Loss
     CreateTranslationStart(DNUM_EPLOSS);
     CreateTranslationDesat(0, 255, 0, 0, 0, 0, 0, 1.5);
     CreateTranslationEnd();
-    
+
     // Shield Gain
     CreateTranslationStart(DNUM_SHIELDGAIN);
     CreateTranslationDesat(0, 255, 0, 0, 0, 1.5, 0, 1.5);
     CreateTranslationEnd();
-    
+
     // Shield Loss
     CreateTranslationStart(DNUM_SHIELDLOSS);
     CreateTranslationDesat(0, 255, 0, 0, 0, 0.75, 0, 0.75);
     CreateTranslationEnd();
 }
 
-NamedScript Type_ENTER void UpdatePlayerInputs()
+bool CheckInput(int Key, int State, bool ModInput, int PlayerNumber)
 {
+    int Input;
+    int InputOld;
     int Buttons;
-    int XAxis, YAxis;
-    
-Start:
-    Buttons = GetPlayerInput(PlayerNumber(), INPUT_BUTTONS);
-    
-    // These need a bit more care
-    XAxis = GetPlayerInput(PlayerNumber(), INPUT_SIDEMOVE);
-    YAxis = GetPlayerInput(PlayerNumber(), INPUT_FORWARDMOVE);
-    
-    Player.Input.Attack    = Buttons & BT_ATTACK;
-    Player.Input.AltAttack = Buttons & BT_ALTATTACK;
-    Player.Input.Use       = Buttons & BT_USE;
-    Player.Input.Modifier  = Buttons & BT_SPEED;
-    
-    Player.Input.SkillWheel  = Buttons & BT_USER1;
-    Player.Input.TurretWheel = Buttons & BT_USER2;
-    Player.Input.DRPGMenu    = Buttons & BT_USER3;
-    
-    Player.Input.Forward = YAxis > 0;
-    Player.Input.Back    = YAxis < 0;
-    Player.Input.Right   = XAxis > 0;
-    Player.Input.Left    = XAxis < 0;
-    
-    Delay(1);
-    
-    Player.OldInput.Attack    = Player.Input.Attack;
-    Player.OldInput.AltAttack = Player.Input.AltAttack;
-    Player.OldInput.Use       = Player.Input.Use;
-    Player.OldInput.Modifier  = Player.Input.Modifier;
-    
-    Player.OldInput.SkillWheel  = Player.Input.SkillWheel;
-    Player.OldInput.TurretWheel = Player.Input.TurretWheel;
-    Player.OldInput.DRPGMenu    = Player.Input.DRPGMenu;
-    
-    Player.OldInput.Forward = Player.Input.Forward;
-    Player.OldInput.Back    = Player.Input.Back;
-    Player.OldInput.Right   = Player.Input.Right;
-    Player.OldInput.Left    = Player.Input.Left;
-    
-    goto Start;
+    int OldButtons;
+
+    if (!ModInput)
+    {
+        Input = INPUT_BUTTONS;
+        InputOld = INPUT_OLDBUTTONS;
+    }
+    else
+    {
+        Input = MODINPUT_BUTTONS;
+        InputOld = MODINPUT_OLDBUTTONS;
+    }
+
+    Buttons = GetPlayerInput(PlayerNumber, Input);
+    OldButtons = GetPlayerInput(PlayerNumber, InputOld);
+
+    switch (State)
+    {
+    case KEY_PRESSED:
+    {
+        if (Buttons & Key && !(OldButtons & Key))
+            return true;
+    }
+    break;
+    case KEY_ONLYPRESSED:
+    {
+        if (Buttons == Key && OldButtons != Key)
+            return true;
+    }
+    break;
+    case KEY_HELD:
+    {
+        if (Buttons & Key)
+            return true;
+    }
+    break;
+    case KEY_ONLYHELD:
+    {
+        if (Buttons == Key)
+            return true;
+    }
+    break;
+    case KEY_ANYIDLE:
+    {
+        if (Buttons == 0 && OldButtons == 0)
+            return true;
+    }
+    break;
+    case KEY_ANYNOTIDLE:
+    {
+        if (Buttons > 0)
+            return true;
+    }
+    break;
+    case KEY_REPEAT:
+    {
+        if (Buttons & Key)
+        {
+            int CurrentTime = Timer();
+            if (CurrentTime + 5 + 1 < CheckInputRepeatTimer) CheckInputRepeat = false;
+            if (!CheckInputRepeat)
+            {
+                CheckInputRepeatTimer = CurrentTime;
+                CheckInputRepeatTimer += 5;
+                CheckInputRepeat = true;
+                return true;
+            }
+            else
+            {
+                if (CurrentTime >= CheckInputRepeatTimer)
+                    CheckInputRepeat = false;
+                else
+                    return false;
+            }
+        }
+    }
+    break;
+    }
+
+    return false;
 }
 
-OptionalArgs(1) bool CheckInput(int Key, int State)
+NamedScript MenuEntry void SetHUDPreset(int Preset)
 {
-    bool *Inputs[] = {
-        &Player.Input.Attack,
-        &Player.Input.AltAttack,
-        &Player.Input.Use,
-        &Player.Input.Modifier,
-        
-        &Player.Input.SkillWheel,
-        &Player.Input.TurretWheel,
-        &Player.Input.DRPGMenu,
-        
-        &Player.Input.Forward,
-        &Player.Input.Back,
-        &Player.Input.Right,
-        &Player.Input.Left
-    };
-    
-    bool *OldInputs[] = {
-        &Player.OldInput.Attack,
-        &Player.OldInput.AltAttack,
-        &Player.OldInput.Use,
-        &Player.OldInput.Modifier,
-        
-        &Player.OldInput.SkillWheel,
-        &Player.OldInput.TurretWheel,
-        &Player.OldInput.DRPGMenu,
-        
-        &Player.OldInput.Forward,
-        &Player.OldInput.Back,
-        &Player.OldInput.Right,
-        &Player.OldInput.Left
-    };
-    
-    if (State == KEY_PRESSED)
-        return *Inputs[Key];
-    if (State == KEY_ONLYPRESSED)
-        return *Inputs[Key];
-    if (State == KEY_DOWN)
-        return *Inputs[Key] && !(*OldInputs[Key]);
-    if (State == KEY_UP)
-        return !(*Inputs[Key]) && *OldInputs[Key];
-    
-    return false;
+    ScriptCall("DRPGZUtilities", "SetHUDPreset", Preset);
+}
+
+NamedScript MenuEntry void ResetToDefaults()
+{
+    ScriptCall("DRPGZUtilities", "ResetToDefaults");
 }
 
 OptionalArgs(1) void LogMessage(str Message, int Level)
 {
     bool DebugMode = (ActivatorTID() == Player.TID ? GetCVar("drpg_debug") : GetActivatorCVar("drpg_debug"));
-    
+
     if (Level == LOG_DEBUG)
         Message = StrParam("\CdDEBUG: \C-%S", Message);
     if (Level == LOG_WARNING)
         Message = StrParam("\CiWARNING: \C-%S", Message);
     if (Level == LOG_ERROR)
         Message = StrParam("\CgERROR: \C-%S", Message);
-    
+
     // Don't log the message if the caller isn't in Debug Mode
     if (Level == LOG_DEBUG && !DebugMode)
         return;
-    
+
     Log("%S", Message);
 }
 
 void ClearInfo(CharSaveInfo *Info)
 {
     int i, j;
-    
+
     // Version / Compatibility Flag
     Info->Version = 0;
     Info->CompatMode = 0;
-    
+
     // Level / Rank Level
     Info->Level = 0;
     Info->RankLevel = 0;
-    Info->PP = 0;
-    
+
     // Stats
     for (i=0; i < STAT_MAX; i++)
         Info->Stats[i] = 0;
-    
+
     // Skills
     for (i=0; i < MAX_CATEGORIES; i++)
         for (j=0; j < MAX_SKILLS; j++)
             Info->Skills[i][j] = 0;
-    
+
     // Skill Wheel
     for (i=0; i < MAX_SKILLKEYS; i++)
         for (j=0; j < 2; j++)
             Info->SkillWheel[i][j] = 0;
-    
+
     // Augmentations
     for (i=0; i < AUG_MAX; i++)
         Info->Augs[i] = 0;
-    
+
     // Stims
     for (i=0; i < STIM_MAX; i++)
         Info->Stims[i] = 0;
-    
+
     // Turret Upgrades
     for (i=0; i < TU_MAX; i++)
         Info->TurretUpgrades[i] = 0;
-    
+
     // Misc
     Info->Credits = 0;
     Info->Modules = 0;
@@ -2730,46 +2811,46 @@ void ClearInfo(CharSaveInfo *Info)
     Info->Battery = 0;
     Info->Toxicity = 0;
     Info->ArenaWave = 0;
-    
+
     // Locker
     for (i=0; i < ITEM_CATEGORIES; i++)
         for (j=0; j < ITEM_MAX; j++)
             Info->Locker[i][j] = 0;
-            // Auto-Sell
-            Info->ItemAutoMode[i][j] = 0;
+    // Auto-Sell
+    Info->ItemAutoMode[i][j] = 0;
     for (i=0; i < ITEM_MAX; i++)
         for (j=0; j < DRLA_MODPACK_SIZE; j++)
             Info->WeaponMods[i][j] = 0;
-    
-    
+
+
     // ----- COMPATIBILITY EXTENSIONS -----
-    
+
     // DRLA Tokens
     for (i=0; i < DRLA_MAX_TOKENS; i++)
         Info->DRLATokens[i] = false;
-    
+
     // ------------------------------------
-    
+
     // Checksum
     Info->Checksum = 0;
 }
 
 // --------------------------------------------------
 // Dynamic Arrays
-// 
+//
 
 void ArrayCreate(DynamicArray *Array, str Name, int InitSize, int ItemSize)
 {
     bool Recreate = false;
     if (Array && Array->Data != NULL)
         Recreate = true;
-    
+
     Array->Name = Name;
     Array->Position = 0;
-    
+
     if (GetCVar("drpg_debug"))
         Log("\CdDynamicArray: Allocating \Cj%S", Array->Name);
-    
+
     if (Recreate)
     {
         LogMessage("Reallocating Array",LOG_DEBUG);
@@ -2782,19 +2863,19 @@ void ArrayCreate(DynamicArray *Array, str Name, int InitSize, int ItemSize)
     }
     else
         LogMessage("Creating Array",LOG_DEBUG);
-        Array->Size = InitSize;
-        Array->ItemSize = ItemSize;
-        Array->Data = calloc(Array->Size, Array->ItemSize);
-    
+    Array->Size = InitSize;
+    Array->ItemSize = ItemSize;
+    Array->Data = calloc(Array->Size, Array->ItemSize);
+
     if (Array->Data == NULL)
     {
         Log("\CgERROR: \C-Could not allocate space for array \Cj%S", Array->Name);
         return;
     }
-    
+
     if (GetCVar("drpg_debug"))
         Log("\CdDynamicArray: \Cj%S\Cd @ %p", Array->Name, Array->Data);
-    
+
     //memset(Array->Data, 0xAAAAAAAA, Array->Size * Array->ItemSize);
 }
 
@@ -2805,26 +2886,26 @@ void ArrayResize(DynamicArray *Array)
         Log("\CgERROR: \C-Tried to resize destroyed array \Cj%S", Array->Name);
         return;
     }
-    
+
     int OldSize = Array->Size;
-    
+
     Array->Size *= 2;
     if (GetCVar("drpg_debug"))
         Log("\CdAttempting to resize DynamicArray: \Cj%S\Cd @ %p", Array->Name, Array->Data);
     void *tmp = realloc(Array->Data, Array->ItemSize * Array->Size);
-    
+
     if (tmp == NULL)
     {
         free(Array->Data);
         Log("\CgERROR: \C-Cannot resize dynamic array \Cj%S", Array->Name);
         return;
     }
-    
+
     if (GetCVar("drpg_debug"))
         Log("\CdDynamicArray: Resizing array \Cj%S\Cd @ %p to \Cj%d\Cd elements", Array->Name, Array->Data, Array->Size);
-    
+
     Array->Data = tmp;
-    
+
     memset((char *)Array->Data + (Array->ItemSize * OldSize), 0x00000000, (Array->Size * Array->ItemSize) - (Array->ItemSize * OldSize));
 }
 
@@ -2832,9 +2913,9 @@ void ArrayDestroy(DynamicArray *Array)
 {
     if (GetCVar("drpg_debug"))
         Log("\CdDynamicArray: Destroying array \Cj%S\Cd @ %p", Array->Name, Array->Data);
-    
+
     free(Array->Data);
-    
+
     Array->Position = 0;
     Array->Size = 0;
     Array->ItemSize = 0;
@@ -2848,18 +2929,18 @@ void ArrayDestroy(DynamicArray *Array)
     Log("\Cd* Item bytesize: \Cj%d", Array->ItemSize);
     Log("\Cd* End Position: \Cj%d", Array->Position);
     Log("");
-    
+
     Log("\CiItem data:");
-    
+
     for (int i = 0; i < Array->Size; i++)
     {
         str DataString = StrParam("  %X: ", i);
         for (int b = 0; b < Array->ItemSize; b++)
             DataString = StrParam("%S%X ", DataString, (char)((char *)Array->Data)[Array->ItemSize * i + b]);
-        
+
         if (i >= Array->Position)
             DataString = StrParam("%s\Cj(\CgUnused\Cj)", DataString);
-        
+
         Log("%s", DataString);
     }
 }*/

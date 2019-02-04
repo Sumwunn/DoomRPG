@@ -1,0 +1,229 @@
+// --------------------------------------------------
+// Arachnotron
+//
+
+// Arachnotron Spawner
+ACTOR Colourset9RPG : Colourset9 Replaces DRPGArachnotron
+{
+}
+
+// Common Arachnotron
+ACTOR CommonSP1RPG : CommonSP1 Replaces CommonSP1
+{
+	Tag "Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Arachnotron
+ACTOR GreenSP1RPG : GreenSP1 Replaces GreenSP1
+{
+	Tag "Uncommon Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Arachnotron
+ACTOR BlueSP1RPG : BlueSP1 Replaces BlueSP1
+{
+	Tag "Rare Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Arachnotron
+ACTOR PurpleSP1RPG : PurpleSP1 Replaces PurpleSP1
+{
+	Tag "Epic Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Arachnotron
+ACTOR YellowSP1RPG : YellowSP1 Replaces YellowSP1
+{
+	Tag "Brainchotron"
+
+	States
+	{
+	Spawn:
+		ACNB A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ACNB A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Arachnotron
+ACTOR RedSP1RPG : RedSP1 Replaces RedSP1
+{
+	Tag "Raging Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSP2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BSP2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Arachnotron
+ACTOR BlackSP2RPG : BlackSP2 Replaces BlackSP2
+{
+	Tag "Explosive Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Arachnotron
+ACTOR WhiteSP11RPG : WhiteSP11 Replaces WhiteSP11
+{
+	Tag "Ungoliant"
+
+	States
+	{
+	Spawn:
+		TRIT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::Spawn
+	See:
+		TRIT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR WhiteSP3RPG : WhiteSP3 Replaces WhiteSP3
+{
+	Tag "Ungoliant Progeny"
+
+	States
+	{
+	Spawn:
+		TRIT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		TRIT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR WhiteSP2RPG : WhiteSP2 Replaces WhiteSP2
+{
+	Tag "Ungoliant Progeny"
+
+	States
+	{
+	Spawn:
+		TRIT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::Spawn
+	See:
+		TRIT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR MiniSP1RPG : MiniSP1 Replaces MiniSP1
+{
+	Tag "Spiderling"
+
+	States
+	{
+	Spawn:
+		TRIT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::Spawn
+	See:
+		TRIT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Gray Arachnotron
+ACTOR GraySP2RPG : GraySP2 Replaces GraySP2
+{
+	Tag "Ancient Arachnotron"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// FireBlu Arachnotron
+ACTOR FireBluSP2RPG : FireBluSP2 Replaces FireBluSP2
+{
+	Tag "Enchanted Brainchotron"
+
+	States
+	{
+	Spawn:
+		ACNB A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ACNB A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Arachnotron
+ACTOR AbyssSP2RPG : AbyssSP2 Replaces AbyssSP2
+{
+	Tag "Abyssal Dweller"
+
+	States
+	{
+	Spawn:
+		ABSP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ABSP A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

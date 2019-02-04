@@ -1,0 +1,9 @@
+addkeysection "DoomRL Arsenal Info" DRLAInfoKeySection
+addmenukey "HUD Weapon/Mod Info" drla_hwmi
+alias drla_hwmi "showpop 1"
+
+addmenukey "Assemblies List" drla_ai
+alias drla_ai "showpop 2"
+
+addmenukey "Armor/Mod Info" drla_ami
+alias drla_ami "showpop 3"

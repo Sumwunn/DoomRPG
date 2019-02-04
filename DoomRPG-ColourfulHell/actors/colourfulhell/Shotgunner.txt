@@ -1,0 +1,216 @@
+// --------------------------------------------------
+// Shotgunner
+//
+
+// Shotgunner Spawner
+ACTOR Colourset4RPG : Colourset4 Replaces DRPGShotgunGuy
+{
+}
+
+// Common Shotgunner
+ACTOR CommonSGRPG : CommonSG Replaces CommonSG
+{
+	Tag "Former Sergeant"
+
+	States
+	{
+	Spawn:
+		SPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Shotgunner
+ACTOR GreenSGRPG : GreenSG Replaces GreenSG
+{
+	Tag "Uncommon Former Sergeant"
+
+	States
+	{
+	Spawn:
+		SPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Shotgunner
+ACTOR BlueSGRPG : BlueSG Replaces BlueSG
+{
+	Tag "Rare Former Sergeant"
+
+	States
+	{
+	Spawn:
+		SPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Shotgunner
+ACTOR PurpleSGRPG : PurpleSG Replaces PurpleSG
+{
+	Tag "Epic Former Sergeant"
+
+	States
+	{
+	Spawn:
+		HMZP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HMZP A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Shotgunner
+ACTOR YellowSGRPG : YellowSG Replaces YellowSG
+{
+	Tag "Legendary Former Sergeant"
+
+	States
+	{
+	Spawn:
+		ASGZ A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ASGZ A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Shotgunner
+ACTOR RedSGRPG : RedSG Replaces RedSG
+{
+	Tag "Demonic Former Sergeant"
+
+	States
+	{
+	Spawn:
+		GPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		GPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Shotgunner
+ACTOR BlackSG3RPG : BlackSG3 Replaces BlackSG3
+{
+	Tag "Shotgun Crew Commander"
+
+	States
+	{
+	Spawn:
+		ZSP1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		ZSP1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Black Shotgunner 2
+ACTOR BlackSG2RPG : BlackSG2 Replaces BlackSG2
+{
+	Tag "Shotgun Crew Trooper"
+
+	States
+	{
+	Spawn:
+		ZSP1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ZSP1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// White Shotgunner
+ACTOR WhiteSG2RPG : WhiteSG2 Replaces WhiteSG2
+{
+	Tag "Benellus, God of Shotguns"
+
+	States
+	{
+	Spawn:
+		BENE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BENE A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Shotgunner EX
+ACTOR WhiteSGEXRPG : WhiteSGEX Replaces WhiteSGEX
+{
+	Tag "Benellus, God of Shotguns, Angrier"
+
+	States
+	{
+	Spawn:
+		BENE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BENE A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Fireblu Shotgunner
+ACTOR FireBluSG2RPG : FireBluSG2 Replaces FireBluSG2
+{
+	Tag "Enchanted Sergeant"
+
+	States
+	{
+	Spawn:
+		GPOS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		GPOS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Shotgunner
+ACTOR AbyssSG2RPG : AbyssSG2 Replaces AbyssSG2
+{
+	Tag "Abyssal Sergeant"
+
+	States
+	{
+	Spawn:
+		ASGZ A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ASGZ A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Gray Shotgunner
+ACTOR GraySG2RPG : GraySG2 Replaces GraySG2
+{
+	Tag "Ancient Sergeant"
+
+	States
+	{
+	Spawn:
+		HMZP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HMZP A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

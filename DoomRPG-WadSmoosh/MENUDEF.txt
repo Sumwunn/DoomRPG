@@ -1,22 +1,5 @@
-OptionMenu "DoomRPG"
+AddOptionMenu "DoomRPG"
 {
-	Title "Doom RPG Options"
-	
-	SubMenu "XP System",                    "DoomRPGXPSystem"
-	SubMenu "Monster Levels/Stat System",   "DoomRPGMonsters"
-	SubMenu "Game Difficulty",              "DoomRPGDifficulty"
-	SubMenu "Stat System",                  "DoomRPGStats"
-	SubMenu "Natural Stat Leveling",        "DoomRPGStatsNatural"
-    SubMenu "Popoffs",                      "DoomRPGPopoffs"
-    SubMenu "Health Bars",                  "DoomRPGHealthBars"
-    SubMenu "Multiplayer",                  "DoomRPGMultiplayer"
-    SubMenu "Shop",                         "DoomRPGShop"
-    SubMenu "Turret",                       "DoomRPGTurret"
-    SubMenu "Menus",                        "DoomRPGMenus"
-    SubMenu "HUD",                          "DoomRPGHUD"
-    SubMenu "Misc",                         "DoomRPGMisc"
-    SubMenu "Character",                    "DoomRPGCharacter"
-    SubMenu "Starting Options",             "DoomRPGStart"
     SubMenu "WadSmoosh Options",            "WadSmoosh"
 }
 

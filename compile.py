@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-import os, subprocess, sys, re
+import os, subprocess, sys, re, datetime
 
 # [marrub]
 def check_in_path(fname):
@@ -48,7 +48,7 @@ ACS_SOURCES  = os.path.join("DoomRPG", "scripts")
 ACS_INCLUDES = os.path.join("DoomRPG", "scripts", "inc")
 
 # Compile options.
-OPTIONS = ['--bc-target=ZDoom']
+OPTIONS = ['--target-engine=ZDoom']
 
 COMPILEROPTIONS = ['-c', '-i', ACS_INCLUDES]
 ASSEMBLEROPTIONS = []
@@ -217,8 +217,10 @@ if __name__ == "__main__":
         failure = link_library(objects, "DoomRPG.lib")
 
     if not failure:
-        print(TERMCAP_BOLD + TERMCAP_GREEN + "Finished compiling." +
-                TERMCAP_RESET)
+    	log_file = open('DoomRPG/GAMEINFO.txt', 'w')
+        log_file.write('startuptitle = "Doom RPG SE ({})"'.format(datetime.date.today()) + "\n")
+        log_file.write('startupcolors = "0092FF", "000000"' + "\n")
+        print(TERMCAP_BOLD + TERMCAP_GREEN + "Finished compiling." + TERMCAP_RESET)
     else:
         print(TERMCAP_BOLD + TERMCAP_RED + "There were errors. Please review the messages above." + TERMCAP_RESET)
 

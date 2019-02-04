@@ -1,6 +1,184 @@
 // Outpost Decorations
 // --------------------------------------------------
 
+// Signs
+actor OutpostSignMissionBBS 11018
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK A -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignShop 11019
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    Scale 1.5
+    
+    States
+    {
+    Spawn:
+        OMRK B -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignTransporter 11017
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    Scale 0.5
+    
+    States
+    {
+    Spawn:
+        OMRK C -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignSkillComputer 11020
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK D -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignRechargePads 11021
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK G -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignEastArea 11022
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK F -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignItemRoulette 11023
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK H -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignArena 11024
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK E -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignArenaFar 11025
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK E -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignArenaWS 11026
+{
+		Scale 0.5
+
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK I -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignArenaStart 11027
+{
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK J -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+actor OutpostSignArenaReady 11028
+{
+		Scale 0.5
+
+    +SpawnCeiling
+    +NoGravity
+    +WALLSPRITE
+    
+    States
+    {
+    Spawn:
+        OMRK K -1 Light("OUTPOSTSIGN")
+        Stop
+    }
+}
+
+// Stuff
 actor OutpostAdminLamp 12100
 {
     Height 48

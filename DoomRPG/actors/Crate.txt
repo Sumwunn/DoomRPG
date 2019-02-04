@@ -32,11 +32,8 @@ actor DRPGCrate : SwitchableDecoration
         Loop
     Firewall:
         TNT1 A 0 A_PlaySound("crate/loop2", CHAN_6, 0.75, true, 1.25)
-        TNT1 A 0 A_SpawnItemEx("DRPGCrateFirewallIcon", 0, 0, 0, 0, 0, 0, 0, SXF_SETMASTER)
     LoopFirewall:
-        CRAT ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 Bright
-        CRA2 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 Bright
-        CRA3 A 1 Bright
+        CRAF ABCDEF 3 Bright
         Loop
     Active:
     Inactive:
@@ -55,31 +52,5 @@ actor DRPGCrate : SwitchableDecoration
         TNT1 A 0 A_Explode
         MISL BCD 6 Bright
         Stop
-    }
-}
-
-actor DRPGCrateFirewallIcon
-{
-    var int user_step;
-    
-	-SOLID
-    +ISMONSTER // This is fucking retarded.jpg
-	+NOINTERACTION
-	+NOGRAVITY
-    +FORCEYBILLBOARD
-    +FLOATBOB
-	
-	RenderStyle Add
-    
-    States
-    {
-    Spawn:
-    FadeLoop:
-        CRFW A 1 Bright
-        TNT1 A 0 A_Warp(AAPTR_MASTER, 0, 0, 72, 0, WARPF_NOCHECKPOSITION | WARPF_COPYINTERPOLATION)
-        TNT1 A 0 A_SetTranslucent(0.5 + (0.25 * Sin(user_step)), 1)
-        TNT1 A 0 A_SetUserVar("user_step", user_step + 10.285714)
-        TNT1 A 0 A_Warp(AAPTR_MASTER, 0, 0, 0, 0, WARPF_NOCHECKPOSITION | WARPF_TESTONLY, "FadeLoop")
-        Loop
     }
 }

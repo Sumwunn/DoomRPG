@@ -2,8 +2,6 @@
 
 #include "Arena.h"
 #include "Augs.h"
-#include "GUI.h"
-#include "GUIMenu.h"
 #include "HealthBars.h"
 #include "HUD.h"
 #include "ItemData.h"
@@ -22,13 +20,11 @@
 #include "Turret.h"
 #include "Utils.h"
 
-// Version
-const str Version = "v0.10.1 Beta - Powered by GDCC!";
-
 // Flags
 bool Transported;
 bool GlobalsInitialized;
 int CompatMode;
+int CompatMonMode;
 bool WadSmoosh;
 
 // Arrays
@@ -80,7 +76,7 @@ NamedScript Type_OPEN void GlobalInit()
     if (!GlobalsInitialized)
     {
         // Version Info
-        Log("\CnDoom RPG %S (Compiled on %S at %S) loaded!", Version, __DATE__, __TIME__);
+        Log("\CnDoom RPG SE (GDCC) (Compiled on %S) loaded!", __DATE__);
 
         // Compatibility checking
         CheckCompatibility();
@@ -131,7 +127,8 @@ NamedScript Type_ENTER void Init()
     Delay(3);
 
     // [KS] This needs to be done on its' own, so death exits don't rob you of your TID and break EVERYTHING EVER FFS
-    if (ActivatorTID() == 0)
+    int ATID = ActivatorTID();
+    if (ATID == 0 || ATID == 30000) // 30000 is DRLA's PID.
     {
         AssignTIDs();
         if (!InTitle) // Don't give equipment on the title screen
@@ -163,7 +160,7 @@ NamedScript Type_ENTER void Init()
         GiveInventory("DRPGModule", GetActivatorCVar("drpg_start_modules"));
         GiveInventory("DRPGTurretPart", GetActivatorCVar("drpg_start_turretparts"));
 
-        // Level/Rank/PP
+        // Level/Rank
         if (GetCVar("drpg_start_level") > 0)
         {
             Player.Level = GetActivatorCVar("drpg_start_level");
@@ -174,8 +171,6 @@ NamedScript Type_ENTER void Init()
             Player.RankLevel = GetActivatorCVar("drpg_start_rank");
             Player.Rank = RankTable[Player.RankLevel - 1];
         }
-        if (GetCVar("drpg_start_pp") > 0)
-            Player.PP = GetCVar("drpg_start_pp");
 
         // Stats
         Player.Strength = GetActivatorCVar("drpg_start_strength");
@@ -189,19 +184,39 @@ NamedScript Type_ENTER void Init()
         Player.Capacity = GetActivatorCVar("drpg_start_capacity");
         Player.Luck = GetActivatorCVar("drpg_start_luck");
 
+        // Total Stat Values
+        Player.StrengthTotal = Player.Strength;
+        Player.DefenseTotal = Player.Defense;
+        Player.VitalityTotal = Player.Vitality;
+        Player.EnergyTotal = Player.Energy;
+        Player.RegenerationTotal = Player.Regeneration;
+        Player.AgilityTotal = Player.Agility;
+        Player.CapacityTotal = Player.Capacity;
+        Player.LuckTotal = Player.Luck;
+
+        // Natural Bonuses
+        Player.StrengthNat = 0;
+        Player.DefenseNat = 0;
+        Player.VitalityNat = 0;
+        Player.EnergyNat = 0;
+        Player.RegenerationNat = 0;
+        Player.AgilityNat = 0;
+        Player.CapacityNat = 0;
+        Player.LuckNat = 0;
+
         // Stat XP
-        Player.StrengthXP = StatTable[Player.Strength - 1];
-        Player.DefenseXP = StatTable[Player.Defense - 1];
-        Player.VitalityXP = StatTable[Player.Vitality - 1];
-        Player.EnergyXP = StatTable[Player.Energy - 1];
-        Player.RegenerationXP = StatTable[Player.Regeneration - 1];
-        Player.AgilityXP = StatTable[Player.Agility - 1];
-        Player.CapacityXP = StatTable[Player.Capacity - 1];
-        Player.LuckXP = StatTable[Player.Luck - 1];
+        Player.StrengthXP = 0;
+        Player.DefenseXP = 0;
+        Player.VitalityXP = 0;
+        Player.EnergyXP = 0;
+        Player.RegenerationXP = 0;
+        Player.AgilityXP = 0;
+        Player.CapacityXP = 0;
+        Player.LuckXP = 0;
 
         // Default Health/EP
-        Player.EP = Player.Energy * 10;
-        Player.ActualHealth = Player.Vitality * 10;
+        Player.EP = Player.EnergyTotal * 10;
+        Player.ActualHealth = Player.VitalityTotal * 10;
         Player.PrevHealth = Player.ActualHealth;
         SetActorProperty(0, APROP_Health, Player.ActualHealth);
 
@@ -226,7 +241,7 @@ NamedScript Type_ENTER void Init()
         Player.SkillSelected = -1;
 
         // Fill Augmentation Battery
-        Player.Augs.Battery = Player.Capacity * 10;
+        Player.Augs.Battery = Player.CapacityTotal * 10;
 
         // Setup the New! shield parts arrays
         for (int i = 0; i < SHIELDPAGE_MAX; i++)
@@ -234,12 +249,6 @@ NamedScript Type_ENTER void Init()
                 Player.NewShieldParts[i][j] = true;
         for (int i = 0; i < MAX_ACCESSORIES; i++)
             Player.NewShieldAccessoryParts[i] = true;
-
-        // Setup first payout
-        Player.PayTimer = 35 * 60 * GetCVar("drpg_pay_interval");
-
-        // Build this player's GUI menu
-        CreateGUIMenu();
 
         // Done first run
         Player.FirstRun = true;
@@ -308,7 +317,7 @@ NamedScript Type_ENTER void Init()
 // Loop Script
 NamedScript void Loop()
 {
-    Start:
+Start:
 
     // If we're on the title map, terminate
     if (InTitle)
@@ -324,7 +333,6 @@ NamedScript void Loop()
     // Update Functions
     CheckCombo();
     CheckStats();
-    CheckStatBonus();
     CheckHardStatCaps();
     CheckRegen();
     CheckLuck();
@@ -352,7 +360,6 @@ NamedScript void Loop()
 
     // Handle the pulsating menu colors
     MenuCursorColor = CursorColors[(Timer() / 3) % 6];
-    PayReadyColor = PayReadyColors[(Timer() / 3) % 4];
 
     // Calculate Shop Discount
     Player.ShopDiscount = (int)((Player.RankLevel * 2.1) + (CurrentLevel->UACBase ? (Player.ShopCard * 5) : 0));
@@ -369,11 +376,11 @@ NamedScript void Loop()
     if (Player.InMenu || Player.InShop || Player.OutpostMenu > 0)
     {
         if (GetCVar("drpg_menudim") && !Player.StatusType[SE_BLIND])
-            FadeRange(0, 0, 0, 0.5, 0, 0, 0, 0.0, 0.25);
+            FadeRange(0, 0, 0, 0.65, 0, 0, 0, 0.0, 0.25);
     }
 
     // Menu-specific Help
-    if (Player.InMenu || Player.InShop || Player.OutpostMenu > 0 || Player.CrateOpen)
+    if (Player.InMenu || Player.InShop || Player.OutpostMenu > 0 || Player.CrateOpen || Player.CrateHacking)
         MenuHelp();
 
     // Menu icon in multiplayer
@@ -400,7 +407,7 @@ NamedScript void Loop()
         Player.Mass *= 128;
 
     // Apply Stats
-    SetActorPropertyFixed(Player.TID, APROP_DamageMultiplier, (1.0 + ((fixed)Player.TotalDamage / 100.0)) * (Player.DamageMult > 1 ? Player.DamageMult : 1));
+    SetActorPropertyFixed(Player.TID, APROP_DamageMultiplier, (1.0 + ((fixed)Player.TotalDamage / 100.0)) * Player.DamageMult);
     SetActorPropertyFixed(Player.TID, APROP_DamageFactor, Player.DamageFactor);
     SetActorProperty(Player.TID, APROP_Mass, Player.Mass);
     SetActorProperty(Player.TID, APROP_SpawnHealth, Player.HealthMax);
@@ -440,7 +447,7 @@ NamedScript void PlayerDamage()
     fixed LuckChance;
     fixed EnergyLevel;
 
-    Start:
+Start:
 
     // If the player's dead, terminate
     if (GetActorProperty(0, APROP_Health) <= 0) return;
@@ -514,7 +521,6 @@ NamedScript void PlayerDamage()
             StatusDamage(DamageTaken, RandomFixed(0.0, 100.0), Critical);
         ResetRegen();
         DamageHUD(DamageTaken, Critical);
-        Player.Payout.DamageTaken += DamageTaken;
     }
 
     // Reset attacker's ID and critical damage state
@@ -563,8 +569,12 @@ NamedScript void PlayerDamage()
             {
                 Player.ActualHealth = Player.HealthMax;
                 ActivatorSound("health/resurrect", 127);
+                if (!CurrentLevel->UACBase)
+                {
+                    SetInventory("ArtiTeleport", 1);
+                    UseInventory("ArtiTeleport");
+                }
                 TakeInventory("DRPGLife", 1);
-                Player.Payout.LivesUsed++;
 
                 SetHudSize(320, 200, false);
                 SetFont("BIGFONT");
@@ -613,19 +623,13 @@ NamedScript void MoneyChecker()
     int BeforeCredits;
     int AfterCredits;
 
-    Start:
+Start:
 
     BeforeCredits = CheckInventory("DRPGCredits");
 
     Delay(1);
 
     AfterCredits = CheckInventory("DRPGCredits");
-
-    // Payout
-    if (AfterCredits > BeforeCredits)
-        Player.Payout.CreditsFound += AfterCredits - BeforeCredits;
-    if (AfterCredits < BeforeCredits)
-        Player.Payout.CreditsSpent -= AfterCredits - BeforeCredits;
 
     goto Start;
 }
@@ -642,7 +646,7 @@ NamedScript DECORATE int AddHealth(int HealthPercent, int MaxPercent)
         HealthAmount = RealMax - Player.ActualHealth;
 
     // Add Vitality XP for using healing items
-    if (GetCVar("drpg_levelup_natural") && !Player.Stim.Active)
+    if (GetCVar("drpg_levelup_natural"))
     {
         fixed Scale = GetCVarFixed("drpg_vitality_scalexp");
         if (GetCVar("drpg_allow_spec"))
@@ -670,7 +674,7 @@ NamedScript DECORATE int AddHealthDirect(int HealthAmount, int MaxPercent)
         HealthAmount = RealMax - Player.ActualHealth;
 
     // Add Vitality XP for using healing items
-    if (GetCVar("drpg_levelup_natural") && !Player.Stim.Active)
+    if (GetCVar("drpg_levelup_natural"))
     {
         fixed Scale = GetCVarFixed("drpg_vitality_scalexp");
         if (GetCVar("drpg_allow_spec"))
@@ -704,7 +708,6 @@ NamedScript void GiveTip()
         { "\CjLevel",                           "Your level determines your basic strength and progress through the game. Your level is increased by killing monsters, completing missions and achieving combos.", },
         { "\CkRank",                            "Your rank determines your standing within the UAC. Rank will determine how much money you are paid by the UAC as well as the discount you will receive when purchasing items from the shop.", },
         { "\CtCombo",                           "The combo system allows you to kill enemies in rapid succession in order to gain bonus XP and Rank. When an enemy is killed, you will gain +1 to your combo counter and your combo timer will reset. When your timer reaches its cooldown point, indicated by the split between the red and green in the bar, it will add the indicated XP and Rank to your totals and calculate a bonus (the green number). If you keep incrementing your combo during the cooldown period, you can keep stacking XP and Rank into the bonus. When the combo timer ends, your combo will be completely reset and your bonus will be added to your totals.", },
-        // TODO: PP Hint
 
         // Currencies
         { "\CfCredits",                         "Credits are the universal currency used by the UAC and are used for purchasing goods in the shop.", },
@@ -741,6 +744,7 @@ NamedScript void GiveTip()
         { "\CvShield Components",               "Shields are built from 4 basic components which you can collect and customize during the game. The body is named after the manufacturer and is generally responsible for modifying the capacity of the Shield, but also evenly modifies the other stats as well. The battery is generally responsible for modifying the charge rate of the shield. The capacitor is generally responsible for modifying the charge rate and delay rate of the shield. Accessories give the shield unique effects and abilities which can be triggered in various ways.", },
         { "\CvShield Stats",                    "Each shield has 4 stats which govern it's behavior and ability. Capacity determines the total amount of charge the shield can hold. Charge Rate determines the amount the charge pool will regenerate when a charge cycle is completed. Delay Rate determines the wait time that occurs when a charge cycle is interrupted before charging will resume again. Charge interval determines the length between charge cycles.", },
         { "\CvShield Charge Cycle",             "A charging cycle occurs based on the Charge Interval (default of 1 second) and increases the Shield's charge pool, determined by the Charge Rate. When the shield is struck, the charging cycle is interrupted and a waiting period, determined by the Delay Rate, must complete before charging cycles will resume again.", },
+        { "\CvQuick Shield Recharge",           StrParam("You can quickly recharge your shield at the cost of EP by holding \Cd%jS\C- + \Cd%jS\C-.", "+speed", "+use"), },
 
         // Stims
         { "\CcStims",                           "Stims are portable injected temporary stat increases. There are three forms of Stim vials that can be encountered: Stat vials, Booster vials and Powerup vials.", },
@@ -752,7 +756,7 @@ NamedScript void GiveTip()
         { "\CdToxicity",                        "Toxicity is a measure of the radiation and toxins in your body. Toxicity is increased by taking radiation or toxin related damage, such as standing on damage floors. The higher your toxicity levels get, the more penalties you will suffer. If your toxicity levels reach 100%, you will die. Toxicity will naturally dissipate over time, the speed of which is determined by your Regeneration stat.", },
 
         // Turrets
-        { "\CdTurrets",                         "Turrets are portable sentry drones which can be built and equipped with multiple offensive and defensive upgrades and abilities to aid the user. Turrets must initially be built from turret parts, at which point the turret may be used and upgraded further as more parts become available.", },
+        { "\CdTurrets",                         "Turrets are portable sentry drones which can be built and equipped with multiple offensive and defensive upgrades. Turrets must initially be built from turret parts, at which point the turret may be used and upgraded further as more parts become available.", },
         { "\CdDestroyed Turrets",               "In the world, you will find destroyed turrets. These turrets can be scavenged for spare turret parts. Some turrets will be in better condition than others, allowing for more parts to be scavenged.", },
         { "\CdTurret Maintenance",              StrParam("Your turret will need routine maintenance performed on it in order to keep it in working condition. There are three components to maintenance: charging, repairing and refitting. Charging will charge the turret's internal battery, allowing it to stay active on the field. Repairing will patch up the turret, restoring it's health. Refitting occurs when upgrades are performed on the turret, and must be allowed to finish before the turret can be used again. In order for maintenance to begin and to continue, a steady supply of Credits will be deducted from your account. To send the turret in for maintenance, in either the turret menu or with the turret command wheel open, press \Cd%jS\C-.", "+speed"), },
         { "\CdTurret Deployment",               StrParam("To quickly deploy or deactivate your turret, use \Cd%jS\C- + \Cd%jS\C-.", "+speed", "+user2"), },
@@ -870,26 +874,26 @@ NamedScript void WeaponSpeed()
 {
     int Time;
 
-    Start:
+Start:
 
-    if (Player.Agility <= 100)
-        Time = Abs(RoundInt(Player.WeaponSpeed * 0.35 - 35.0));
+    if (Player.Stim.PowerupTimer[STIM_RAGE] > 0 || Player.WeaponSpeed >= 100 || Player.WeaponSpeed <= 0)
+        Time = 4;
     else
-        Time = 0;
+        Time = (int)(4 * (100.0 / Player.WeaponSpeed - 0.05)) + 1;
 
-    if (GetActivatorCVar("drpg_stat_weaponspeed") || Player.Stim.PowerupTimer[STIM_RAGE] > 0)
+    if (Player.Stim.PowerupTimer[STIM_RAGE] > 0 || (Player.WeaponSpeed > 0 && GetActivatorCVar("drpg_stat_weaponspeed")))
         SetInventory("DRPGSpeed", 1);
 
-    Delay((Player.Stim.PowerupTimer[STIM_RAGE] > 0 ? 1 : Time + 1));
+    Delay(Time);
     goto Start;
 }
 
 // Stat Randomizer Script
 NamedScript void StatRandomizer()
 {
-    Start:
+Start:
 
-    if (GetActivatorCVar("drpg_auto_spend") && !Player.Stim.Active)
+    if (GetActivatorCVar("drpg_auto_spend"))
     {
         while (CheckInventory("DRPGModule") > 0 && !StatsCapped())
         {
@@ -933,7 +937,7 @@ NamedScript void AutosaveHandler()
             Safe = true;
 
             if (DamageTimer < ASAVE_SAFETIME ||
-                GetActorProperty(Player.TID, APROP_Health) <= GetActorProperty(Player.TID, APROP_SpawnHealth) / 10)
+                    GetActorProperty(Player.TID, APROP_Health) <= GetActorProperty(Player.TID, APROP_SpawnHealth) / 10)
                 Safe = false;
 
             if (Safe)
@@ -955,7 +959,7 @@ NamedScript Type_OPEN void ShopSpecialHandler()
 {
     bool ValidItem;
     int Tries, MinValue, MaxValue, Category, Index;
-    Start:
+Start:
 
     // Reset the item
     if (ShopSpecialTimer <= 0)
@@ -1108,7 +1112,7 @@ NamedScript void ItemHandler()
 
             // This item was picked up or otherwise removed
             if (ClassifyActor(ItemTIDs[i]) == ACTOR_NONE || ClassifyActor(ItemTIDs[i]) == ACTOR_WORLD) continue;
-            
+
             NoClip = false;
             // Iterate players and check distances
             for (int j = 0; j < MAX_PLAYERS; j++)
@@ -1149,7 +1153,7 @@ NamedScript void ItemHandler()
             else
                 SetActorInventory(ItemTIDs[i], "DRPGItemNoClipOff", 1);
         }
-        
+
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
             // Skip this player if they aren't in the game
@@ -1160,10 +1164,10 @@ NamedScript void ItemHandler()
 
             // Skip this player if they are dead
             if (GetActorProperty(Players(i).TID, APROP_Health) <= 0) continue;
-            
-            
+
+
             int *ItemTID = (int *)Player.DropTID.Data;
-            
+
             for (int j = 0; j < Players(i).DropTID.Position; j++)
             {
                 NoClip = false;
@@ -1188,7 +1192,7 @@ NamedScript void ItemHandler()
 
                 SetActorVelocity(ItemTID[j], X, Y, Z, true, false);
                 NoClip = true;
-                
+
                 if (NoClip)
                     SetActorInventory(ItemTID[j], "DRPGItemNoClip", 1);
                 else
@@ -1204,7 +1208,7 @@ NamedScript void ItemHandler()
 NamedScript DECORATE void ItemInit()
 {
     int TID;
-    
+
     // Delay while the Items array is being initialized
     while (!ItemTIDsInitialized) Delay(1);
 
@@ -1405,13 +1409,12 @@ NamedScript KeyBind void ToggleFocusMode()
 // Focus Mode Script
 NamedScript void FocusMode()
 {
-    int PrevEP = Player.EP;
-    int RegenWindupSpeed = ((35 * 40) - ((35 * 35) * Player.Regeneration / 200));
+    int RegenWindupSpeed = ((35 * 40) - ((35 * 35) * Player.RegenerationTotal / 200));
     if (RegenWindupSpeed < 35) // Enforce a 1-second wind-up at least
         RegenWindupSpeed = 35;
     int StartWindupSpeed = RegenWindupSpeed;
     int RegenDelay = (RegenWindupSpeed * (Player.EPTime / 4)) / StartWindupSpeed;
-    int Buttons, Percent;
+    int Percent;
 
     // [KS] Someone did this!
     if (GetActorProperty(0, APROP_Health) <= 0) return;
@@ -1423,7 +1426,6 @@ NamedScript void FocusMode()
 
     while (Player.Focusing)
     {
-        Buttons = GetPlayerInput(PlayerNumber(), INPUT_BUTTONS);
         Percent = 100 - (RegenWindupSpeed * 100 / StartWindupSpeed);
         fixed X = GetActorX(0) + Cos((fixed)Timer() / 64.0) * 32.0;
         fixed Y = GetActorY(0) + Sin((fixed)Timer() / 64.0) * 32.0;
@@ -1454,7 +1456,7 @@ NamedScript void FocusMode()
             RegenDelay = (RegenWindupSpeed * (Player.EPTime / 4)) / StartWindupSpeed;
         }
 
-        if (Buttons > 0 || Player.EP >= Player.EPMax)
+        if (IsPlayerMoving() || Player.EP >= Player.EPMax)
             Player.Focusing = false;
 
         Delay(1);
@@ -1512,8 +1514,6 @@ NamedScript Type_DEATH void Dead()
         }
     }
 
-    Player.Payout.Deaths++;
-
     // Remove TID
     Thing_ChangeTID(Player.TID, 0);
 }
@@ -1553,14 +1553,14 @@ NamedScript Type_RESPAWN void Respawn()
     // Give a box of ammo if a specific ammo type is empty if the CVAR is set
     if (GetCVar("drpg_multi_restoreammo"))
     {
-        if (CheckInventory("Clip") < GetAmmoAmount("Clip") * (Player.Capacity / 10))
-            SetInventory("Clip", GetAmmoAmount("Clip") * (Player.Capacity / 10));
-        if (CheckInventory("Shell") < GetAmmoAmount("Shell") * (Player.Capacity / 10))
-            SetInventory("Shell", GetAmmoAmount("Shell") * (Player.Capacity / 10));
-        if (CheckInventory("RocketAmmo") < GetAmmoAmount("RocketAmmo") * (Player.Capacity / 10))
-            SetInventory("RocketAmmo", GetAmmoAmount("RocketAmmo") * (Player.Capacity / 10));
-        if (CheckInventory("Cell") < GetAmmoAmount("Cell") * (Player.Capacity / 10))
-            SetInventory("Cell", GetAmmoAmount("Cell") * (Player.Capacity / 10));
+        if (CheckInventory("Clip") < GetAmmoAmount("Clip") * (Player.CapacityTotal / 10))
+            SetInventory("Clip", GetAmmoAmount("Clip") * (Player.CapacityTotal / 10));
+        if (CheckInventory("Shell") < GetAmmoAmount("Shell") * (Player.CapacityTotal / 10))
+            SetInventory("Shell", GetAmmoAmount("Shell") * (Player.CapacityTotal / 10));
+        if (CheckInventory("RocketAmmo") < GetAmmoAmount("RocketAmmo") * (Player.CapacityTotal / 10))
+            SetInventory("RocketAmmo", GetAmmoAmount("RocketAmmo") * (Player.CapacityTotal / 10));
+        if (CheckInventory("Cell") < GetAmmoAmount("Cell") * (Player.CapacityTotal / 10))
+            SetInventory("Cell", GetAmmoAmount("Cell") * (Player.CapacityTotal / 10));
     }
 
     // Apply camera textures and vars
@@ -1587,7 +1587,7 @@ NamedScript Type_RESPAWN void Respawn()
     }
 
     // Quick Teleport
-    if (GetPlayerInput(PlayerNumber(), INPUT_BUTTONS) & BT_SPEED)
+    if (CheckInput(BT_SPEED, KEY_HELD, false, PlayerNumber()))
     {
         int PlayerNum = -1;
         while (PlayerNum == -1 || PlayerNum == PlayerNumber() || !PlayerInGame(PlayerNum))
@@ -1785,7 +1785,7 @@ NamedScript void Loadout_GiveAugs()
     // Active Augs
     int ActiveAugs = 0;
     int Type;
-    
+
     while (ActiveAugs < GetActivatorCVar("drpg_start_aug_amount"))
     {
         Type = Random(0, AUG_MAX - 1);
@@ -1924,18 +1924,16 @@ NamedScript void Loadout_GiveVials()
     int Vials = 0;
     int MaxVials = GetActivatorCVar("drpg_start_stim_vials");
     if (MaxVials > 3000) MaxVials = 3000;
+    int Capacity = Player.Capacity * 10;
+    int Types = 8;
+    if (GetActivatorCVar("drpg_start_stim_boosters")) Types += 2;
+    if (GetActivatorCVar("drpg_start_stim_powerups")) Types += 9;
+    if (MaxVials > Types * Capacity) MaxVials = Types * Capacity;
     int Type;
 
     while (Vials < MaxVials)
     {
         Type = Random(0, STIM_MAX - 1);
-        bool Maxed = true;
-
-        // Check to make sure all the vials aren't maxed
-        for (int i = 0; i < STIM_MAX; i++)
-            if (Player.Stim.Vials[i] < Player.Capacity * 10)
-                Maxed = false;
-        if (Maxed) break;
 
         // Don't include Boosters
         if (!GetActivatorCVar("drpg_start_stim_boosters") && Type >= StimStatsEnd && Type <= StimPowerupStart) continue;
@@ -1944,7 +1942,7 @@ NamedScript void Loadout_GiveVials()
         if (!GetActivatorCVar("drpg_start_stim_powerups") && Type >= StimPowerupStart && Type <= StimPowerupEnd) continue;
 
         // Skip this one if this vial type is full
-        if (Player.Stim.Vials[Type] >= Player.Capacity * 10) continue;
+        if (Player.Stim.Vials[Type] >= Capacity) continue;
 
         Player.Stim.Vials[Type]++;
         Vials++;
@@ -2197,9 +2195,17 @@ void CheckCompatibility()
         Log("\CdDEBUG: \C-Checking Compatibility...");
 
     CompatMode = COMPAT_NONE;
+    CompatMonMode = COMPAT_NONE;
+
+    MonsterData = MonsterDataDF;
+    MonsterDataAmount = MAX_DEF_MONSTERS_DF;
+
+    MegaBosses = MegaBossesDF;
+    MegaBossesAmount = MAX_MEGABOSSES_DF;
+
     WadSmoosh = false;
-    
-    //WadSmoosh
+
+    // WadSmoosh
     Success = SpawnForced("DRPGWadSmooshActive", 0, 0, 0, TID, 0);
     if (Success)
     {
@@ -2217,41 +2223,6 @@ void CheckCompatibility()
             Log("\CdDEBUG: \CaExtras\C- detected");
         CompatMode = COMPAT_EXTRAS;
         Thing_Remove(TID);
-        return;
-    }
-
-    // DoomRL
-    Success = SpawnForced("RLKateMatterstormHarnessArmorToken", 0, 0, 0, TID, 0);
-    if (Success)
-    {
-        if (GetCVar("drpg_debug"))
-            Log("\CdDEBUG: \CdDoomRL \C-detected");
-        CompatMode = COMPAT_DRLA;
-        SetInventory("DRPGDRLAActive", 1);
-        Thing_Remove(TID);
-
-        Success = SpawnForced("RLBaronOfHell", 0, 0, 0, TID, 0);
-        if (!Success)
-        {
-            SetHudSize(640, 480);
-            FadeRange(0, 0, 0, 1.0, 0, 0, 0, 1.0, 0);
-
-            HudMessage("\CgLISTEN UP\n\n\C-You currently have \CfDoomRL Arsenal\C- loaded. In order for this mod to work with DoomRPG, you also need the \CfDoomRL Monster Pack\C-. Go here to download it: http://tinyurl.com/DoomRLArsenal\n\nThanks.");
-            EndHudMessageBold(HUDMSG_PLAIN | HUDMSG_LOG, 772, "White", 0.1, 0.1, 0.01);
-
-            SetFont("BigFont");
-            HudMessage("LISTEN UP");
-            EndHudMessageBold(HUDMSG_PLAIN, 772, "Red", 320.4, 200.0, 0.01);
-
-            SetFont("SmallFont");
-            HudMessage("You currently have \CfDoomRL Arsenal\C- loaded. In order for this mod to work with DoomRPG, you also need the \CfDoomRL Monster Pack\C-. Go here to download it: http://tinyurl.com/DoomRLArsenal\n\nThanks.");
-            EndHudMessageBold(HUDMSG_PLAIN, 773, "White", 320.4, 232.0, 0.01);
-        }
-        else
-        {
-            Thing_Remove(TID);
-            return;
-        }
     }
 
     // LegenDoom
@@ -2260,10 +2231,55 @@ void CheckCompatibility()
     {
         if (GetCVar("drpg_debug"))
             Log("\CdDEBUG: \CdLegenDoom\C- detected");
+
         CompatMode = COMPAT_LEGENDOOM;
+        CompatMonMode = COMPAT_LEGENDOOM;
+        MonsterData = MonsterDataLD;
         Thing_Remove(TID);
-        return;
     }
+
+    // DoomRL Arsenal
+    Success = SpawnForced("RLPistolPickup", 0, 0, 0, TID, 0);
+    if (Success)
+    {
+        if (GetCVar("drpg_debug"))
+            Log("\CdDEBUG: \CdDoomRL \C-detected");
+
+        CompatMode = COMPAT_DRLA;
+        SetInventory("DRPGDRLAActive", 1);
+        Thing_Remove(TID);
+    }
+
+    // DoomRL Monsters
+    Success = SpawnForced("RLBaronOfHell", 0, 0, 0, TID, 0);
+    if (Success)
+    {
+        if (GetCVar("drpg_debug"))
+            Log("\CdDEBUG: \CdDoomRL Monsters \C-detected");
+
+        CompatMonMode = COMPAT_DRLA;
+        MonsterData = MonsterDataDRLA;
+        MonsterDataAmount = MAX_DEF_MONSTERS_DRLA;
+        Thing_Remove(TID);
+    }
+
+    // Colourful Hell
+    Success = SpawnForced("RedZombie", 0, 0, 0, TID, 0);
+    if (Success)
+    {
+        if (GetCVar("drpg_debug"))
+            Log("\CdDEBUG: \CdColourful Hell \C-detected");
+
+        CompatMonMode = COMPAT_CH;
+        MonsterData = MonsterDataCH;
+        MonsterDataAmount = MAX_DEF_MONSTERS_CH;
+        MegaBosses = MegaBossesCH;
+        MegaBossesAmount = MAX_MEGABOSSES_CH;
+        Thing_Remove(TID);
+    }
+
+    if (GetCVar("drpg_debug") && CompatMode == COMPAT_NONE && CompatMonMode == COMPAT_NONE && !WadSmoosh)
+        Log("\CdDEBUG: \C-No compatible mods found");
 }
 
 void AssignTIDs()

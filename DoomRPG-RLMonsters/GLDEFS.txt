@@ -212,7 +212,9 @@ pointlight SHADOW
 	dontlightself 1
 }
 
-object RLNightmareDemonTeleportEffect { frame NDEM { light SHADOW } }
+object RLNightmareDemonTeleportEffect1 { frame NDEM { light SHADOW } }
+object RLNightmareDemonTeleportEffect2 { frame NDEM { light SHADOW } }
+object RLNightmareDemonTeleportEffect3 { frame NDEM { light SHADOW } }
 
 pointlight NSPECTREGLOW
 {
@@ -220,7 +222,14 @@ pointlight NSPECTREGLOW
 	size 32
 }
 
-object RLNightmareSpectreTrail { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailA { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailB { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailC { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailD { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailE { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailF { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailG { frame NSPE { light NSPECTREGLOW } }
+object RLNightmareSpectreTrailH { frame NSPE { light NSPECTREGLOW } }
 
 pointlight NSOUL
 {

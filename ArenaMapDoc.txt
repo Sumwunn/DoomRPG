@@ -1,0 +1,51 @@
+How to make a map compatible with DRPGs arena system (rough, UDMF only).
+
+Map marker:
+You must have your Map Marker start out as DAMxx (e.g. DAM02) for organisation.
+DAMxx = DRPG Arena Map + Number.
+
+Monsters:
+Instead of placing monster spawns, you must use Map Spots with a TID of 1100 between 1129. DRPG picks TIDs at random to spawn monsters at different spots. You can have duplicate TIDs placed.
+
+Identifier:
+You must place a Thing with an type of 31001. This allows DRPG to correctly identify the map as an arena.
+
+Items:
+I do not recommend placing many items around the map as the player will generally get something at the end of each wave and they also can resupply via skills/focusing and dropping ammo packs.  
+
+Maps exits:
+Use Exit_Normal. This will be automatically handled via DRPGs exit script.
+
+Sectors:
+Give all your sectors an ID of 100. This allows DRPG to modify said sectors for the Arenas mini events (Foggy, pitch black... etc).
+
+Scripts:
+Lastly you must have a means of activating the arena which requires calling two separate scripts.
+The first script must be repeatable and ensures that all players are ready. I recommend having this as a crossable line or switch.
+The second script must be repeatable and starts the arena. I recommend having this as a crossable line or switch.
+The third script must be repeatable and allows the players to select the wave the wish to start on.
+They must not be called both at once. Both means of activation must be separate. 
+
+Optional, but I recommend placing key'd doors with pickups inside incase the player gets lucky and gets a key drop.
+
+Below is ready to use ACS for your map.
+
+#include "zcommon.acs"
+
+// Enable/Disable the Arena
+script 1 (void)
+{
+    ACS_NamedExecute("ToggleArena", 0);
+}
+
+// Passed the Arena line
+script 2 (void)
+{
+    ACS_NamedExecute("PassArenaLine", 0);
+}
+
+// Select Arena Wave
+script 3 (void)
+{
+    ACS_NamedExecute("SelectArenaWave", 0);
+}

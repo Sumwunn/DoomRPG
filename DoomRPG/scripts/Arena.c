@@ -4,7 +4,9 @@
 #include "RPG.h"
 #include "Utils.h"
 #include "Outpost.h"
+#include "Map.h"
 #include "Menu.h"
+#include "Monsters.h"
 
 int RPGGlobal ArenaMaxWave;
 
@@ -26,13 +28,13 @@ int RPGMap ArenaKey;
 
 str const ArenaMods[AMOD_MAX] =
 {
-	"None",
+    "None",
     "\CgNo Regeneration"
 };
 
 str const ArenaEvents[AEVENT_MAX] =
 {
-	"None",
+    "None",
     "\CmBlackout",
     "\CjFoggy",
     "\CiThe Floor is Lava",
@@ -56,21 +58,13 @@ str const ArenaBonus[ABONUS_MAX] =
     "\CjKey Drop"
 };
 
-str const ArenaMonsters[MAX_DEF_MONSTERS] =
-{
-    "ZombieMan", "ShotgunGuy", "DoomImp", "Demon", "Spectre", "ChaingunGuy",
-    "HellKnight", "BaronOfHell", "Cacodemon", "LostSoul",
-    "PainElemental", "Revenant", "Fatso", "Arachnotron", "ArchVile",
-    "Cyberdemon", "SpiderMastermind"
-};
-
 // Arena Script
 NamedScript MapSpecial void ArenaLoop()
 {
-    int BonusRandomizer, Buttons, OldButtons;
+    int BonusRandomizer;
     bool Ready;
     ArenaSetEnvironment(AEVENT_NONE);
-    
+
     // Arena Loop
     while (true)
     {
@@ -80,10 +74,10 @@ NamedScript MapSpecial void ArenaLoop()
             ArenaStop();
             return;
         }
-        
+
         // Arena HUD
         ArenaDrawHUD();
-        
+
         // Arena Status Handling
         if (ArenaState == ARENA_INTERMISSION)
         {
@@ -96,28 +90,26 @@ NamedScript MapSpecial void ArenaLoop()
         }
         else if (ArenaState == ARENA_WAITING)
         {
-            Buttons = GetPlayerInput(ArenaPlayerNumber, INPUT_BUTTONS);
-            OldButtons = GetPlayerInput(ArenaPlayerNumber, INPUT_OLDBUTTONS);
             Ready = true;
-            
+
             SetHudSize(0, 0, false);
             SetFont("BIGFONT");
-            
+
             if (ArenaPlayerNumber == PlayerNumber())
             {
                 if (!Player.InMenu && !Player.InShop && !Player.OutpostMenu)
                 {
-                    HudMessage("Hold \Cd%jS\C- to start the next wave\nHold \Cd%jS\C- to exit the Arena", "+use" , "+speed");
+                    HudMessage("Hold \Cd%jS\C- to start the next wave\nHold \Cd%jS\C- to end the Arena", "+use", "+speed");
                     EndHudMessage(HUDMSG_PLAIN, 0, "White", 1.5, 0.75, 0.05);
                 }
-                
-                if (Buttons & BT_USE && (!Player.InMenu && !Player.InShop && !Player.OutpostMenu && !Player.CrateOpen) && !Player.MenuBlock)
+
+                if (CheckInput(BT_USE, KEY_HELD, false, ArenaPlayerNumber) && (!Player.InMenu && !Player.InShop && !Player.OutpostMenu && !Player.CrateOpen) && !Player.MenuBlock)
                 {
                     // Check to see if others are still in the menu
                     for (int i = 0; i < MAX_PLAYERS; i++)
                         if (Players(i).InMenu || Players(i).InShop)
                             Ready = false;
-                    
+
                     if (Ready)
                     {
                         ArenaKeyTimer++;
@@ -135,7 +127,7 @@ NamedScript MapSpecial void ArenaLoop()
                                     Delay(35);
                                 }
                             }
-                            
+
                             ArenaWave++;
                             ArenaState = ARENA_READY;
                         }
@@ -146,7 +138,7 @@ NamedScript MapSpecial void ArenaLoop()
                         ActivatorSound("menu/error", 127);
                     }
                 }
-                else if (Buttons & BT_SPEED && (!Player.InMenu && !Player.InShop && !Player.OutpostMenu && !Player.CrateOpen))
+                else if (CheckInput(BT_SPEED, KEY_HELD, false, ArenaPlayerNumber) && (!Player.InMenu && !Player.InShop && !Player.OutpostMenu && !Player.CrateOpen))
                 {
                     ArenaKeyTimer++;
                     ArenaKeyTimerType = AKTIMER_STOP;
@@ -158,9 +150,9 @@ NamedScript MapSpecial void ArenaLoop()
                 }
                 else
                     ArenaKeyTimer = 0;
-                
+
                 // Reset menu block
-                if (Buttons == 0 && OldButtons == 0)
+                if (CheckInput(0, KEY_ANYIDLE, false, ArenaPlayerNumber))
                     Player.MenuBlock = false;
             }
         }
@@ -169,15 +161,15 @@ NamedScript MapSpecial void ArenaLoop()
             // Clean corpses every couple of waves
             if (ArenaWave > 1 && (ArenaWave % 5) == 0)
                 Thing_Remove(ArenaMonstersTID);
-            
+
             // Change up the music
             if (ArenaWave > 1 && (ArenaWave % 10) == 0)
                 ArenaSetMusic();
-            
+
             // Update the global Max Wave
             if (ArenaWave >= ArenaMaxWave)
                 ArenaMaxWave = ArenaWave;
-            
+
             ArenaMod = Random(-10, AMOD_MAX - 1);
             ArenaSetEnvironment(AEVENT_RANDOM);
             ArenaSpawnMobs();
@@ -192,7 +184,7 @@ NamedScript MapSpecial void ArenaLoop()
             if (ArenaTimerActive && ArenaTimer > 0)
                 ArenaTimer--;
         }
-        
+
         Delay(1);
     }
 }
@@ -204,19 +196,19 @@ NamedScript MapSpecial void ArenaStop()
         ArenaState = ARENA_WAITING;
     else
         ArenaState = ARENA_READY;
-    
+
     ArenaActive = false;
-    
+
     if (ArenaWave >= ArenaMaxWave)
         ArenaMaxWave = ArenaWave;
-    
+
     ArenaPlayerNumber = -1;
     ArenaCount = 0;
     ArenaMod = -1;
     ArenaSetEnvironment(AEVENT_NONE);
-    
+
     SetOutpostMusic((PowerOut ? OUTPOST_MUSIC_LOWPOWER : OUTPOST_MUSIC_NORMAL));
-    
+
     Ceiling_RaiseByValue(ArenaSectorTag - 1, 64, 128);
     Thing_Remove(ArenaMonstersTID);
 }
@@ -226,10 +218,10 @@ NamedScript MapSpecial void SetArena(int Wave, int Environment, int Bonus)
 {
     if (Wave > 0)
         ArenaWave = Wave;
-    
+
     if (Environment >= 0)
         ArenaSetEnvironment(Environment);
-    
+
     if (Bonus >= 0)
         ArenaGetBonus(Bonus);
 }
@@ -239,50 +231,52 @@ NamedScript MapSpecial void ArenaChooseBonus()
     int BonusChoice = 1;
     bool CanChooseKey = false;
     fixed X, Y;
-    int Buttons, OldButtons;
-    
+
     // There's a 1/4 chance you can use Drop Key
     if (Random(1, 4) == 1) CanChooseKey = true;
-    
+
     Player.OutpostMenu = OMENU_BONUSSELECTOR;
-    
+
     while (true)
     {
-        X = 48.1;
-        Y = 50.0;
-        Buttons = GetPlayerInput(PlayerNumber(), INPUT_BUTTONS);
-        OldButtons = GetPlayerInput(PlayerNumber(), INPUT_OLDBUTTONS);
-        
+        X = 150.1;
+        Y = 100.0;
+
         SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
-        
+
         // Prevent the menus from being opened
         Player.InMenu = false;
         Player.InShop = false;
-        
+
         // Set the HUD Size
         SetHudSize(GetActivatorCVar("drpg_menu_width"), GetActivatorCVar("drpg_menu_height"), true);
-        
+
+        // Draw Border
+        // These are pushed back a bit so the border doesn't overlap anything
+        if (GetActivatorCVar("drpg_menu_background_border"))
+            DrawBorder("Bor", -1, 8, -5.0, 0.0, 470, 470);
+
         // Title
         SetFont("BIGFONT");
         HudMessage("Choose a Bonus");
-        EndHudMessage(HUDMSG_PLAIN, 0, "Green", 24.1, 24.0, 0.05);
-        
+        EndHudMessage(HUDMSG_PLAIN, 0, "Green", 150.1, 50.0, 0.05);
+
         // Input
-        if (Buttons == BT_FORWARD && OldButtons != BT_FORWARD)
+        if (CheckInput(BT_FORWARD, KEY_ONLYPRESSED, false, PlayerNumber()))
         {
             ActivatorSound("menu/move", 127);
             BonusChoice--;
             if (BonusChoice < 1) BonusChoice = ABONUS_MAX - (CanChooseKey ? 1 : 2);
             if (BonusChoice == ABONUS_MODDROP && CompatMode != COMPAT_DRLA) BonusChoice--;
         }
-        if (Buttons == BT_BACK && OldButtons != BT_BACK)
+        if (CheckInput(BT_BACK, KEY_ONLYPRESSED, false, PlayerNumber()))
         {
             ActivatorSound("menu/move", 127);
             BonusChoice++;
             if (BonusChoice == ABONUS_MODDROP && CompatMode != COMPAT_DRLA) BonusChoice++;
             if (BonusChoice > ABONUS_MAX - (CanChooseKey ? 1 : 2)) BonusChoice = 1;
         }
-        if (Buttons == BT_USE && OldButtons != BT_USE)
+        if (CheckInput(BT_USE, KEY_ONLYPRESSED, false, PlayerNumber()))
         {
             SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
             ArenaGetBonus(BonusChoice);
@@ -290,31 +284,31 @@ NamedScript MapSpecial void ArenaChooseBonus()
             Player.MenuBlock = true;
             return;
         }
-            
+
         // Drawing
         for (int i = 1; i < ABONUS_MAX; i++)
         {
             // Skip Mod Drop if DRLA extension isn't enabled
             if (i == ABONUS_MODDROP && CompatMode != COMPAT_DRLA) continue;
-            
+
             // Skip Key Drop if the randomizer hates you
             if (i == ABONUS_KEYDROP && !CanChooseKey) continue;
-            
+
             // Cursor
             if (i == BonusChoice)
             {
                 HudMessage("-->");
-                EndHudMessage(HUDMSG_PLAIN, 0, MenuCursorColor, X - 24.0, Y, 0.05);
+                EndHudMessage(HUDMSG_PLAIN, 0, MenuCursorColor, X - 25.0, Y, 0.05);
             }
-            
+
             // Bonus String
             HudMessage("%S", ArenaBonus[i]);
             EndHudMessage(HUDMSG_PLAIN, 0, "White", X, Y, 0.05);
-            
+
             // Move down Y
             Y += 16.0;
         }
-        
+
         Delay(1);
     }
 }
@@ -323,11 +317,11 @@ void ArenaGetBonus(int Bonus)
 {
     int SpawnAmount = ArenaWave * 5;
     str SpawnItem;
-    
+
     // Cap the spawn amount so the game doesn't lag and crash into oblivion
     if (SpawnAmount > 1000)
         SpawnAmount = 1000;
-    
+
     switch (Bonus)
     {
     case ABONUS_SELECT: // Choose Your Own!
@@ -353,7 +347,7 @@ void ArenaGetBonus(int Bonus)
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
             if (!PlayerInGame(i)) continue;
-            
+
             GiveActorInventory(Players(i).TID, "DRPGCredits", SpawnAmount);
         }
         break;
@@ -412,7 +406,7 @@ void ArenaGetBonus(int Bonus)
         if (ArenaKey == 4) SpawnItem = "DRPGYellowSkull";
         if (ArenaKey == 5) SpawnItem = "DRPGBlueSkull";
         if (ArenaKey == 6)
-        { 
+        {
             ArenaGetBonus(Random(0, ABONUS_MAX - 1));
             return;
         }
@@ -421,7 +415,7 @@ void ArenaGetBonus(int Bonus)
         ActivatorSound("arena/keydrop", 127);
         break;
     }
-    
+
     // Bonus Message
     if (Bonus > 0)
     {
@@ -439,32 +433,30 @@ void DropArenaItem(str Item)
     int TID;
     bool Success;
     fixed X, Y, Z, XSpeed, YSpeed, ZSpeed;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
     {
         if (!PlayerInGame(i)) continue;
-        
+
         TID = UniqueTID();
-        Success = false;
         X = GetActorX(Players(i).TID);
         Y = GetActorY(Players(i).TID);
         Z = GetActorCeilingZ(Players(i).TID) - 32.0;
         XSpeed = GetCVarFixed("drpg_monster_dropdist");
         YSpeed = GetCVarFixed("drpg_monster_dropdist");
         ZSpeed = 8.0;
-        
-        SpawnForced("DRPGTurretTeleport", X, Y, Z, 0, 0);
+
         Success = SpawnForced(Item, X, Y, Z, TID, 0);
-        
+
         if (Success)
         {
             // Set Velocity
             SetActorVelocity(TID, RandomFixed(-XSpeed, XSpeed), RandomFixed(-YSpeed, YSpeed), ZSpeed, false, false);
-            
+
             // Array has grown too big, resize it
             if (Players(i).DropTID.Position == Players(i).DropTID.Size)
                 ArrayResize(&Players(i).DropTID);
-            
+
             // Add item's TID to drop array
             ((int *)Players(i).DropTID.Data)[Players(i).DropTID.Position++] = TID;
         }
@@ -475,13 +467,13 @@ void ArenaDrawHUD()
 {
     fixed X = GetActivatorCVar("drpg_event_x") + 0.1;
     fixed Y = GetActivatorCVar("drpg_event_y") + 0.1;
-    
+
     // Don't draw the HUD if you're in a menu
     if (Player.InMenu || Player.InShop || Player.OutpostMenu > 0) return;
-    
+
     SetHudSize(GetActivatorCVar("drpg_hud_width"), GetActivatorCVar("drpg_hud_height"), false);
     SetFont("SMALLFONT");
-    
+
     // Wave
     HudMessage("Wave: %d", ArenaWave);
     EndHudMessageBold(HUDMSG_PLAIN, 0, "Green", X, Y, 0.05);
@@ -494,7 +486,7 @@ void ArenaDrawHUD()
         EndHudMessageBold(HUDMSG_PLAIN, 0, "Green", X, Y, 0.05);
         Y += 8.0;
     }
-    
+
     // Timer
     if (ArenaTimerActive && ArenaTimer > 0)
     {
@@ -502,7 +494,7 @@ void ArenaDrawHUD()
         EndHudMessageBold(HUDMSG_PLAIN, 0, "White", X, Y, 0.05);
         Y += 8.0;
     }
-    
+
     // Mod
     if (ArenaMod > 0)
     {
@@ -518,19 +510,23 @@ void ArenaDrawHUD()
         EndHudMessageBold(HUDMSG_PLAIN, 0, "White", X, Y, 0.05);
         Y += 8.0;
     }
-    
+
     // Cancel Timer
     if (ArenaKeyTimer > 0 && ArenaKeyTimer <= ARENA_HOLDTIME)
     {
         int Percent = CalcPercent(ArenaKeyTimer, ARENA_HOLDTIME);
         str Text;
-        
+
         switch (ArenaKeyTimerType)
         {
-        case AKTIMER_STOP:      Text = "Stopping Arena";    break;
-        case AKTIMER_CONTINUE:  Text = "\CaNext Wave";      break;
+        case AKTIMER_STOP:
+            Text = "Stopping Arena";
+            break;
+        case AKTIMER_CONTINUE:
+            Text = "\CaNext Wave";
+            break;
         }
-        
+
         DrawProgressBar(Text, Percent);
     }
 }
@@ -548,9 +544,51 @@ void ArenaCheckMod()
 
 void ArenaSpawnMobs()
 {
-    int MonsterID = 1;
+    int MonsterDiffLimit = 2 + ArenaWave;
     int Spawned;
-    
+    int SpawnChanceModifier;
+    bool Boss = false;
+
+    // [SW] Not enough monsters spawn in the Oblige Arena however it could get crowded in the UAC arena so lets have separate values for both.
+    if (CurrentLevel->UACArena)
+        SpawnChanceModifier = 1;
+    else
+        SpawnChanceModifier = 5;
+
+    // Slots 0 - 2 are for normal monsters. Slot 3 is for boss. Slot 4 is NULL.
+    MonsterInfoPtr MonsterList[3];
+    MonsterInfoPtr TempMonster;
+    // Store 3 monster actors.
+    for (int i = 0; i < (2 + 1); i++)
+    {
+        TempMonster = &MonsterData[Random(0, MonsterDataAmount - 1)];
+
+        // Skip bosses & monsters above difficulty limit.
+        if (!TempMonster->Boss && TempMonster->Difficulty <= MonsterDiffLimit)
+        {
+            MonsterList[i] = TempMonster;
+        }
+        else
+            i--;
+    }
+    // Decide if boss should spawn.
+    Boss = (ArenaWave >= 50) && !Random(0, 8);
+    // Store 1 boss actor.
+    // This was a part of the above loop but was separated because it could complete before a boss was found.
+    if (Boss)
+        for (int i = 0; i < 1; i++)
+        {
+            TempMonster = &MonsterData[Random(0, MonsterDataAmount - 1)];
+
+            if (TempMonster->Boss)
+            {
+                MonsterList[3] = TempMonster;
+            }
+            else
+                i--;
+        }
+
+    // Monsters.
     for (int i = ArenaSpotSpawns; i <= ArenaSpotSpawns + 30; i++)
     {
         // Check to make sure there wasn't a chance that nothing at all spawned
@@ -561,35 +599,25 @@ void ArenaSpawnMobs()
             else
                 break;
         }
-        
-        // Get a random monster from the list
-        MonsterID = Random(-5, ArenaWave / 5);
-        
-        if (MonsterID > 14)
-            MonsterID = 14;
-        
-        if (MonsterID < 0)
-            MonsterID = 0;
-        
+
         // Spawn the monster
-        if (!Random(0, 2) && SpawnSpotFacing(ArenaMonsters[MonsterID], i, ArenaMonstersTID))
+        if (!Random(0, SpawnChanceModifier) > 0 && SpawnSpotFacing(MonsterList[Random(0, 2)]->Actor, i, ArenaMonstersTID))
         {
             SpawnSpotForced("TeleportFog", i, 0, 0);
             Spawned++;
         }
     }
-    
-    bool Boss = (ArenaWave >= 75) && !Random(0, 7);
-    
+
+    // Bosses.
     if (Boss)
     {
         int SpotTID;
-        
+
         for (int i = 0; i < 32; i++)
         {
             SpotTID = ArenaSpotSpawns + Random(0, 30);
-            
-            if (SpawnSpotFacing(ArenaMonsters[Random(15, 16)], SpotTID, ArenaMonstersTID))
+
+            if (SpawnSpotFacing(MonsterList[3]->Actor, SpotTID, ArenaMonstersTID))
             {
                 SpawnSpot("TeleportFog", SpotTID, 0, 0);
                 break;
@@ -601,13 +629,19 @@ void ArenaSpawnMobs()
 void ArenaSetEnvironment(int ID)
 {
     int R, G, B;
-    
+
     if (ID == AEVENT_RANDOM)
     {
         int EnvironmentRandomizer = Random(-10, AEVENT_MAX - 1);
         if (EnvironmentRandomizer > 0)
             ID = EnvironmentRandomizer;
     }
+
+    // Avoiding lava for Arena WADs because mucking with the floor texture is too much compatibility wise.
+    // Swapping it for Fog.
+    if (CurrentLevel->UACArena)
+        if (ID == AEVENT_LAVA)
+            ID = AEVENT_FOGGY;
 
     switch (ID)
     {
@@ -618,9 +652,13 @@ void ArenaSetEnvironment(int ID)
         Sector_SetFade(ArenaSectorTag, 0, 0, 0);
         Sector_SetFade(ArenaSectorTag + 1, 0, 0, 0);
         Sector_SetFade(ArenaSectorTag + 2, 0, 0, 0);
-        ChangeFloor(ArenaSectorTag, "CEIL5_1");
-        ChangeFloor(ArenaSectorTag + 1, "CEIL5_2");
-        ChangeFloor(ArenaSectorTag + 2, "FLAT3");
+        // Only for UAC Arena.
+        if (!CurrentLevel->UACArena)
+        {
+            ChangeFloor(ArenaSectorTag, "CEIL5_1");
+            ChangeFloor(ArenaSectorTag + 1, "CEIL5_2");
+            ChangeFloor(ArenaSectorTag + 2, "FLAT3");
+        }
         Sector_SetDamage(ArenaSectorTag, 0, 0);
         Sector_SetDamage(ArenaSectorTag + 1, 0, 0);
         Sector_SetDamage(ArenaSectorTag + 2, 0, 0);
@@ -658,7 +696,7 @@ void ArenaSetEnvironment(int ID)
         Sector_SetColor(ArenaSectorTag + 2, 255, 255, 255, 255);
         break;
     }
-    
+
     ArenaEnvironment = ID;
 }
 

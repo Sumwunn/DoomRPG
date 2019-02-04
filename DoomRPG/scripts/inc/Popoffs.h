@@ -8,7 +8,6 @@ NamedScript void InfoPopoffs();
 NamedScript DECORATE void ModulePopoffs();
 
 void Popoff(int, int, int, str, bool);
-int GetDigit(int, int);
 int GetDamageNumbersDelay();
 
 #endif

@@ -31,7 +31,6 @@ void CheckLevel();
 void CheckRank();
 void CheckHealth();
 void CheckStats();
-void CheckStatBonus();
 void CheckRegen();
 void DoRegen();
 void ResetRegen();

@@ -536,39 +536,39 @@ str NameColors[NAME_MAX_COLORS] =
 str GenerateName(str Actor, str Tag)
 {
     // Humans
-    if (CompatMode == COMPAT_DRLA)
+    if (CompatMonMode == COMPAT_DRLA)
     {
         if (Contains(Tag, "Human"))
         {
             bool Female = false;
-            
+
             // Check female actors
             if (!StrICmp(Actor, "RLFormerHumanBattleRifle3RPG") || !StrICmp(Actor, "RLEliteHumanBattleRifle2RPG"))
                 Female = true;
-            
+
             return GenerateZombieName(Female);
         }
     }
     else // Vanilla/Extras
     {
-        if (Contains(Actor, "ZombieMan", true) || 
-            Contains(Actor, "ShotgunGuy", true) ||
-            Contains(Actor, "ChaingunGuy", true))
+        if (Contains(Actor, "ZombieMan", true) ||
+                Contains(Actor, "ShotgunGuy", true) ||
+                Contains(Actor, "ChaingunGuy", true))
             return GenerateZombieName(false);
     }
-    
+
     // Marines
     if (Contains(Tag, "Marine"))
     {
         bool Female = false;
-        
+
         // Check female actors
         if (!StrICmp(Actor, "DRPGMarineFemGuardBattleRifle") || !StrICmp(Actor, "DRPGMarineFemBattleRifle"))
             Female = true;
-        
+
         return GenerateMarineName(Female);
     }
-    
+
     // Megabosses
     if (Contains(Actor, "Megaboss"))
     {
@@ -577,11 +577,11 @@ str GenerateName(str Actor, str Tag)
         if (!StrICmp(Tag, "Sloth"))
             return GenerateMegabossName(6);
     }
-    
+
     // Heavy and Super Powersuits
     if (Contains(Actor, "PowerSuit"))
         return GeneratePowersuitName();
-    
+
     // Monster
     return GenerateMonsterName();
 }
@@ -597,37 +597,37 @@ str GenerateMonsterName()
     str Name;
     str Suffix;
     str FinalName;
-    
+
     // Pick Prefix
     PrefixPick = Random(0, NAME_MAX_SHARED - 1);
     while (Prefix2Pick == PrefixPick)
         Prefix2Pick = Random(0, NAME_MAX_SHARED - 1);
-    
+
     // Pick Name
     NamePick = Random(0, NAME_MAX_DEMON_NAMES - 1);
-    
+
     // Pick Suffix
     if (CheckFlag(0, "BOSS"))
         SuffixPick = Random(0, NAME_MAX_BOSS_SUFFIXES - 1);
     else
         SuffixPick = Random(0, NAME_MAX_SHARED - 1);
-    
+
     // Apply Prefix
     Prefix = SharedPool[PrefixPick];
     Prefix2 = SharedPool[Prefix2Pick];
-    
+
     // Apply Name
     Name = DemonNames[NamePick];
-    
+
     // Apply Suffix
     if (CheckFlag(0, "BOSS"))
         Suffix = BossSuffixes[SuffixPick];
     else
         Suffix = SharedPool[SuffixPick];
-    
+
     // Pick Color
     str Color = NameColors[Random(0, NAME_MAX_COLORS - 1)];
-    
+
     // Determine the format of the name
     int NameType = 1;
     if (CheckFlag(0, "BOSS"))
@@ -639,16 +639,26 @@ str GenerateMonsterName()
     }
     else
         NameType = Random(1, 5);
-    
+
     switch (NameType)
     {
-    case 1: FinalName = StrParam("%S%S %S, the %S", Color, Prefix, Name, Suffix); break; // (Prefix) (Name) the (Suffix)
-    case 2: FinalName = StrParam("%S%S %S", Color, Prefix, Name);                 break; // (Prefix) (Name)
-    case 3: FinalName = StrParam("%S%S the %S", Color, Name, Suffix);             break; // (Name) the (Suffix)
-    case 4: FinalName = StrParam("%S%S", Color, Name);                            break; // (Name)
-    case 5: FinalName = StrParam("%S%S, %S %S", Color, Prefix, Prefix2, Name);    break; // (Prefix) (Prefix) (Name)
+    case 1:
+        FinalName = StrParam("%S%S %S, the %S", Color, Prefix, Name, Suffix);
+        break; // (Prefix) (Name) the (Suffix)
+    case 2:
+        FinalName = StrParam("%S%S %S", Color, Prefix, Name);
+        break; // (Prefix) (Name)
+    case 3:
+        FinalName = StrParam("%S%S the %S", Color, Name, Suffix);
+        break; // (Name) the (Suffix)
+    case 4:
+        FinalName = StrParam("%S%S", Color, Name);
+        break; // (Name)
+    case 5:
+        FinalName = StrParam("%S%S, %S %S", Color, Prefix, Prefix2, Name);
+        break; // (Prefix) (Prefix) (Name)
     }
-    
+
     return FinalName;
 }
 
@@ -661,7 +671,7 @@ str GenerateZombieName(bool Female)
     str FirstName = (Female ? FemaleNames[FirstNamePick] : MaleNames[FirstNamePick]);
     str LastName = LastNames[LastNamePick];
     str Color = NameColors[Random(0, NAME_MAX_COLORS - 1)];
-    
+
     return StrParam("%S%S %S %S", Color, Rank, FirstName, LastName);
 }
 
@@ -673,20 +683,20 @@ str GenerateMarineName(bool Female)
     str Rank = MarineRanks[RankPick];
     str FirstName = (Female ? FemaleNames[FirstNamePick] : MaleNames[FirstNamePick]);
     str LastName = LastNames[LastNamePick];
-    
+
     return StrParam("%S %S %S", Rank, FirstName, LastName);
 }
 
 str GenerateMegabossName(int SuffixIndex)
 {
     int Pick = Random(0, NAME_MAX_DEMON_NAMES - 1);
-    
+
     return StrParam("%S %S", DemonNames[Pick], MegabossSuffixes[SuffixIndex]);
 }
 
 str GeneratePowersuitName()
 {
     int Pick = Random(0, NAME_MAX_SUIT - 1);
-    
+
     return StrParam("%S", PowersuitNames[Pick]);
 }

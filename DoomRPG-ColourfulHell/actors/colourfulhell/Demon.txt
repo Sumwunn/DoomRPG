@@ -1,0 +1,201 @@
+// --------------------------------------------------
+// Demon
+//
+
+// Demon Spawner
+ACTOR Colourset5RPG : Colourset5 Replaces DRPGDemon
+{
+}
+
+// Common Demon
+ACTOR CommonDemonRPG : CommonDemon Replaces CommonDemon
+{
+	Tag "Demon"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Demon
+ACTOR GreenDemonRPG : GreenDemon Replaces GreenDemon
+{
+	Tag "Uncommon Demon"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Demon
+ACTOR BlueDemonRPG : BlueDemon Replaces BlueDemon
+{
+	Tag "Rare Demon"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Demon
+ACTOR PurpleDemonRPG : PurpleDemon Replaces PurpleDemon
+{
+	Tag "Epic Demon"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Demon
+ACTOR YellowDemonRPG : YellowDemon Replaces YellowDemon
+{
+	Tag "Legendary Demon"
+
+	States
+	{
+	Spawn:
+		SRG2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SRG2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Demon
+ACTOR RedDemonRPG : RedDemon Replaces RedDemon
+{
+	Tag "Demonic Demon"
+
+	States
+	{
+	Spawn:
+		SRG2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SRG2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Demon
+ACTOR BlackDemon3RPG : BlackDemon3 Replaces BlackDemon3
+{
+	Tag "The Butcher"
+
+	States
+	{
+	Spawn:
+		BCHR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BCHR A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Butcher's Hounds
+ACTOR WHOLETTHEDOGSOUTRPG : WHOLETTHEDOGSOUT Replaces WHOLETTHEDOGSOUT
+{
+	Tag "Butcher's Hound"
+
+	States
+	{
+	Spawn:
+		HDOG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		HDOG A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// White Demon
+ACTOR WhiteDemon2RPG : WhiteDemon2 Replaces WhiteDemon2
+{
+	Tag "The Juggernaut"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Gray Demon
+ACTOR GreyDemon2RPG : GreyDemon2 Replaces GreyDemon2
+{
+	Tag "Ancient Demonic Worm"
+
+	States
+	{
+	Spawn:
+		WORM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		TNT1 A 0
+		Goto Super::Spawn
+	//See:
+	//	WORM A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+	//	Goto Super::See
+	}
+}
+
+// FireBlu Demon
+ACTOR FireBluDemon2RPG : FireBluDemon2 Replaces FireBluDemon2
+{
+	Tag "Enchanted Demon"
+
+	States
+	{
+	Spawn:
+		SARG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SARG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Demon
+ACTOR AbyssDemon2RPG : AbyssDemon2 Replaces AbyssDemon2
+{
+	Tag "Abyssal Demon"
+
+	States
+	{
+	Spawn:
+		HDOG A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HDOG A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

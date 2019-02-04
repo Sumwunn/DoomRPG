@@ -10,6 +10,7 @@ extern const str Version;
 extern bool Transported;
 extern bool GlobalsInitialized;
 extern int CompatMode;
+extern int CompatMonMode;
 extern bool WadSmoosh;
 
 // Arrays
@@ -24,7 +25,7 @@ extern int RPGMap ItemTIDs[MAX_ITEMS];
 
 // --------------------------------------------------
 // Multiplayer HUD
-// 
+//
 
 // Energy Points (EP)
 extern int EPArray Address(0) EP[MAX_PLAYERS];

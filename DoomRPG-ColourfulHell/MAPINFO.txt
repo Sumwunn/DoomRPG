@@ -1,0 +1,166 @@
+// Rejigger the skills
+clearskills
+
+// Easy skill
+skill easy
+{
+    aggressiveness = 0.0
+    spawnfilter = normal
+
+    easybossbrain
+    easykey
+    autousehealth
+    
+    acsreturn = 1
+    
+    name = "Easy"
+    textcolor = "Green"
+	
+	ReplaceActor = "DRPGZombieMan", "Colourset2"
+	ReplaceActor = "DRPGShotgunGuy", "Colourset4"
+	ReplaceActor = "DRPGChaingunGuy", "Colourset12"
+	ReplaceActor = "DRPGDoomImp", "Colourset3"
+	ReplaceActor = "DRPGDemon", "Colourset5"
+	ReplaceActor = "DRPGSpectre", "Colourset6"
+	ReplaceActor = "DRPGLostSoul", "Colourset14"
+	ReplaceActor = "DRPGCacodemon", "Colourset7"
+	ReplaceActor = "DRPGHellKnight", "Colourset8"
+	ReplaceActor = "DRPGBaronOfHell", "Colourset13"
+	ReplaceActor = "DRPGArachnotron", "Colourset9"
+	ReplaceActor = "DRPGPainElemental", "Colourset15"
+	ReplaceActor = "DRPGRevenant", "Colourset1"
+	ReplaceActor = "DRPGFatso", "Colourset10"
+	ReplaceActor = "DRPGArchvile", "Colourset11"
+	ReplaceActor = "DRPGCyberdemon", "Colourset16"
+	ReplaceActor = "DRPGSpiderMastermind", "Colourset17"
+}
+
+// Normal skill
+skill normal
+{
+    aggressiveness = 0.25
+    spawnfilter = hard
+    
+    autousehealth
+
+    acsreturn = 2
+    
+    name = "Normal"
+    textcolor = "Yellow"
+	
+	ReplaceActor = "DRPGZombieMan", "Colourset2"
+	ReplaceActor = "DRPGShotgunGuy", "Colourset4"
+	ReplaceActor = "DRPGChaingunGuy", "Colourset12"
+	ReplaceActor = "DRPGDoomImp", "Colourset3"
+	ReplaceActor = "DRPGDemon", "Colourset5"
+	ReplaceActor = "DRPGSpectre", "Colourset6"
+	ReplaceActor = "DRPGLostSoul", "Colourset14"
+	ReplaceActor = "DRPGCacodemon", "Colourset7"
+	ReplaceActor = "DRPGHellKnight", "Colourset8"
+	ReplaceActor = "DRPGBaronOfHell", "Colourset13"
+	ReplaceActor = "DRPGArachnotron", "Colourset9"
+	ReplaceActor = "DRPGPainElemental", "Colourset15"
+	ReplaceActor = "DRPGRevenant", "Colourset1"
+	ReplaceActor = "DRPGFatso", "Colourset10"
+	ReplaceActor = "DRPGArchvile", "Colourset11"
+	ReplaceActor = "DRPGCyberdemon", "Colourset16"
+	ReplaceActor = "DRPGSpiderMastermind", "Colourset17"
+}
+
+// Hard skill
+skill hard
+{
+    aggressiveness = 0.5
+    spawnfilter = nightmare
+    
+    autousehealth
+
+    acsreturn = 3
+    
+    name = "Hard"
+    textcolor = "Orange"
+	
+	ReplaceActor = "DRPGZombieMan", "Colourset2"
+	ReplaceActor = "DRPGShotgunGuy", "Colourset4"
+	ReplaceActor = "DRPGChaingunGuy", "Colourset12"
+	ReplaceActor = "DRPGDoomImp", "Colourset3"
+	ReplaceActor = "DRPGDemon", "Colourset5"
+	ReplaceActor = "DRPGSpectre", "Colourset6"
+	ReplaceActor = "DRPGLostSoul", "Colourset14"
+	ReplaceActor = "DRPGCacodemon", "Colourset7"
+	ReplaceActor = "DRPGHellKnight", "Colourset8"
+	ReplaceActor = "DRPGBaronOfHell", "Colourset13"
+	ReplaceActor = "DRPGArachnotron", "Colourset9"
+	ReplaceActor = "DRPGPainElemental", "Colourset15"
+	ReplaceActor = "DRPGRevenant", "Colourset1"
+	ReplaceActor = "DRPGFatso", "Colourset10"
+	ReplaceActor = "DRPGArchvile", "Colourset11"
+	ReplaceActor = "DRPGCyberdemon", "Colourset16"
+	ReplaceActor = "DRPGSpiderMastermind", "Colourset17"
+}
+
+// Nightmare skill
+skill nightmare
+{
+    aggressiveness = 1.0
+    spawnfilter = nightmare
+    
+    autousehealth
+    defaultskill
+
+    acsreturn = 4
+    
+    name = "Nightmare"
+    textcolor = "Red"
+	
+	ReplaceActor = "DRPGZombieMan", "Colourset2"
+	ReplaceActor = "DRPGShotgunGuy", "Colourset4"
+	ReplaceActor = "DRPGChaingunGuy", "Colourset12"
+	ReplaceActor = "DRPGDoomImp", "Colourset3"
+	ReplaceActor = "DRPGDemon", "Colourset5"
+	ReplaceActor = "DRPGSpectre", "Colourset6"
+	ReplaceActor = "DRPGLostSoul", "Colourset14"
+	ReplaceActor = "DRPGCacodemon", "Colourset7"
+	ReplaceActor = "DRPGHellKnight", "Colourset8"
+	ReplaceActor = "DRPGBaronOfHell", "Colourset13"
+	ReplaceActor = "DRPGArachnotron", "Colourset9"
+	ReplaceActor = "DRPGPainElemental", "Colourset15"
+	ReplaceActor = "DRPGRevenant", "Colourset1"
+	ReplaceActor = "DRPGFatso", "Colourset10"
+	ReplaceActor = "DRPGArchvile", "Colourset11"
+	ReplaceActor = "DRPGCyberdemon", "Colourset16"
+	ReplaceActor = "DRPGSpiderMastermind", "Colourset17"
+}
+
+// Hell skill
+skill hell
+{
+    aggressiveness = 1.0
+    spawnfilter = nightmare
+    
+    disablecheats
+    autousehealth
+
+    acsreturn = 5
+    
+    name = "Hell"
+    textcolor = "Brick"
+	
+	ReplaceActor = "DRPGZombieMan", "Colourset2"
+	ReplaceActor = "DRPGShotgunGuy", "Colourset4"
+	ReplaceActor = "DRPGChaingunGuy", "Colourset12"
+	ReplaceActor = "DRPGDoomImp", "Colourset3"
+	ReplaceActor = "DRPGDemon", "Colourset5"
+	ReplaceActor = "DRPGSpectre", "Colourset6"
+	ReplaceActor = "DRPGLostSoul", "Colourset14"
+	ReplaceActor = "DRPGCacodemon", "Colourset7"
+	ReplaceActor = "DRPGHellKnight", "Colourset8"
+	ReplaceActor = "DRPGBaronOfHell", "Colourset13"
+	ReplaceActor = "DRPGArachnotron", "Colourset9"
+	ReplaceActor = "DRPGPainElemental", "Colourset15"
+	ReplaceActor = "DRPGRevenant", "Colourset1"
+	ReplaceActor = "DRPGFatso", "Colourset10"
+	ReplaceActor = "DRPGArchvile", "Colourset11"
+	ReplaceActor = "DRPGCyberdemon", "Colourset16"
+	ReplaceActor = "DRPGSpiderMastermind", "Colourset17"
+}

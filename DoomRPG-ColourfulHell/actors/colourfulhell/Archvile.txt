@@ -1,0 +1,230 @@
+// --------------------------------------------------
+// Archvile
+//
+
+// Archvile Spawner
+ACTOR Colourset11RPG : Colourset11 Replaces DRPGArchvile
+{
+}
+
+// Common Archvile
+ACTOR CommonArchRPG : CommonArch Replaces CommonArch
+{
+	Tag "Archvile"
+
+	States
+	{
+	Spawn:
+		VILE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Archvile
+ACTOR GreenArchRPG : GreenArch Replaces GreenArch
+{
+	Tag "Uncommon Archvile"
+
+	States
+	{
+	Spawn:
+		VILE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Archvile
+ACTOR BlueArchRPG : BlueArch Replaces BlueArch
+{
+	Tag "Rare Archvile"
+
+	States
+	{
+	Spawn:
+		VILE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Archvile
+ACTOR PurpleArchRPG : PurpleArch Replaces PurpleArch
+{
+	Tag "Epic Archvile"
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR SpecialRevRPG : SpecialRev Replaces SpecialRev
+{
+	Tag "Agitated Revenant"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Yellow Archvile
+ACTOR YellowArchRPG : YellowArch Replaces YellowArch
+{
+	Tag "Golden Archvile"
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR SpecialVileRPG : SpecialVile Replaces SpecialVile
+{
+	Tag "ArchArchvile"
+
+	States
+	{
+	Spawn:
+		SKEL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKEL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Red Archvile
+ACTOR RedArch2RPG : RedArch2 Replaces RedArch2
+{
+	Tag "Infernovile"
+
+	States
+	{
+	Spawn:
+		DIAB A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		DIAB A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Archvile
+ACTOR RedArch3RPG : RedArch3 Replaces RedArch3
+{
+	Tag "Grand Infernovile"
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		DIAB A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Archvile
+ACTOR BlackVileRPG : BlackVile Replaces BlackVile
+{
+	Tag "The Void"
+
+	States
+	{
+	Spawn:
+		VILE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Archvile
+ACTOR WhitevileRPG : Whitevile Replaces Whitevile
+{
+	Tag "Godly Archvile"
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		LMWZ A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Gray Archvile
+ACTOR GrayArch2RPG : GrayArch2 Replaces GrayArch2
+{
+	Tag "Ancient Archvile"
+
+	States
+	{
+	Spawn:
+		VILE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Fireblu Archvile
+ACTOR FireBluArch2RPG : FireBluArch2 Replaces FireBluArch2
+{
+	Tag "Enchanted Archvile"
+
+	States
+	{
+	Spawn:
+		VILE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		VILE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Archvile
+ACTOR AbyssVileRPG : AbyssVile Replaces AbyssVile
+{
+	Tag "Abyssal Archvile"
+
+	States
+	{
+	Spawn:
+		DGRD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		DGRD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

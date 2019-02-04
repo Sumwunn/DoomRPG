@@ -1,0 +1,24 @@
+#library "random"
+
+#include "zcommon.acs"
+
+//Shared stuff beetween map00 and this library. (needs cleaning up)
+#include "global.acs"
+
+//No longer a separate library, included instead.
+#include "array.acs" 
+
+script "jjirandomizer" (void)
+{
+  if (!Playlist_Generated && (GetLevelInfo(LEVELINFO_LEVELNUM) || CheckInventory("PlaylistEditor")))
+  {
+  int randomtrack = random(1,NumTracks);
+  SetMusic(GetTrack(randomtrack,TRK_LUMP));
+  Log(s:"\cjNow Playing: ",
+      s:GetTrack(randomtrack,TRK_LUMP),
+	  s:" - \"",
+	  s:GetTrack(randomtrack,TRK_TITLE),
+	  s:"\" by ",
+	  s:GetTrack(randomtrack,TRK_ARTIST));
+  }
+}

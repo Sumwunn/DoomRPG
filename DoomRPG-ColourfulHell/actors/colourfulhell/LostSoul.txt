@@ -1,0 +1,301 @@
+// --------------------------------------------------
+// Lost Soul
+//
+
+// Lost Soul Spawner
+ACTOR Colourset14RPG : Colourset14 Replaces DRPGLostSoul
+{
+}
+
+// Common Lost Soul
+ACTOR CommonLSoulRPG : CommonLSoul Replaces CommonLSoul
+{
+	Tag "Lost Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Green Lost Soul
+ACTOR GreenLSoulRPG : GreenLSoul Replaces GreenLSoul
+{
+	Tag "Uncommon Lost Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Blue Lost Soul
+ACTOR BlueLSoulRPG : BlueLSoul Replaces BlueLSoul
+{
+	Tag "Rare Lost Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Purple Lost Soul
+ACTOR PurpleLSoulRPG : PurpleLSoul Replaces PurpleLSoul
+{
+	Tag "Epic Lost Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Yellow Lost Soul
+ACTOR YellowLSoulRPG : YellowLSoul Replaces YellowLSoul
+{
+	Tag "Legendary Lost Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Red Lost Soul
+ACTOR RedLSoulRPG : RedLSoul Replaces RedLSoul
+{
+	Tag "Bloody Lost Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Black Lost Soul
+ACTOR BlackLSoul3RPG : BlackLSoul3 Replaces BlackLSoul3
+{
+	Tag "Queen Bee"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		WASP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS | MF_BOSS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		WASP A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS | MF_BOSS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+ACTOR BlackLSoul2RPG : BlackLSoul2 Replaces BlackLSoul2
+{
+	Tag "Bee"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		WASP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		WASP A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// White Lost Soul
+ACTOR WhiteLSoul2RPG : WhiteLSoul2 Replaces WhiteLSoul2
+{
+	Tag "The Shifter"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		ETHS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS | MF_BOSS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		ETHS A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS | MF_BOSS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// White Lost Soul EX
+ACTOR WhiteLSoulEXRPG : WhiteLSoulEX Replaces WhiteLSoulEX
+{
+	Tag "The Vengeful Soul"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		ETHS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS | MF_BOSS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		ETHS A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS | MF_BOSS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+ACTOR HKEggRPG : HKEgg Replaces HKEgg
+{
+	Tag "Egg"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		BAL1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		BAL1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+ACTOR RevEggRPG : HKEgg Replaces HKEgg
+{
+	Tag "Egg"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		BAL1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		BAL1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Gray Lost Soul
+ACTOR GrayLSoul2RPG : GrayLSoul2 Replaces GrayLSoul2
+{
+	Tag "Hive"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		BAL1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Fireblu Lost Soul
+ACTOR FireBluLSoul2RPG : FireBluLSoul2 Replaces FireBluLSoul2
+{
+	Tag "Charred Skull"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}
+
+// Abyss Lost Soul
+ACTOR AbyssLSoul2RPG : AbyssLSoul2 Replaces AbyssLSoul2
+{
+	Tag "Beetlejuice"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		BST7 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::Spawn
+	See:
+		BST7 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0
+		Goto Super::See
+	}
+}

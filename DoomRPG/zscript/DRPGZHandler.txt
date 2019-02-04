@@ -1,0 +1,56 @@
+class DRPGZEHandler : EventHandler
+{
+    // Replaces exits with ACS_Execute which calls DRPG's map exit script instead
+    override void WorldLoaded(WorldEvent e)
+    {
+        // Iterate through all lines in the current map to find exits to replace
+        for (int i = 0; i < level.Lines.Size(); i++)
+        {
+            Line l = level.Lines[i];
+            int s = l.special;
+            // Exit_Normal
+            if (s == 243)
+            {
+                // 80 = ACS_Execute
+                l.special = 80;
+                l.args[0] = 30000;
+                l.args[1] = 0;
+                l.args[2] = 0;
+                l.args[3] = 0;
+                l.args[4] = 0;
+                // Must be repeatable for DRPG things
+                l.flags |= Line.ML_REPEAT_SPECIAL;
+            }
+            // Exit_Secret
+            else if (s == 244)
+            {
+                // 80 = ACS_Execute
+                l.special = 80;
+                l.args[0] = 30000;
+                l.args[1] = 0;
+                l.args[2] = 1;
+                l.args[3] = 0;
+                l.args[4] = 0;
+                // Must be repeatable for DRPG things
+                l.flags |= Line.ML_REPEAT_SPECIAL;
+            }
+            // Teleport_NewMap
+            else if (s == 74)
+            {
+                // Save args
+                int map = l.args[0];
+                int pos = l.args[1];
+                int face = l.args[2];
+                // 80 = ACS_Execute
+                l.special = 80;
+                l.args[0] = 30001;
+                l.args[1] = 0;
+                l.args[2] = map;
+                l.args[3] = pos;
+                l.args[4] = face;
+                // Must be repeatable for DRPG things
+                l.flags |= Line.ML_REPEAT_SPECIAL;
+            }
+        }
+    }
+}

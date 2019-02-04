@@ -1,0 +1,1 @@
+server bool drpg_jjirandomizer_compat = true;

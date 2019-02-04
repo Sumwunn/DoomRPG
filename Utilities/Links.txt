@@ -1,0 +1,3 @@
+https://sourceforge.net/projects/astyle/
+https://www.python.org/downloads/release/python-2715/
+https://www.dropbox.com/sh/5wae0ro7vuesud7/AACulBaLAMmRnWEEJpKSU7Z_a/gdcc-0.14.4-1-win64.7z?dl=0

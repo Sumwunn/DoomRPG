@@ -4,8 +4,8 @@
 #include "Defs.h"
 
 extern int const AuraTID;
-extern str const ColorNames[22];
-extern str const ColorCodes[22];
+extern str const ColorNames[26];
+extern str const ColorCodes[26];
 extern str const SkillLevels[6];
 extern str const AuraIcons[AURA_MAX + 1];
 
@@ -53,7 +53,6 @@ NamedScript KeyBind  void PurgeDrops();
 NamedScript Console  void CheckArmorStats();
 
 bool StatsCapped();
-OptionalArgs(1) int CalculatePay(int);
 int AveragePlayerLevel();
 int AveragePlayerRank();
 int AveragePlayerCredits();
@@ -62,6 +61,7 @@ bool HaveStatusEffect();
 bool DropPlayerItem(str);
 bool IsPlayerMoving();
 int FindPlayerID(int);
+bool CheckPlayersDistanceTID(int, int);
 OptionalArgs(1) bool SetActivatorToTargetExtended(int, int);
 bool IsTimeFrozen();
 
@@ -126,6 +126,7 @@ void DrawShieldModel(int, fixed, fixed, int);
 void DrawMissionInfo(MissionInfo *, fixed, fixed, bool);
 OptionalArgs(1) void DrawBar(str, int, int, int, bool);
 void DrawProgressBar(str, int);
+void DrawBorder(str, int, int, int, int, int, int);
 
 // Compatibility/Extensions
 void RemoveDRLAItem(int, int);
@@ -142,7 +143,6 @@ fixed AbsFixed(fixed);
 fixed Min(fixed, fixed);
 fixed Max(fixed, fixed);
 fixed Distance(int, int);
-fixed Distance3D(fixed, fixed, fixed, fixed, fixed, fixed);
 fixed Distance2D(int, int, int, int);
 fixed Lerp(fixed, fixed, fixed);
 int LerpInt(int, int, int);
@@ -174,7 +174,7 @@ NamedScript Console void GiveCompounds(int);
 
 // System
 void CreateTranslations();
-OptionalArgs(1) bool CheckInput(int, int /* = KEY_PRESSED */);
+bool CheckInput(int, int /* = KEY_PRESSED */, bool, int);
 OptionalArgs(1) void LogMessage(str, int /* = LOG_NORMAL */);
 void ClearInfo(CharSaveInfo *);
 

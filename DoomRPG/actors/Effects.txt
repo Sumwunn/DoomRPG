@@ -857,7 +857,9 @@ actor DRPGTransportEffectParticle
     YScale 0.125
     
     Alpha 0.5
-    RenderStyle Add
+    RenderStyle AddStencil
+    
+    StencilColor "0096FF"
     
     Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.0, 0.25, 0.0]"
     
@@ -1078,6 +1080,7 @@ Actor DRPGImmunityCrystalDebris
     }
 }
 
+
 // --------------------------------------------------
 // Turret Particles and FX
 //
@@ -1114,18 +1117,9 @@ actor DRPGTurretTeleport
     }
 }
 
-actor DRPGTurretTeleportParticle
+actor DRPGTurretTeleportParticle : DRPGTransportEffectParticle
 {
-    +NOTIMEFREEZE
-    +NOINTERACTION
-    +NOTONAUTOMAP
-    
-    YScale 0.125
-    
     Alpha 0.25
-    RenderStyle Add
-    
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.0, 0.25, 0.0]"
     
     States
     {
@@ -1136,101 +1130,4 @@ actor DRPGTurretTeleportParticle
         TNT1 A 0 A_SetScale(ScaleX + 0.001, ScaleY + 0.001)
         Loop
     }
-}
-
-Actor DRPGTurretParticle
-{
-    +NOTIMEFREEZE
-    +NOINTERACTION
-    +NOTONAUTOMAP
-    
-    Scale 0.025
-    
-    Alpha 0.25
-    RenderStyle Add
-    
-    States
-    {
-    Spawn:
-        PTCL C 1 Bright
-        TNT1 A 0 A_FadeOut(0.01)
-        Loop
-    }
-}
-
-Actor DRPGTurretParticleAssistHealth : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [1.0, 0.0, 0.0]"
-}
-
-Actor DRPGTurretParticleAssistArmor : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.0, 1.0, 0.0]"
-}
-
-Actor DRPGTurretParticleAssistAug : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [1.0, 1.0, 0.0]"
-}
-
-Actor DRPGTurretParticleAssistShield : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.0, 1.0, 1.0]"
-}
-
-Actor DRPGTurretParticleItemTrailWeapon : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.75, 0.0, 0.0]"
-}
-
-Actor DRPGTurretParticleItemTrailAmmo : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.6, 0.5, 0.45]"
-}
-
-Actor DRPGTurretParticleItemTrailHealth : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.75, 0.5, 0.5]"
-}
-
-Actor DRPGTurretParticleItemTrailArmor : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.0, 0.75, 0.0]"
-}
-
-Actor DRPGTurretParticleItemTrailPowerups : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.125, 0.25, 0.125]"
-}
-
-Actor DRPGTurretParticleItemTrailShield : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.0, 1.0, 1.0]"
-}
-
-Actor DRPGTurretParticleItemTrailStimAugs : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.25, 0.25, 0.0]"
-}
-
-Actor DRPGTurretParticleItemTrailLoot : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [1.0, 1.0, 0.0]"
-}
-
-Actor DRPGTurretParticleItemTrailModPacks : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.5, 0.0, 0.5]"
-}
-
-Actor DRPGTurretParticleItemTrailBoots : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [0.25, 0.25, 0.25]"
-}
-
-Actor DRPGTurretParticleItemTrailMisc : DRPGTurretParticle {}
-
-Actor DRPGTurretParticleCrateTrail : DRPGTurretParticle
-{
-    Translation "0 : 255 = %[0.0, 0.0, 0.0] : [1.0, 0.5, 0.0]"
 }

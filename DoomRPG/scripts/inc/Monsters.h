@@ -4,11 +4,17 @@
 #include "Defs.h"
 
 extern int RPGMap MonsterID;
+extern MonsterInfoPtr MonsterData;
+extern int MonsterDataAmount;
+extern MegabossInfoPtr MegaBosses;
+extern int MegaBossesAmount;
 extern MonsterStats RPGMap Monsters[MAX_MONSTERS];
-extern MonsterInfo const MonsterData[MAX_DEF_MONSTERS];
-extern MonsterInfo const MonsterDataLD[MAX_DEF_MONSTERS];
+extern MonsterInfo const MonsterDataDF[MAX_DEF_MONSTERS_DF];
+extern MonsterInfo const MonsterDataLD[MAX_DEF_MONSTERS_DF];
 extern MonsterInfo const MonsterDataDRLA[MAX_DEF_MONSTERS_DRLA];
-extern MegabossInfo const MegaBosses[MAX_MEGABOSSES];
+extern MonsterInfo const MonsterDataCH[MAX_DEF_MONSTERS_CH];
+extern MegabossInfo const MegaBossesDF[MAX_MEGABOSSES_DF];
+extern MegabossInfo const MegaBossesCH[MAX_MEGABOSSES_CH];
 
 NamedScript DECORATE void MonsterInit(int);
 NamedScript Console  void MonsterSet(int, int, int);

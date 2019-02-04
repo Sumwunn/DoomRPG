@@ -1,0 +1,183 @@
+// --------------------------------------------------
+// Spider Mastermind
+//
+
+// Spider Mastermind Spawner
+ACTOR Colourset17RPG : Colourset17 Replaces DRPGSpiderMastermind
+{
+}
+
+// Common Mastermind
+ACTOR CommonMindRPG : CommonMind Replaces CommonMind
+{
+	Tag "Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SPID A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SPID A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Green Mastermind
+ACTOR GreenMindRPG : GreenMind Replaces GreenMind
+{
+	Tag "Uncommon Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SPID A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SPID A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Blue Mastermind
+ACTOR BlueMindRPG : BlueMind Replaces BlueMind
+{
+	Tag "Rare Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SPID A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SPID A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR SpecialSpider1RPG : SpecialSpider1 Replaces SpecialSpider1
+{
+	Tag "Green Spider Baby"
+
+	States
+	{
+	Spawn:
+		BSPI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		BSPI A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Purple Mastermind
+ACTOR PurpleMindRPG : PurpleMind Replaces PurpleMind
+{
+	Tag "Epic Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		DEMO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Yellow Mastermind
+ACTOR YellowMindRPG : YellowMind Replaces YellowMind
+{
+	Tag "Legendary Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SUPS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SUPS A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Red Mastermind
+ACTOR RedMindRPG : RedMind Replaces RedMind
+{
+	Tag "Arachnophyte"
+
+	States
+	{
+	Spawn:
+		APYT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		APYT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Black Mastermind
+ACTOR BlackMind2RPG : BlackMind2 Replaces BlackMind2
+{
+	Tag "Pseudo Old God"
+
+	States
+	{
+	Spawn:
+		ARNQ A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS | MF_NOAURA)
+		Goto Super::Spawn
+	See:
+		ARNQ A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS | MF_NOAURA)
+		Goto Super::See
+	}
+}
+
+// Fireblu Mastermind
+ACTOR FireBluMind2RPG : FireBluMind2 Replaces FireBluMind2
+{
+	Tag "Enchanted Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SPID A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SPID A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Gray Mastermind
+ACTOR GrayMind2RPG : GrayMind2 Replaces GrayMind2
+{
+	Tag "Ancient Spider Mastermind"
+
+	States
+	{
+	Spawn:
+		SPID A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		SPID A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Abyss Mastermind
+ACTOR AbyssMind2RPG : AbyssMind2 Replaces AbyssMind2
+{
+	Tag "Abyssal Mastermind"
+
+	States
+	{
+	Spawn:
+		AMIN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		AMIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}

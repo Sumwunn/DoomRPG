@@ -28,17 +28,8 @@ Events
 - Sinstorm's demon spawn cubes spawn monsters inside of walls and each other, which frankly looks silly as hell
 - Event object spawning (Power column, Radiation Neutralizer) needs to be randomized so that it doesn't consistently spawn in awkward places
 
-Turret
-===
-- Change turret maintenance timers to percentages instead of times since timers lose accuracy with upgrades
-- Revamp overheat system's numbers for the addition of upgrades for it
-- Add a beam/team skill to slowly clean Toxicity from the player
-- Empty crates should be omitted from the crate sensor beam iteration
-  - Add a FindCrate() function which takes a TID and returns the found crate with that TID to help with this
-
 Brightmaps
 ===
-- Low Power Generator
 - Turret parts crate
 - UAC supply crate
 
@@ -46,22 +37,19 @@ Sounds
 ===
 - Many skill usage sounds are placeholders and need replacing
 - Status effect hit and avoid sounds are also placeholders
-- Extra Life pickup and use sounds
 - Add ambient stingers for when the music is off, just to fuck with you :D
 
 QoL
 ===
-- Add a way to take everything out of a crate similar to bulk withdrawal from the Locker
+
 
 Bugs
 ===
 - Modpack save/load is broken
 - Infinite ammo related buffs are broken
-- Furious Fusion stops working every time you sell a weapon?
-- Look into summons always attacking the Force Wall object
-- Whenever allied Arch-viles resurrect enemies they becomes allied too, but their auras act versus you
-- Unequpping a shield eccessory that isn't equipped tries to run script 0
-- Nuclear bomb event HUD not removed on next map if you escape rather than defuse
+- Furious Fusion stops working every time you sell a weapon? // [SW] This item doesn't appear to exist.
+- Look into summons always attacking the Force Wall object // [SW] Couldn't reproduce.
+- Nuclear bomb event HUD not removed on next map if you escape rather than defuse // [SW] Couldn't reproduce.
 - Co-op PIP is still not working properly
 
 New Augmentation System

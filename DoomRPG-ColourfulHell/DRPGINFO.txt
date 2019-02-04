@@ -1,0 +1,2 @@
+Name=Colourful Hell
+Conflicts=DoomRL Arsenal - Monster Pack

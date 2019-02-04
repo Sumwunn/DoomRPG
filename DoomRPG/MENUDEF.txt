@@ -1,21 +1,21 @@
-OptionValue "DropStyle"
+/*OptionValue "DropStyle"
 {
-	1, "DOOM"
-	2, "Strife"
-}
+    1, "DOOM"
+    2, "Strife"
+}*/
 
 OptionValue "AutoHealing"
 {
-	1, "100%"
-	2, "50%"
-	4, "25%"
+    1, "100%"
+    2, "50%"
+    4, "25%"
 }
 
 OptionValue "MonsterLevelType"
 {
-	1, "Player Level"
-	2, "Map Number"
-	3, "Both"
+    1, "Player Level"
+    2, "Map Number"
+    3, "Both"
 }
 
 OptionValue "StatPreference"
@@ -52,18 +52,19 @@ OptionValue "ShopSpecialCategories"
     6, "\ckStims/Augs/Turret"
 }
 
+
+OptionValue "TurretAggression"
+{
+    0, "Stay close"
+    1, "Pursue enemies"
+    2, "Pursue if required"
+}
+
 OptionValue "RunPickupBehavior"
 {
     0, "None"
     1, "\cfAuto-Sell"
     2, "\cvAuto-Store"
-}
-
-OptionValue "TurretAggression"
-{
-	0, "Stay close"
-	1, "Pursue enemies"
-    2, "Pursue if required"
 }
 
 OptionValue "WheelSpeed"
@@ -158,6 +159,13 @@ OptionValue "StartDRLAArmorTypes"
     5, "\ckLegendary"
 }
 
+OptionValue "ExtraMapChallenges"
+{
+    0, "Never"
+    1, "Hell and above"
+    2, "Always"
+}
+
 OptionString "OutpostStartLevel"
 {
     "E1M1",    "E1M1 (Doom)"
@@ -168,34 +176,9 @@ OptionString "OutpostStartLevel"
     "LEVEL01", "LEVEL01 (Doom II BFG)"
 }
 
-OptionMenu "OptionsMenu"
-{
-	Title "OPTIONS"
-	SubMenu "Doom RPG Options",			"DoomRPG"
-	StaticText " "
-	Submenu "Customize Controls",		"CustomizeControls"
-	Submenu "Mouse options",			"MouseOptions"
-	Submenu "Joystick options",			"JoystickOptions"
-	StaticText " "
-	Submenu "Player Setup",				"PlayerMenu"
-	Submenu "Gameplay Options",			"GameplayOptions"
-	Submenu "Compatibility Options",	"CompatibilityOptions"
-	Submenu "Automap Options",			"AutomapOptions"
-	Submenu "HUD Options",				"HUDOptions"
-	Submenu "Miscellaneous Options",	"MiscOptions"
-	Submenu "Network Options",			"NetworkOptions"
-	Submenu "Sound Options",			"SoundOptions"
-	Submenu "Display Options",			"VideoOptions"
-	Submenu "Set video mode",			"VideoModeMenu"
-	StaticText " "
-	SafeCommand "Reset to defaults",	"reset2defaults"
-	SafeCommand	"Reset to last saved",	"reset2saved"
-	Command "Go to console",			"menuconsole"
-}
-
 OptionMenu "DoomRPGXPSystem"
 {
-	Title "XP System"
+    Title "XP System"
     
     Slider "XP Multiplier", "drpg_scalexp", 0.25, 8.0, 0.25
     Slider "XP Curve", "drpg_xp_curve", 0, 500, 5
@@ -204,86 +187,115 @@ OptionMenu "DoomRPGXPSystem"
 OptionMenu "DoomRPGMonsters"
 {
     Title "Monster Level/Stat System"
-	
-    Option "Monster Level System", "drpg_monster_levels", "MonsterLevelType"
-	StaticText ""
     
-	Slider "Monster Level Weight", "drpg_monster_level_weight", 0.5, 10.0, 0.1
-	Slider "Monster Map Weight", "drpg_monster_map_weight", 0.5, 10.0, 0.1
+    Option "Monster Level System", "drpg_monster_levels", "MonsterLevelType"
+    StaticText ""
+    
+    Slider "Monster Level Weight", "drpg_monster_level_weight", 0.5, 10.0, 0.1
+    Slider "Monster Map Weight", "drpg_monster_map_weight", 0.5, 10.0, 0.1
     Slider "Monster Random Min Multiplier", "drpg_monster_random_min_mult", 0.5, 10.0, 0.1
     Slider "Monster Random Max Multiplier", "drpg_monster_random_max_mult", 0.5, 10.0, 0.1
-	Slider "Monster Aura Curve", "drpg_aura_curve", -1000, 1000, 10
-	StaticText ""
+    Slider "Monster Aura Curve", "drpg_aura_curve", -1000, 1000, 10
+    StaticText ""
     
     Option "Monster Stat Specialization", "drpg_monster_specialize", "OnOff"
     Option "Are You A Bad Enough Dude?", "drpg_monster_shadows", "YesNo"
-	Option "Fast Monsters", "sv_fastmonsters", "OnOff"
+    Option "Fast Monsters", "sv_fastmonsters", "OnOff"
 }
 
 OptionMenu "DoomRPGDifficulty"
 {
-	Title "Game Difficulty"
-	
+    Title "Game Difficulty"
+    
     Slider "Scale EP Costs", "drpg_skill_costscale", 0.5, 10.0, 0.1
-	Option "Keep Auras between levels", "drpg_skill_keepauras", "OnOff"
-	Slider "Skill Cost Cooldown Time (Sec.)", "drpg_skill_costcooldown", 1, 60, 1
-	StaticText ""
+    Option "Keep Auras between levels", "drpg_skill_keepauras", "OnOff"
+    Slider "Skill Cost Cooldown Time (Sec.)", "drpg_skill_costcooldown", 1, 60, 1
+    StaticText ""
     
-	Option "Shields Drain when Deactivated", "drpg_shield_reset", "OnOff"
-	Option "Shield Removes Armor when Active", "drpg_shield_armorremove", "OnOff"
-	StaticText ""
+    Option "Shields Drain when Deactivated", "drpg_shield_reset", "OnOff"
+    Option "Shield Removes Armor when Active", "drpg_shield_armorremove", "OnOff"
+    StaticText ""
     
-	Option "Heal HP/EP on Level-up", "drpg_levelup_heal", "OnOff"
-	Option "Toxicity Penalties", "drpg_toxicity_penalties", "OnOff"
+    Option "Heal HP/EP on Level-up", "drpg_levelup_heal", "OnOff"
+    Option "Toxicity Penalties", "drpg_toxicity_penalties", "OnOff"
     Option "Mission Kills Affected By Monsters", "drpg_mission_monsterkillscount", "OnOff"
-	StaticText ""
+    StaticText ""
     
     Slider "Starting Map Weight", "drpg_monster_mapweight", 1, 1000, 1
-	Slider "Monster Population %", "drpg_monster_population", 10.0, 200.0, 1.0
+    Slider "Monster Population %", "drpg_monster_population", 10.0, 200.0, 1.0
     Slider "Absolute Monster Limit", "drpg_monster_limit", 0.0, 16200.0, 200.0
-	StaticText ""
+    StaticText ""
     
-	Slider "Map Special Event Chance", "drpg_mapevent_chance", 0.0, 100.0, 1.0
-	Slider "Event Interval (Minutes)", "drpg_mapevent_eventtime", 0, 120, 1
-    Slider "Default Event Par (Seconds)", "drpg_default_par_seconds", 30, 600, 15
-    Option "Bonus Events", "drpg_bonus_events", "OnOff"
-	StaticText ""
-	
     Option "Dynamic Loot System", "drpg_loot_system", "OnOff"
     Slider "Loot Generator Factor", "drpg_lootgen_factor", 1.0, 10.0, 0.1
-	StaticText ""
+    StaticText ""
     
     Slider "Enemy Aura Steal Rate", "drpg_aurasteal_rate", 10, 175, 1
     Slider "Enemy Aura Steal Amount", "drpg_aurasteal_amount", 0.5, 10, 0.1
-	StaticText ""
+    Option "Enemy Aura Remove on Death", "drpg_aura_removeondeath", "OnOff"
+    StaticText ""
+
+    Option "Minibosses", "drpg_minibosses", "ExtraMapChallenges"
+    Option "Monster Reinforcements", "drpg_reinforcements", "ExtraMapChallenges"
+}
+
+OptionMenu "DoomRPGMapEvents"
+{
+    Title "Map Events"
+
+    Slider "Map Special Event Chance", "drpg_mapevent_chance", 0.0, 100.0, 1.0
+    Slider "Event Interval (Minutes)", "drpg_mapevent_eventtime", 0, 120, 1
+    Slider "Default Event Par (Seconds)", "drpg_default_par_seconds", 30, 600, 15
+    StaticText ""
+    
+    Option "Megaboss", "drpg_mapevent_megaboss", "OnOff"
+    Option "Environmental Hazard", "drpg_mapevent_toxichazard", "OnOff"
+    Option "Thermonuclear Bomb", "drpg_mapevent_nuclearbomb", "OnOff"
+    Option "Low Power", "drpg_mapevent_lowpower", "OnOff"
+    Option "All Auras", "drpg_mapevent_allauras", "OnOff"
+    Option "One-Monster", "drpg_mapevent_onemonster", "OnOff"
+    Option "Hell Unleashed", "drpg_mapevent_hellunleashed", "OnOff"
+    Option "Harmonized Destruction", "drpg_mapevent_harmonizedauras", "OnOff"
+    Option "Cracks in the Veil", "drpg_mapevent_teleportcracks", "OnOff"
+    Option "Doomsday", "drpg_mapevent_doomsday", "OnOff"
+    Option "Vicious Downpour", "drpg_mapevent_acidrain", "OnOff"
+    Option "The Dark Zone", "drpg_mapevent_darkzone", "OnOff"
+    Option "Feeding Frenzy", "drpg_mapevent_feedingfrenzy", "OnOff"
+    Option "Overmind", "drpg_mapevent_overmind", "OnOff"
+    Option "RAINBOWS", "drpg_mapevent_rainbows", "OnOff"
+    Option "Hell", "drpg_mapevent_skill_hell", "OnOff"
+    Option "Armageddon", "drpg_mapevent_skill_armageddon", "OnOff"
+    Option "Sinstorm", "drpg_mapevent_sinstorm", "OnOff"
 }
 
 OptionMenu "DoomRPGStats"
 {
-	Title "Stat System"
-	
-	Slider "Modules Spawn Amount Factor", "drpg_module_spawnfactor", 0.5, 10.0, 0.1
-	Slider "Modules Levelup Amount Factor", "drpg_module_levelfactor", 0.5, 10.0, 0.1
-	Slider "Modules Stat Cost Amount Factor", "drpg_module_statfactor", 0.5, 10.0, 0.1
-	Slider "Modules Skill Cost Amount Factor", "drpg_module_skillfactor", 0.5, 10.0, 0.1
-	Slider "Modules Conversion Amount Factor", "drpg_module_convertfactor", 0.5, 10.0, 0.1
-	StaticText ""
+    Title "Stat System"
+    
+    Slider "Modules Spawn Amount Factor", "drpg_module_spawnfactor", 0.5, 10.0, 0.1
+    Slider "Modules Levelup Amount Factor", "drpg_module_levelfactor", 0.5, 10.0, 0.1
+    Slider "Modules Stat Cost Amount Factor", "drpg_module_statfactor", 0.5, 10.0, 0.1
+    Slider "Modules Skill Cost Amount Factor", "drpg_module_skillfactor", 0.5, 10.0, 0.1
+    StaticText ""
     
     Option "Stat Randomizer", "drpg_auto_spend", "OnOff"
     Option "Stat Preference", "drpg_auto_spend_pref", "StatPreference"
-	StaticText ""
+    StaticText ""
     
     Option "Auto Healing", "drpg_auto_heal", "OnOff"
-	Option "Auto Healing Percentage", "drpg_auto_heal_percent", "AutoHealing"
-	StaticText ""
-	
-    Option "Movement Regeneration Mechanics", "drpg_regen_movement", "OnOff"
-	Option "Agility-Based Weapon Speed", "drpg_stat_weaponspeed", "OnOff"
-	Slider "Max Speed", "drpg_maxspeed", 0.5, 4.0, 0.01
-	Slider "Max Jump Height", "drpg_maxjump", 8.0, 32.0, 0.1
-	StaticText ""
+    Option "Auto Healing Percentage", "drpg_auto_heal_percent", "AutoHealing"
+    StaticText ""
     
-	Option "Inventory Capacity System", "drpg_inv_capacity", "OnOff"
+    Slider "Stim Time Multiplier", "drpg_stim_time_multiplier", 1, 10, 1
+    StaticText ""
+    
+    Option "Movement Regeneration Mechanics", "drpg_regen_movement", "OnOff"
+    Option "Agility-Based Weapon Speed", "drpg_stat_weaponspeed", "OnOff"
+    Slider "Max Speed", "drpg_maxspeed", 0.5, 4.0, 0.01
+    Slider "Max Jump Height", "drpg_maxjump", 8.0, 32.0, 0.1
+    StaticText ""
+    
+    Option "Inventory Capacity System", "drpg_inv_capacity", "OnOff"
 }
 
 OptionMenu "DoomRPGStatsNatural"
@@ -291,11 +303,11 @@ OptionMenu "DoomRPGStatsNatural"
     Title "Natural Stat Leveling"
     
     Option "Natural Stat Leveling", "drpg_levelup_natural", "OnOff"
-	StaticText ""
+    StaticText ""
     
     Option "Allow Specialization", "drpg_allow_spec", "YesNo"
     Option "Stat Specialization", "drpg_character_spec", "StatPreference"
-	StaticText ""
+    StaticText ""
     
     Slider "Strength XP Multiplier", "drpg_strength_scalexp", 0.25, 8.0, 0.25
     Slider "Defense XP Multiplier", "drpg_defense_scalexp", 0.25, 8.0, 0.25
@@ -309,55 +321,56 @@ OptionMenu "DoomRPGStatsNatural"
 
 OptionMenu "DoomRPGPopoffs"
 {
-	Title "Popoffs"
-	
-    Option "Player Info Popoffs", "drpg_popoffs", "OnOff"
-	StaticText ""
+    Title "Popoffs"
     
-	Option "Damage Number Popoffs", "drpg_damagenumbers", "OnOff"
-	Slider "Damage Numbers Fadeout Time", "drpg_damagenumbers_fade", 1, 100, 1
-	Option "Player Damage Numbers on HUD", "drpg_damagenumbers_hud", "OnOff"
+    Option "Player Info Popoffs", "drpg_popoffs", "OnOff"
+    StaticText ""
+    
+    Option "Damage Number Popoffs", "drpg_damagenumbers", "OnOff"
+    Slider "Damage Numbers Fadeout Time", "drpg_damagenumbers_fade", 1, 100, 1
+    Option "Player Damage Numbers on HUD", "drpg_damagenumbers_hud", "OnOff"
+    StaticText ""
+    Option "Module Number Popoffs", "drpg_modulenumbers", "OnOff"
 }
 
 OptionMenu "DoomRPGHealthBars"
 {
     Title "Health Bars"
-	
+    
     Option "Monster Health Bars", "drpg_healthbars", "OnOff"
-	Option "Names on Health Bars", "drpg_healthbars_names", "OnOff"
-	Option "3D Health Bars", "drpg_healthbars_world", "OnOff"
-	StaticText ""
+    Option "Names on Health Bars", "drpg_healthbars_names", "OnOff"
+    StaticText ""
     
     Slider "Health Bars Width", "drpg_healthbars_width", 640, 1920, 1
     Slider "Health Bars Height", "drpg_healthbars_height", 480, 1080, 1
-	Slider "Health Bars X Position", "drpg_healthbars_x", -320, 1920, 1
-	Slider "Health Bars Y Position", "drpg_healthbars_y", -240, 1080, 1
+    Slider "Health Bars X Position", "drpg_healthbars_x", -320, 1920, 1
+    Slider "Health Bars Y Position", "drpg_healthbars_y", -240, 1080, 1
 }
 
 OptionMenu "DoomRPGMultiplayer"
 {
-	Title "Multiplayer"
-	
+    Title "Multiplayer"
+    
     Option "XP/Rank Loss on Death", "drpg_multi_takexp", "OnOff"
-	Slider "XP/Rank Loss Percentage", "drpg_multi_takexp_percent", 1, 100, 1
-	StaticText ""
+    Slider "XP/Rank Loss Percentage", "drpg_multi_takexp_percent", 1, 100, 1
+    StaticText ""
     
-	Option "Drop Credits on Death", "drpg_multi_dropcredits", "OnOff"
-	Slider "Drop Credits Percentage", "drpg_multi_dropcredits_percent", 1, 100, 1
-	StaticText ""
+    Option "Drop Credits on Death", "drpg_multi_dropcredits", "OnOff"
+    Slider "Drop Credits Percentage", "drpg_multi_dropcredits_percent", 1, 100, 1
+    StaticText ""
     
-	Option "Drop Inventory on Death", "drpg_multi_dropinv", "OnOff"
-	StaticText ""
+    Option "Drop Inventory on Death", "drpg_multi_dropinv", "OnOff"
+    StaticText ""
     
-	Option "Restore EP on Respawn", "drpg_multi_restoreep", "OnOff"
-	Option "Restore Ammo on Respawn", "drpg_multi_restoreammo", "OnOff"
+    Option "Restore EP on Respawn", "drpg_multi_restoreep", "OnOff"
+    Option "Restore Ammo on Respawn", "drpg_multi_restoreammo", "OnOff"
 }
 
 OptionMenu "DoomRPGShop"
 {
-	Title "Shop"
+    Title "Shop"
     
-	Option "Shop anywhere", "drpg_shoptype", "OnOff"
+    Option "Shop anywhere", "drpg_shoptype", "OnOff"
     StaticText ""
     
     Slider "Shop Special Cycle Time", "drpg_shopspecial_time", 1, 60, 1
@@ -374,7 +387,7 @@ OptionMenu "DoomRPGShop"
 
 OptionMenu "DoomRPGTurret"
 {
-	Title "Turret"
+    Title "Turret"
     
     Option "Aggression Style", "drpg_turret_aggression", "TurretAggression"
     Slider "Movement Speed", "drpg_turret_movespeed", 0.1, 4.0, 0.1
@@ -382,155 +395,173 @@ OptionMenu "DoomRPGTurret"
     
     Slider "Player Safe Dist.", "drpg_turret_playerdist", 64.0, 384.0, 8.0
     Slider "Enemy Safe Dist.", "drpg_turret_enemydist", 64.0, 384.0, 8.0
-    Slider "Sensor Beam Dist.", "drpg_turret_sensordist", 64, 32768.0, 64.0
     StaticText ""
     
     Slider "Pursuit Time (Sec.)", "drpg_turret_pursuittime", 1.0, 20.0, 1.0
     Slider "Teleport Wait Time (Sec.)", "drpg_turret_telewaittime", 2.0, 20.0, 1.0
-}
+} 
 
 OptionMenu "DoomRPGMenus"
 {
-	Title "Menus"
-	
-	Option "Dim screen while in menus", "drpg_menudim", "OnOff"
-	Option "Show Help in menus", "drpg_menuhelp", "OnOff"
-    Option "Hide skills while in menus", "drpg_menu_hideskills", "OnOff"
-	StaticText ""
+    Title "Menus"
     
-	Slider "Menu Repeat Delay", "drpg_menu_repeat", 0.25, 3.0, 0.05
-	Slider "Menu Width", "drpg_menu_width", 480, 1920, 5
-	Slider "Menu Height", "drpg_menu_height", 460, 1080, 5
+    Option "Dim screen while in menus", "drpg_menudim", "OnOff"
+    Option "Show Help in menus", "drpg_menuhelp", "OnOff"
+    Option "Hide skills while in menus", "drpg_menu_hideskills", "OnOff"
     StaticText ""
-	
-	Slider "Mouse Sensitivity X", "drpg_menu_sensitivity_x", 1, 100, 1
-	Slider "Mouse Sensitivity Y", "drpg_menu_sensitivity_y", 1, 100, 1
+    
+    Slider "Menu Repeat Delay", "drpg_menu_repeat", 0.25, 3.0, 0.05
+    Slider "Menu Width", "drpg_menu_width", 480, 1920, 5
+    Slider "Menu Height", "drpg_menu_height", 460, 1080, 5
+    StaticText ""
+    
+    Option "Menu background border", "drpg_menu_background_border", "OnOff"
 }
 
 OptionMenu "DoomRPGHUD"
 {
-	Title "HUD"
+    Title "HUD"
+    
+    SubMenu "HUD Presets", "DoomRPGHUDPresets"
+    StaticText ""
     
     Option "HUD Preview", "drpg_hud_preview", "OnOff"
-	StaticText ""
+    StaticText ""
     
     Slider "HUD Width", "drpg_hud_width", 640, 1920, 1
     Slider "HUD Height", "drpg_hud_height", 480, 1080, 1
-	StaticText ""
- 	
+    StaticText ""
+     
     Slider "Stats X Position", "drpg_stats_x", -320, 1920, 1
- 	Slider "Stats Y Position", "drpg_stats_y", -240, 1080, 1
-	StaticText ""
- 	
+    Slider "Stats Y Position", "drpg_stats_y", -240, 1080, 1
+    StaticText ""
+     
     Slider "Skill X Position", "drpg_skill_x", -320, 1920, 1
- 	Slider "Skill Y Position", "drpg_skill_y", -240, 1080, 1
-	StaticText ""
+    Slider "Skill Y Position", "drpg_skill_y", -240, 1080, 1
+    StaticText ""
     
     Slider "Status Effects X Position", "drpg_stateffect_x", -320, 1920, 1
     Slider "Status Effects Y Position", "drpg_stateffect_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Credits X Position", "drpg_credits_x", -320, 1920, 1
     Slider "Credits Y Position", "drpg_credits_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Combo Counter X Position", "drpg_combo_x", -320, 1920, 1
     Slider "Combo Counter Y Position", "drpg_combo_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Stim Effects X Position", "drpg_stim_x", -320, 1920, 1
     Slider "Stim Effects Y Position", "drpg_stim_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Aug Battery X Position", "drpg_aug_x", -320, 1920, 1
     Slider "Aug Battery Y Position", "drpg_aug_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Mission Progress X Position", "drpg_mission_x", -320, 1920, 1
     Slider "Mission Progress Y Position", "drpg_mission_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Aura Timer X Position", "drpg_auratimer_x", -320, 1920, 1
     Slider "Aura Timer Y Position", "drpg_auratimer_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Powerup Timer X Position", "drpg_powerup_x", -320, 1920, 1
     Slider "Powerup Timer Y Position", "drpg_powerup_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Map Event X Position", "drpg_event_x", -320, 1920, 1
     Slider "Map Event Y Position", "drpg_event_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "DRLA HUD X Position", "drpg_drla_x", -320, 1920, 1
     Slider "DRLA HUD Y Position", "drpg_drla_y", -320, 1920, 1
-	StaticText ""
+    StaticText ""
     
     Slider "LegenDoom HUD X Position", "drpg_ld_x", -320, 1920, 1
     Slider "LegenDoom HUD Y Position", "drpg_ld_y", -320, 1920, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Co-op View X Position", "drpg_coopview_x", -320, 1920, 1
     Slider "Co-op View Y Position", "drpg_coopview_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Option "Multiplayer Player HUD", "drpg_multiplayer_hud", "OnOff"
     Slider "Multiplayer X Position", "drpg_multiplayer_x", -320, 1920, 1
     Slider "Multiplayer Y Position", "drpg_multiplayer_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Slider "Turret Info X Position", "drpg_turret_x", -320, 1920, 1
     Slider "Turret Info Y Position", "drpg_turret_y", -240, 1080, 1
-	StaticText ""
+    StaticText ""
     
     Option "Skill Wheel Animation Speed", "drpg_skill_wheelspeed", "WheelSpeed"
     Option "Always Show Stats", "drpg_stats_alwaysshow", "OnOff"
     Option "Always Show Aug Battery", "drpg_aug_alwaysshow", "OnOff"
-    Option "Fancy Stat-Up Effects", "drpg_fancy_statup", "OnOff"
+}
+
+OptionMenu "DoomRPGHUDPresets"
+{
+    Title "HUD Presets"
+
+	StaticText "These will overwrite any changes you have made to the HUD!"
+	StaticText ""
+
+	SafeCommand "Default", "pukename SetHUDPreset 1", "Are you sure?"
+	SafeCommand "Wide", "pukename SetHUDPreset 2", "Are you sure?"
 }
 
 OptionMenu "DoomRPGMisc"
 {
-	Title "Misc"
+    Title "Misc"
     
     Option "Gameplay Tips", "drpg_tips", "OnOff"
     Option "Transport On New Map", "drpg_transport_on_new_map", "OnOff"
     StaticText ""
     
+    Slider "Autosave Interval (Minutes)", "drpg_autosave", 0, 60, 1
+    Option "Auto Reactivate Augs Disabled By EMP", "drpg_augs_autoreactivate", "OnOff"
+    Option "Place quick-use items on the Inventory Bar", "drpg_give_quickinventory", "OnOff"
+    StaticText ""
+    
+    Slider "Monster Drop Distance", "drpg_monster_dropdist", 0.1, 16.0, 0.1
+}
+
+OptionMenu "DoomRPGPerformance"
+{
+    Title "Performance"
+    
     Option "Toaster Mode", "drpg_toaster", "OnOff"
     Option "Disable Fancy Auras", "drpg_simple_auras", "SimpleAuras"
     StaticText ""
     
-    Slider "Rank Payout Interval (Minutes)", "drpg_pay_interval", 5, 60, 1
-    Option "Quick Rank Payout Display", "drpg_pay_quick", "OnOff"
-	Slider "Autosave Interval (Minutes)", "drpg_autosave", 0, 60, 1
-	Option "Auto Reactivate Augs Disabled By EMP", "drpg_augs_autoreactivate", "OnOff"
-	Option "Place quick-use items on the Inventory Bar", "drpg_give_quickinventory", "OnOff"
-    StaticText ""
+    Slider "Auras Draw Distance", "drpg_auras_drawdistance", 0, 5000, 100
+    Slider "Popoffs Draw Distance", "drpg_popoffs_drawdistance", 0, 5000, 100
     
-    Slider "Monster Drop Distance", "drpg_monster_dropdist", 0.1, 16.0, 0.1
 }
 
 OptionMenu "DoomRPGCharacter"
 {
     Title "Character"
     
-	StaticText "Respec", 1
-	Command "Respec Stats", "drpg_respec_stats"
-	Command "Respec Skills", "drpg_respec_skills"
-	Command "Respec All", "drpg_respec_all"
-	StaticText ""
+    StaticText "Respec", 1
+    SafeCommand "Respec Stats", "pukename Respec 1 0", "Are you sure?"
+    SafeCommand "Respec Skills", "pukename Respec 0 1", "Are you sure?"
+    SafeCommand "Respec All", "pukename Respec 1 1", "Are you sure?"
+    StaticText ""
 
-	StaticText "Save/Load", 1
-	Command "Save Character", "drpg_savechar"
-	Command "Load Character", "drpg_loadchar"
-	Command "Clear Character", "drpg_clearchar"
-	StaticText ""
+    StaticText "Save/Load", 1
+    SafeCommand "Save Character", "pukename SaveCharacter", "Are you sure?"
+    SafeCommand "Load Character", "pukename LoadCharacter", "Are you sure?"
+    SafeCommand "Clear Character", "pukename ClearCharacter", "Are you sure?"
+    StaticText ""
 }
 
 OptionMenu "DoomRPGStart"
 {
-	Title "Starting Options"
+    Title "Starting Options"
     
     StaticText "Outpost Start", 1
     StaticText "You only need these options set if you"
@@ -538,18 +569,17 @@ OptionMenu "DoomRPGStart"
     Option "Starting Map", "drpg_startmap", "OutpostStartLevel"
     Option "Add Starting Map", "drpg_addstartmap", "YesNo"
     StaticText ""
-	
-	StaticText "Funds", 1
+    
+    StaticText "Funds", 1
     Slider "Credits", "drpg_start_credits", 0, 10000, 100
     Slider "Modules", "drpg_start_modules", 0, 10000, 25
-    Slider "Turret Parts", "drpg_start_turretParts", 0, 1000, 1
-	StaticText ""
+    Slider "Turret Parts", "drpg_start_turretparts", 0, 1000, 1
+    StaticText ""
     
-    StaticText "Level/Rank/PP", 1
+    StaticText "Level/Rank", 1
     Slider "Level", "drpg_start_level", 0, 100, 1
     Slider "Rank", "drpg_start_rank", 0, 24, 1
-    Slider "PP", "drpg_start_pp", 0, 1000000, 100
-	StaticText ""
+    StaticText ""
     
     StaticText "Stats", 1
     Slider "Strength", "drpg_start_strength", -100, 100, 1
@@ -560,7 +590,7 @@ OptionMenu "DoomRPGStart"
     Slider "Agility", "drpg_start_agility", -100, 100, 1
     Slider "Capacity", "drpg_start_capacity", 1, 100, 1
     Slider "Luck", "drpg_start_luck", -100, 100, 1
-	StaticText ""
+    StaticText ""
     
     StaticText "Weapons/Ammo/Armor/Medkit", 1
     Option "Pistol", "drpg_start_weapon_pistol", "YesNo"
@@ -577,14 +607,14 @@ OptionMenu "DoomRPGStart"
     Slider "Cells", "drpg_start_ammo_cell", 0, 3000, 1
     Option "Armor", "drpg_start_armor", "StartArmorType"
     Slider "Medkit", "drpg_start_medkit", 0, 10000, 1
-	StaticText ""
+    StaticText ""
     
     StaticText "Augmentations", 1
     Slider "Active Augs Count", "drpg_start_aug_amount", 0, 9, 1
     Slider "Aug Canisters", "drpg_start_aug_canisters", 0, 100, 1
     Slider "Aug Upgrades", "drpg_start_aug_upgrades", 0, 100, 1
     Slider "Aug Slots", "drpg_start_aug_slots", 0, 9, 1
-	StaticText ""
+    StaticText ""
     
     StaticText "Shield", 1
     Option "Shield Part Type", "drpg_start_shield_type", "StartShieldTypes"
@@ -593,20 +623,20 @@ OptionMenu "DoomRPGStart"
     Slider "Shield Battery Amount", "drpg_start_shield_amount_battery", 0, 13, 1
     Slider "Shield Capacitor Amount", "drpg_start_shield_amount_capacitor", 0, 15, 1
     Slider "Shield Accessory Amount", "drpg_start_shield_amount_acc", 0, 66, 1
-	StaticText ""
+    StaticText ""
     
     StaticText "Stims", 1
-    Slider "Total Injectors", "drpg_start_stim_injectors", 0, 4000, 1
-    Slider "Total Vials", "drpg_start_stim_vials", 0, 3000, 1
+    Slider "Total Injectors", "drpg_start_stim_injectors", 0, 100, 1
+    Slider "Total Vials", "drpg_start_stim_vials", 0, 2000, 1
     Option "Include Boosters", "drpg_start_stim_boosters", "YesNo"
     Option "Include Powerups", "drpg_start_stim_powerups", "YesNo"
-	StaticText ""
+    StaticText ""
     
     StaticText "Bonuses", 1
     Slider "Gold Minigame Chips", "drpg_start_bonus_goldchips", 0, 1000, 1
     Slider "Platinum Minigame Chips", "drpg_start_bonus_platchips", 0, 1000, 1
     Option "UAC Shop Card", "drpg_start_bonus_shopcard", "StartUACCardTypes"
-	StaticText ""
+    StaticText ""
     
     StaticText "DoomRL Arsenal", 1
     Option "Weapon Type", "drpg_start_drla_weapon_type", "StartDRLAWeaponTypes"
@@ -615,18 +645,19 @@ OptionMenu "DoomRPGStart"
     Option "Boots Type", "drpg_start_drla_boots", "StartDRLAArmorTypes"
     Slider "Mod Packs", "drpg_start_drla_modpacks", 0, 8, 1
     Option "Exotic Modpacks", "drpg_start_drla_modpacks_amount", "YesNo"
-	StaticText ""
+    StaticText ""
 }
 
 OptionMenu "DoomRPG"
 {
-	Title "Doom RPG Options"
-	
-	SubMenu "XP System",                    "DoomRPGXPSystem"
-	SubMenu "Monster Levels/Stat System",   "DoomRPGMonsters"
-	SubMenu "Game Difficulty",              "DoomRPGDifficulty"
-	SubMenu "Stat System",                  "DoomRPGStats"
-	SubMenu "Natural Stat Leveling",        "DoomRPGStatsNatural"
+    Title "Doom RPG Options"
+    
+    SubMenu "XP System",                    "DoomRPGXPSystem"
+    SubMenu "Monster Levels/Stat System",   "DoomRPGMonsters"
+    SubMenu "Game Difficulty",              "DoomRPGDifficulty"
+    SubMenu "Map Events",                   "DoomRPGMapEvents"
+    SubMenu "Stat System",                  "DoomRPGStats"
+    SubMenu "Natural Stat Leveling",        "DoomRPGStatsNatural"
     SubMenu "Popoffs",                      "DoomRPGPopoffs"
     SubMenu "Health Bars",                  "DoomRPGHealthBars"
     SubMenu "Multiplayer",                  "DoomRPGMultiplayer"
@@ -635,6 +666,17 @@ OptionMenu "DoomRPG"
     SubMenu "Menus",                        "DoomRPGMenus"
     SubMenu "HUD",                          "DoomRPGHUD"
     SubMenu "Misc",                         "DoomRPGMisc"
+    SubMenu "Performance",                  "DoomRPGPerformance"
     SubMenu "Character",                    "DoomRPGCharacter"
     SubMenu "Starting Options",             "DoomRPGStart"
+    
+    StaticText ""
+    StaticText "---------------"
+    StaticText ""
+    SafeCommand "Reset to defaults", "pukename ResetToDefaults", "Are you sure?"
+}
+
+OptionMenu "OptionsMenu"
+{
+    SubMenu "Doom RPG Options",         "DoomRPG"
 }

@@ -1,0 +1,1467 @@
+// R_WITTLI corrected to R_WHITTL
+
+Graphic R_STRENG, 28, 19
+{
+	XScale 2.000
+	YScale 2.000
+	Offset 0, 42
+	Patch PSTRA0, 0, 0
+}
+
+Graphic R_EXORCI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_EXORCI, 0, 0
+}
+
+Graphic R_EXTING, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_EXTING, 0, 0
+}
+
+Graphic R_WRANGL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_WRANGL, 0, 0
+}
+
+Graphic R_DETERM, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DETERM, 0, 0
+}
+
+Graphic R_VIOLEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_VIOLEN, 0, 0
+}
+
+Graphic R_KINETI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_KINETI, 0, 0
+}
+
+Graphic R_PENETR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PENETR, 0, 0
+}
+
+Graphic R_SUSTAI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SUSTAI, 0, 0
+}
+
+Graphic R_SPIRIT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SPIRIT, 0, 0
+}
+
+Graphic R_TRICKY, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_TRICKY, 0, 0
+}
+
+Graphic R_RAGING, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RAGING, 0, 0
+}
+
+Graphic R_UNKNOW, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_UNKNOW, 0, 0
+}
+
+Graphic R_HOARDE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HOARDE, 0, 0
+}
+
+Graphic R_SURVIV, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SURVIV, 0, 0
+}
+
+Graphic R_COLDBL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_COLDBL, 0, 0
+}
+
+Graphic R_BATTLE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BATTLE, 0, 0
+}
+
+Graphic R_RAZORE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RAZORE, 0, 0
+}
+
+Graphic R_RENEGA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RENEGA, 0, 0
+}
+
+Graphic R_CHOKED, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CHOKED, 0, 0
+}
+
+Graphic R_SLUG, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SLUG, 0, 0
+}
+
+Graphic R_SPREAD, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SPREAD, 0, 0
+}
+
+Graphic R_NOVA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_NOVA, 0, 0
+}
+
+Graphic R_STASIS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_STASIS, 0, 0
+}
+
+Graphic R_ENERGI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ENERGI, 0, 0
+}
+
+Graphic R_REPLIC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_REPLIC, 0, 0
+}
+
+Graphic R_RECURS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RECURS, 0, 0
+}
+
+Graphic R_QUICKD, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_QUICKD, 0, 0
+}
+
+Graphic R_STEALT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_STEALT, 0, 0
+}
+
+Graphic R_BLASTW, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BLASTW, 0, 0
+}
+
+Graphic R_AGITAT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_AGITAT, 0, 0
+}
+
+Graphic R_PRISTI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PRISTI, 0, 0
+}
+
+Graphic R_GRAVIT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_GRAVIT, 0, 0
+}
+
+Graphic R_ANNOYI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ANNOYI, 0, 0
+}
+
+Graphic R_TRAILB, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_TRAILB, 0, 0
+}
+
+Graphic R_REGENE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_REGENE, 0, 0
+}
+
+Graphic R_UPGRAD, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_UPGRAD, 0, 0
+}
+
+Graphic R_ANTITR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ANTITR, 0, 0
+}
+
+Graphic R_SCANNE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SCANNE, 0, 0
+}
+
+Graphic R_RESTOR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RESTOR, 0, 0
+}
+
+Graphic R_VANGUA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_VANGUA, 0, 0
+}
+
+Graphic R_RESUPP, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RESUPP, 0, 0
+}
+
+Graphic R_QUARTE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_QUARTE, 0, 0
+}
+
+Graphic R_ARMORE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ARMORE, 0, 0
+}
+
+Graphic R_SCRAMB, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SCRAMB, 0, 0
+}
+
+Graphic R_UNLIKE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_UNLIKE, 0, 0
+}
+
+Graphic R_ANTIAI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ANTIAI, 0, 0
+}
+
+Graphic R_BERSER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BERSER, 0, 0
+}
+
+Graphic R_CHARGE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CHARGE, 0, 0
+}
+
+Graphic R_EFFICI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_EFFICI, 0, 0
+}
+
+Graphic R_CLUSTE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CLUSTE, 0, 0
+}
+
+Graphic R_MEDIC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_MEDIC, 0, 0
+}
+
+Graphic R_OPTION, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_OPTION, 0, 0
+}
+
+Graphic R_PAINFU, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PAINFU, 0, 0
+}
+
+Graphic R_SCATTE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SCATTE, 0, 0
+}
+
+Graphic R_ENERGE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ENERGE, 0, 0
+}
+
+Graphic R_SHOCKW, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SHOCKW, 0, 0
+}
+
+Graphic R_HEAVY, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HEAVY, 0, 0
+}
+
+Graphic R_HUNTIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HUNTIN, 0, 0
+}
+
+Graphic R_REDIRE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_REDIRE, 0, 0
+}
+
+Graphic R_MYSTER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_MYSTER, 0, 0
+}
+
+Graphic R_BOUNCY, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BOUNCY, 0, 0
+}
+
+Graphic R_SLUGGI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SLUGGI, 0, 0
+}
+
+Graphic R_HYPER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HYPER, 0, 0
+}
+
+Graphic R_ARCING, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ARCING, 0, 0
+}
+
+Graphic R_GROUPT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_GROUPT, 0, 0
+}
+
+Graphic R_RECYCL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RECYCL, 0, 0
+}
+
+Graphic R_SHIELD, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SHIELD, 0, 0
+}
+
+Graphic R_FOCUSI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_FOCUSI, 0, 0
+}
+
+Graphic R_FLAK, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_FLAK, 0, 0
+}
+
+Graphic R_BURST, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BURST, 0, 0
+}
+
+Graphic R_THIEVI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_THIEVI, 0, 0
+}
+
+Graphic R_BLOODY, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BLOODY, 0, 0
+}
+
+Graphic R_PROXIM, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PROXIM, 0, 0
+}
+
+Graphic R_TRANSM, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_TRANSM, 0, 0
+}
+
+Graphic R_ILLUMI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ILLUMI, 0, 0
+}
+
+Graphic R_LUNGIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_LUNGIN, 0, 0
+}
+
+Graphic R_RAMPAG, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RAMPAG, 0, 0
+}
+
+Graphic R_SERIOU, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SERIOU, 0, 0
+}
+
+Graphic R_PROSTR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PROSTR, 0, 0
+}
+
+Graphic R_SENSIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SENSIN, 0, 0
+}
+
+Graphic R_WARMUP, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_WARMUP, 0, 0
+}
+
+Graphic R_INFILT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_INFILT, 0, 0
+}
+
+Graphic R_INCINE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_INCINE, 0, 0
+}
+
+Graphic R_IGNITI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_IGNITI, 0, 0
+}
+
+Graphic R_COMRAD, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_COMRAD, 0, 0
+}
+
+Graphic R_HARDEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HARDEN, 0, 0
+}
+
+Graphic R_SCROUN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SCROUN, 0, 0
+}
+
+Graphic R_ACTION, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ACTION, 0, 0
+}
+
+Graphic R_IMPROB, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_IMPROB, 0, 0
+}
+
+Graphic R_SCRAPP, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SCRAPP, 0, 0
+}
+
+Graphic R_BLESSE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BLESSE, 0, 0
+}
+
+Graphic R_SEEKER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SEEKER, 0, 0
+}
+
+Graphic R_KILLST, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_KILLST, 0, 0
+}
+
+Graphic R_NUCLEA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_NUCLEA, 0, 0
+}
+
+Graphic R_LUCKY, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_LUCKY, 0, 0
+}
+
+Graphic R_DESPER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DESPER, 0, 0
+}
+
+Graphic R_WHITTL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_WITTLI, 0, 0
+}
+
+Graphic R_SHAMAN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SHAMAN, 0, 0
+}
+
+Graphic R_ACCELE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ACCELE, 0, 0
+}
+
+Graphic R_EXPLOS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_EXPLOS, 0, 0
+}
+
+Graphic R_VIDMAS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_VIDMAS, 0, 0
+}
+
+Graphic R_HIGHEX, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HIGHEX, 0, 0
+}
+
+Graphic R_SHAPED, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SHAPED, 0, 0
+}
+
+Graphic R_RAPID, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RAPID, 0, 0
+}
+
+Graphic R_MARKSM, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_MARKSM, 0, 0
+}
+
+Graphic R_SNIPER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SNIPER, 0, 0
+}
+
+Graphic R_EXTEND, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_EXTEND, 0, 0
+}
+
+Graphic R_CQC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CQC, 0, 0
+}
+
+Graphic R_VAMPIR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_VAMPIR, 0, 0
+}
+
+Graphic R_SCAVEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SCAVEN, 0, 0
+}
+
+Graphic R_POINTB, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_POINTB, 0, 0
+}
+
+Graphic R_PERFEC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PERFEC, 0, 0
+}
+
+Graphic R_DOUBLE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DOUBLE, 0, 0
+}
+
+Graphic R_SPAMTA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SPAMTA, 0, 0
+}
+
+Graphic R_CONCEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CONCEN, 0, 0
+}
+
+Graphic R_VACUUM, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_VACUUM, 0, 0
+}
+
+Graphic R_BLAZIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BLAZIN, 0, 0
+}
+
+Graphic R_WINDUP, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_WINDUP, 0, 0
+}
+
+Graphic R_ENTREN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ENTREN, 0, 0
+}
+
+Graphic R_TORGUE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_TORGUE, 0, 0
+}
+
+Graphic R_SUPPRE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SUPPRE, 0, 0
+}
+
+Graphic R_WAVEFO, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_WAVEFO, 0, 0
+}
+
+Graphic R_BEAM, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BEAM, 0, 0
+}
+
+Graphic R_ILLEGA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ILLEGA, 0, 0
+}
+
+Graphic R_PATIEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PATIEN, 0, 0
+}
+
+Graphic R_ADVANC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ADVANC, 0, 0
+}
+
+Graphic R_DUALWI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DUALWI, 0, 0
+}
+
+Graphic R_STEADY, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_STEADY, 0, 0
+}
+
+Graphic R_SUSPEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SUSPEN, 0, 0
+}
+
+Graphic R_BLASTE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BLASTE, 0, 0
+}
+
+Graphic R_DECAYI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DECAYI, 0, 0
+}
+
+Graphic R_HOPEFU, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HOPEFU, 0, 0
+}
+
+Graphic R_SADIST, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SADIST, 0, 0
+}
+
+Graphic R_INTIMI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_INTIMI, 0, 0
+}
+
+Graphic R_GHOSTL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_GHOSTL, 0, 0
+}
+
+Graphic R_RESOUR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RESOUR, 0, 0
+}
+
+Graphic R_WILDFI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_WILDFI, 0, 0
+}
+
+Graphic R_CHRONO, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CHRONO, 0, 0
+}
+
+Graphic R_IMPOSS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_IMPOSS, 0, 0
+}
+
+Graphic R_HEROIC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_HEROIC, 0, 0
+}
+
+Graphic R_MURDER, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_MURDER, 0, 0
+}
+
+Graphic R_UNSTOP, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_UNSTOP, 0, 0
+}
+
+Graphic R_IRRADI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_IRRADI, 0, 0
+}
+
+Graphic R_BLOODT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_BLOODT, 0, 0
+}
+
+Graphic R_CONVIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CONVIN, 0, 0
+}
+
+Graphic R_PLASMA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PLASMA, 0, 0
+}
+
+Graphic R_PERSIS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PERSIS, 0, 0
+}
+
+Graphic R_TRIPLE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_TRIPLE, 0, 0
+}
+
+Graphic R_TWINSH, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_TWINSH, 0, 0
+}
+
+Graphic R_GAUSS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_GAUSS, 0, 0
+}
+
+Graphic R_ONEPUN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ONEPUN, 0, 0
+}
+
+Graphic R_NORTHE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_NORTHE, 0, 0
+}
+
+Graphic R_FACEKI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_FACEKI, 0, 0
+}
+
+Graphic R_LACERA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_LACERA, 0, 0
+}
+
+Graphic R_IMAGIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_IMAGIN, 0, 0
+}
+
+Graphic R_SIXSHO, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SIXSHO, 0, 0
+}
+
+Graphic R_MACHIN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_MACHIN, 0, 0
+}
+
+Graphic R_SHORTR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SHORTR, 0, 0
+}
+
+Graphic R_PROTOT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_PROTOT, 0, 0
+}
+
+Graphic R_GYROJE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_GYROJE, 0, 0
+}
+
+Graphic R_OVERKI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_OVERKI, 0, 0
+}
+
+Graphic R_GOLDEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_GOLDEN, 0, 0
+}
+
+Graphic R_RAYCAS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_RAYCAS, 0, 0
+}
+
+Graphic R_ANNIHI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ANNIHI, 0, 0
+}
+
+Graphic R_CURSED, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CURSED, 0, 0
+}
+
+Graphic R_UNFATH, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_UNFATH, 0, 0
+}
+
+Graphic R_OVERFL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_OVERFL, 0, 0
+}
+
+Graphic R_ARTIFA, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ARTIFA, 0, 0
+}
+
+Graphic R_DEMONS, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DEMONS, 0, 0
+}
+
+Graphic R_DIVINE, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_DIVINE, 0, 0
+}
+
+Graphic R_ENDLES, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_ENDLES, 0, 0
+}
+
+Graphic R_NANOCI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_NANOCI, 0, 0
+}
+
+Graphic R_CRIPPL, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CRIPPL, 0, 0
+}
+
+Graphic R_FREEZI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_FREEZI, 0, 0
+}
+
+Graphic R_FAVOUR, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_FAVOUR, 0, 0
+}
+
+Graphic R_THEMAT, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_THEMAT, 0, 0
+}
+
+Graphic R_SOULST, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_SOULST, 0, 0
+}
+
+Graphic R_COLLEC, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_COLLEC, 0, 0
+}
+
+Graphic R_CHAMPI, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_CHAMPI, 0, 0
+}
+
+Graphic R_AUGMEN, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_AUGMEN, 0, 0
+}
+
+Graphic R_AUGME1, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_AUGME1, 0, 0
+}
+
+Graphic R_AUGME2, 42, 42
+{
+	XScale 3.000
+	YScale 3.000
+	Offset 0, 42
+	Patch E_AUGME2, 0, 0
+}
+
+// End of texture definitions

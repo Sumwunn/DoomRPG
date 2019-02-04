@@ -1,0 +1,308 @@
+// --------------------------------------------------
+// Pain Elemental
+//
+
+// Pain Elemental Spawner
+ACTOR Colourset15RPG : Colourset15 Replaces DRPGPainElemental
+{
+}
+
+// Common Pain Elemental
+ACTOR CommonPERPG : CommonPE Replaces CommonPE
+{
+	Tag "Pain Elemental"
+
+	States
+	{
+	Spawn:
+		PAIN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	Missile:
+		PAIN D 5 A_FaceTarget
+		PAIN E 5 A_FaceTarget
+		PAIN F 4 Bright A_FaceTarget
+		PAIN F 1 Bright A_PainAttack("PECommonLsoulRPG")
+		Goto See
+	}
+}
+
+// Green Pain Elemental
+ACTOR GreenPERPG : GreenPE Replaces GreenPE
+{
+	Tag "Uncommon Pain Elemental"
+
+	States
+	{
+	Spawn:
+		PAIN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	SoulIt:
+		PAIN F 4 Bright A_FaceTarget
+		PAIN F 1 Bright A_PainAttack("PEGreenLSoulRPG")
+		Goto See
+	}
+}
+
+// Blue Pain Elemental
+ACTOR BluePERPG : BluePE Replaces BluePE
+{
+	Tag "Rare Pain Elemental"
+
+	States
+	{
+	Spawn:
+		PAIN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	SoulIt:
+		PAIN F 4 Bright A_FaceTarget
+		PAIN F 1 Bright A_PainAttack("PEBlueLSoulRPG")
+		PAIN EDE 8
+		PAIN F 3 Bright A_PainAttack("PEBlueLSoulRPG",0, PAF_NOSKULLATTACK)
+		Goto See
+	}
+}
+
+// Purple Pain Elemental
+ACTOR PurplePERPG : PurplePE Replaces PurplePE
+{
+	Tag "Epic Pain Elemental"
+
+	States
+	{
+	Spawn:
+		TORT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TORT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	SoulIt:
+		TORT F 0
+		TORT F 0 A_Jumpif(user_slowdownbuddy>6, "Maaybe")
+		TORT F 7 Bright A_DualPainAttack("PEPurpleLSoulRPG")
+		TORT D 6
+		TORT D 0 A_SetUserVar("user_slowdownbuddy",user_slowdownbuddy+1)
+		TORT D 0
+		Goto See
+	}
+}
+
+// Yellow Pain Elemental
+ACTOR YellowPERPG : YellowPE Replaces YellowPE
+{
+	Tag "Volcanic Pain Elemental"
+
+	States
+	{
+	Spawn:
+		INFR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		INFR A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	Spawns2:
+		INFR BC 5
+		INFR D 5 A_PainAttack("PEYellowLSoulRPG")
+		INFR D 0 A_CheckSight("See")
+		Goto Missile
+	}
+}
+
+// Red Pain Elemental
+ACTOR RedPERPG : RedPE Replaces RedPE
+{
+	Tag "Rage Elemental"
+
+	States
+	{
+	Spawn:
+		TORT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TORT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	SoulIt:
+		TORT C 9 Bright A_PainAttack("PERedLSoulRPG")
+		TORT D 5
+		Goto See
+	}
+}
+
+// Black Pain Elemental
+ACTOR BlackPE2RPG : BlackPE2 Replaces BlackPE2
+{
+	Tag "Hell Soul Elemental"
+
+	States
+	{
+	Spawn:
+		OVER A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		OVER A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR BundleRandom3RPG : RandomSpawner Replaces BundleRandom3
+{
+    DropItem "PECommonLSoulRPG", 255, 150
+    DropItem "PEGreenLSoulRPG", 255, 125
+    DropItem "PEBlueLSoulRPG", 255,  100
+    DropItem "PEPurpleLSoulRPG", 255, 75
+	DropItem "PEYellowLSoulRPG", 255, 50
+	DropItem "PERedLSoulRPG", 255, 50
+}
+
+ACTOR BEESHOTRPG : BEESHOT Replaces BEESHOT
+{
+	States
+	{
+	Death:
+		LFX1 SS 2 Bright A_SpawnItemEx("PEBlackLSoul2RPG",random(-12,12),random(-12,12),random(-12,12),0,0,0,0,SXF_SetMaster)
+		stop
+	}
+}
+
+// White Pain Elemental
+ACTOR WhitePE2RPG : WhitePE2 Replaces WhitePE2
+{
+	Tag "The Watcher"
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		WATC A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR WhitePE3RPG : WhitePE3 Replaces WhitePE3
+{
+	Tag "The Pilot"
+
+	States
+	{
+	Spawn:
+		WATC A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		WATC A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR HealthFountainWhitePERPG : HealthFountainWhitePE Replaces HealthFountainWhitePE
+{
+	Tag "Health Fountain"
+
+	States
+	{
+	Spawn:
+		WATC A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		WATC A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Mini Sentinel
+ACTOR MiniSentinelPERPG : MiniSentinelPE Replaces MiniSentinelPE
+{
+	Tag "Mini Sentinel"
+	
+	-COUNTKILL
+
+	States
+	{
+	Spawn:
+		MNDR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	//See:
+	//	MNDR A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+	//	Goto Super::See
+	}
+}
+
+// Gray Pain Elemental
+ACTOR GrayPE2RPG : GrayPE2 Replaces GrayPE2
+{
+	Tag "Nasty Hive"
+
+	States
+	{
+	Spawn:
+		INFR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		INFR A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	SoulIt:
+		INFR C 4 Bright A_SpawnItemEx("PEGrayLSoul2RPG",random(-128,128),random(-128,128),0,0,0,0,0,SXF_TRANSFERPOINTERS ) 
+		INFR D 5
+		Goto See
+	Bug1:
+		INFR C 4 A_PainAttack("PEGreyDemon2RPG")
+		INFR D 5
+		Goto See
+	Bug2:
+		INFR C 4 A_SpawnItemEx("PEGraySpectre2RPG",random(-64,64),random(-64,64),0,0,0,0,0,SXF_TRANSFERPOINTERS ) 
+		INFR D 5
+		Goto See
+	}
+}
+
+// Fireblu Pain Elemental
+ACTOR FireBluPE2RPG : FireBluPE2 Replaces FireBluPE2
+{
+	Tag "Enchanted Elemental"
+
+	States
+	{
+	Spawn:
+		PAIN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+ACTOR BoomPEBluRPG : BoomPEBlu Replaces BoomPEBlu
+{
+	States
+	{
+	Death:
+		MISL CD 4 Bright a_explode(random(20,40),64,0)
+		TNT1 A 0 A_SpawnItemEx ("FireBluLSoul2", 0,0,6, VelX,VelY,VelZ, 0, SXF_ABSOLUTEMOMENTUM | SXF_NOCHECKPOSITION,128)
+		Stop
+	}
+}
+
+// Abyss Pain Elemental
+ACTOR AbyssPE2RPG : AbyssPE2 Replaces AbyssPE2
+{
+	Tag "Abyssal Elemental"
+
+	States
+	{
+	Spawn:
+		AYPE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		AYPE A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

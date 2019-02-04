@@ -1,0 +1,244 @@
+// --------------------------------------------------
+// ZombieMan
+//
+
+// Zombie Spawner
+ACTOR Colourset2RPG : Colourset2 Replaces DRPGZombieMan
+{
+}
+
+// Common Zombie
+ACTOR CommonZombieRPG : CommonZombie Replaces CommonZombie
+{
+	Tag "Former Human"
+
+	States
+	{
+	Spawn:
+		POSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		POSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Zombie
+ACTOR GreenZombieRPG : GreenZombie Replaces GreenZombie
+{
+	Tag "Uncommon Former Human"
+	
+	States
+	{
+	Spawn:
+		POSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		POSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Zombie
+ACTOR BlueZombieRPG : BlueZombie Replaces BlueZombie
+{
+	Tag "Rare Former Human"
+
+	States
+	{
+	Spawn:
+		POSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		POSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Zombie
+ACTOR PurpleZombieRPG : PurpleZombie Replaces PurpleZombie
+{
+	Tag "Epic Former Human"
+
+	States
+	{
+	Spawn:
+		POSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		POSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Zombie
+ACTOR YellowZombieRPG : YellowZombie Replaces YellowZombie
+{
+	Tag "Legendary Former Human"
+
+	States
+	{
+	Spawn:
+		CZOW A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		CZOW A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Zombie
+ACTOR RedZombieRPG : RedZombie Replaces RedZombie
+{
+	Tag "Demonic Former Human"
+
+	States
+	{
+	Spawn:
+		ZUNM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ZUNM A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Zombie
+ACTOR BlackZombie1RPG : BlackZombie1 Replaces BlackZombie1
+{
+	States
+	{
+	Spawn:
+		PLAY A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		PLAY A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Black Zombie EX
+ACTOR BlackZombieEXRPG : BlackZombieEX Replaces BlackZombieEX
+{
+	States
+	{
+	Spawn:
+		PLAY A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		PLAY A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Zombie
+ACTOR WhiteZombie1RPG : WhiteZombie1 Replaces WhiteZombie1
+{
+	Tag "The Undertaker"
+
+	States
+	{
+	Spawn:
+		MAGE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		MAGE A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Mr Bones
+
+ACTOR ThePlanBonerRPG : ThePlanBoner Replaces ThePlanBoner
+{
+	Tag "???"
+
+	States
+	{
+	Spawn:
+		BBBN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	//See:
+	//	BBBN A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+	//	Goto Super::See
+	}
+}
+
+ACTOR MrBonesRPG : MrBones Replaces MrBones
+{
+	Tag "Mr. Bones"
+
+	States
+	{
+	Spawn:
+		SKLT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		SKLT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Zombieman.
+ACTOR AbyssZombie2RPG : AbyssZombie2 Replaces AbyssZombie2
+{
+	Tag "Abyssal Former Human"
+
+	States
+	{
+	Spawn:
+		ZUNM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ZUNM A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Zombieman Alt.
+ACTOR AbyssZombie3RPG : AbyssZombie3 Replaces AbyssZombie3
+{
+	Tag "Abyssal Former Human"
+
+	States
+	{
+	Spawn:
+		ZUNM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		ZUNM A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// FireBlu Zombieman.
+ACTOR FireBluZombie2RPG : FireBluZombie2 Replaces FireBluZombie2
+{
+	Tag "Enchanted Former Human"
+
+	States
+	{
+	Spawn:
+		POSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		POSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Gray Zombieman.
+ACTOR GrayZombie2RPG : GrayZombie2 Replaces GrayZombie2
+{
+	Tag "Ancient Former Human"
+
+	States
+	{
+	Spawn:
+		POSS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		POSS A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

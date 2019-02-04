@@ -61,22 +61,16 @@ texture RD1NX0
 // --------------------------------------------------
 // ARMOR
 // 
-// This is fucking stupid
 
 // Green Armor
 texture ARM1A0
-    pic ARM1A0 tics 1
-    pic ARM1A0 tics 1
+    pic ARM1A0 tics 6
+    pic ARM1A0 tics 6
 
 // Blue Armor
 texture ARM2A0
-    pic ARM2A0 tics 1
-    pic ARM2A0 tics 1
-
-// Commando Armor
-texture ARM3A0
-    pic ARM3A0 tics 1
-    pic ARM3A0 tics 1
+    pic ARM2A0 tics 6
+    pic ARM2A0 tics 6
 
 // Cyber-Nano Security Armor
 texture CYN1A0
@@ -187,20 +181,6 @@ texture CHROA0
 // --------------------------------------------------
 // POWERUPS
 // 
-
-// Light Amp
-texture PVISA0
-	pic PVISA0 tics 6
-	pic PVISB0 tics 6
-
-// Computer Area Map
-texture PMAPA0
-	pic PMAPA0 tics 6
-	pic PMAPB0 tics 6
-	pic PMAPC0 tics 6
-	pic PMAPD0 tics 6
-	pic PMAPC0 tics 6
-	pic PMAPB0 tics 6
 
 // Tracking Map
 texture MMAPA0

@@ -1,0 +1,22 @@
+Code:
+worldendDominator
+itsmedoggo. (THANK YOU FOR YOUR WORK ON COLOURFUL HELL COMPAT!!!!!!!)
+
+Graphics:
+https://opengameart.org/content/pong-graphics. Used for the mission bbs boxes.
+https://forum.zdoom.org/viewtopic.php?f=37&t=55196. Used for event skies.
+https://www.freepik.com/free-psd/neon_566919.htm#term=neon&page=1&position=2. Used for Outpost signs.
+https://opengameart.org/content/star-vector. Used for enemy level.
+
+Sounds:
+evecdsp-v2e.wad. Various sounds. I cannot find an author for this.
+System Shock 2.
+Prey (2017).
+
+Music.
+MDK2.
+Doom PSX Soundtrack extended.
+
+Misc.
+Oblige used for the first arena map ever!
+DRPGExitsReplacer based off of: https://forum.zdoom.org/viewtopic.php?f=122&t=55073&p=998677&hilit=exit#p998782

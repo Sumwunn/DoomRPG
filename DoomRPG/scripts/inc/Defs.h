@@ -228,7 +228,7 @@ typedef enum
 // CharSave
 //
 
-#define CHARSAVE_VERSION        16
+#define CHARSAVE_VERSION        17
 #define CHARSAVE_MAXSIZE        224
 #define CHARSAVE_MAXCVARS       16
 #define DRLA_MODPACK_SIZE       9
@@ -256,86 +256,6 @@ typedef enum
     NODE_RARITY,    // Purple
     NODE_MAX,
 } ENodeTypes;
-
-// --------------------------------------------------
-// GUI
-//
-
-#define GUI_WIDTH       800
-#define GUI_HEIGHT      600
-
-#define MAX_TABS        21
-#define MAX_CONTROLS    64
-#define MAX_LIST        256
-#define MAX_OPTIONS     16
-
-#define WINDOW_X        0
-#define WINDOW_Y        0
-
-#define GUI_CURSOR_ID   600
-#define GUI_TOOLTIP_ID  700
-#define GUI_CONTENTS_ID 1000
-#define GUI_PANEL_ID    (MAKE_ID('P', 'A', 'N', 'L'))
-#define GUI_BACK_ID     (MAKE_ID('Z', 'Z', 'Z', 'Z'))
-
-typedef enum
-{
-    GUI_BAR_PIXEL,
-    GUI_BAR_FADE,
-    GUI_BAR_CLIP
-} EGUIBarTypes;
-
-// Control Types
-typedef enum
-{
-    CTL_ANY, // [KS] For searching
-    CTL_LABEL,
-    CTL_ICON,
-    CTL_BUTTON,
-    CTL_BAR,
-    CTL_LIST,
-    CTL_GRID,
-    CTL_BORDER,
-    CTL_MAX
-} EControlTypes;
-
-// Panels
-typedef enum
-{
-    PANEL_MAIN,
-    PANEL_STATS,
-    PANEL_AUGS,
-    PANEL_SKILLS,
-    PANEL_SHIELD,
-    PANEL_STIMS,
-    PANEL_TURRET,
-    PANEL_SHOP,
-    PANEL_PAYOUT,
-    PANEL_MISSION,
-    PANEL_TRANSPORT,
-    PANEL_TEAM,
-    PANEL_TIPS,
-    PANEL_MAX
-} EPanelTypes;
-
-// Label Alignments
-typedef enum
-{
-    LA_CENTER,
-    LA_LEFT,
-    LA_RIGHT,
-    LA_CENTERTOP,
-    LA_LEFTTOP,
-    LA_RIGHTTOP
-} ELabelAlignment;
-
-// Tooltip Types
-typedef enum
-{
-    TT_BASIC,
-    TT_TITLE,
-    TT_BIG
-} ETooltipType;
 
 // --------------------------------------------------
 // Health Bars
@@ -366,7 +286,7 @@ typedef enum
     CF_NODROP   = 0x8,
 } ECategoryFlags;
 
-typedef enum 
+typedef enum
 {
     RL_POWER_MOD = 0x01,
     RL_BULK_MOD = 0x02,
@@ -386,7 +306,8 @@ typedef enum
 #define NUKE_ID                 (MAKE_ID('N', 'U', 'K', 'E'))
 #define MAX_NUKE_KEYS           9
 
-#define MAP_EXIT_SCRIPTNUM      30000
+#define MAP_EXIT_SCRIPTNUM          30000
+#define MAP_EXIT_TELEPORT_SCRIPTNUM 30001
 
 typedef enum
 {
@@ -507,10 +428,12 @@ typedef enum
 // Monsters
 //
 #define MAX_MONSTERS            16384
-#define MAX_DEF_MONSTERS        17
+#define MAX_DEF_MONSTERS_DF     17
 #define MAX_DEF_MONSTERS_DRLA   72
-#define MAX_TEMP_MONSTERS       100
-#define MAX_MEGABOSSES          2
+#define MAX_DEF_MONSTERS_CH		134
+#define MAX_TEMP_MONSTERS       150
+#define MAX_MEGABOSSES_DF       2
+#define MAX_MEGABOSSES_CH       2
 
 typedef enum
 {
@@ -551,7 +474,7 @@ typedef enum
 
 // --------------------------------------------------
 // Outpost
-// 
+//
 
 #define MAX_OUTPOST_ID          2000
 
@@ -600,19 +523,8 @@ typedef enum
 } EShopSpecialType;
 
 // --------------------------------------------------
-// Payout
-// 
-
-#define PAYOUT_VALUES_MAX       10
-#define PAYOUT_DATA_MAX         10
-#define PAYOUT_TOTAL_X          200
-#define PAYOUT_TOTAL_Y          40
-#define PAYOUT_TEXT_X           20
-#define PAYOUT_TEXT_Y           100
-
-// --------------------------------------------------
 // Popoffs
-// 
+//
 
 #define DNUM_DIGITS             7
 #define DNUM_MONSTER_DIV        500
@@ -633,12 +545,12 @@ typedef enum
 
 // --------------------------------------------------
 // RPG
-// 
+//
 
 #define ASAVE_SAFETIME          20 * 35
 #define ASAVE_RETRYTIME         5 * 35
 #define MAX_ITEMS               65535
-#define MAX_TIPS                75
+#define MAX_TIPS                76
 
 #define LOADOUT_WEAPONS         8
 #define LOADOUT_ARMORS          10
@@ -652,11 +564,13 @@ typedef enum
 {
     COMPAT_NONE,
     COMPAT_EXTRAS,
+    COMPAT_LEGENDOOM,
     COMPAT_DRLA,
-    COMPAT_LEGENDOOM
+    COMPAT_CH
 } ECompatibilityMode;
 
-typedef enum {
+typedef enum
+{
     LD_STANDARD,
     LD_COMMON,
     LD_UNCOMMON,
@@ -684,7 +598,7 @@ typedef enum
 
 // --------------------------------------------------
 // Shield
-// 
+//
 
 #define SHIELD_HEALTH           1000000
 #define MAX_PARTS               22
@@ -718,7 +632,7 @@ typedef enum
 
 // --------------------------------------------------
 // Shop
-// 
+//
 
 #define LOCKER_EPRATE           (Player.EPMax * 100 / 10000)
 
@@ -732,7 +646,7 @@ typedef enum
 
 // --------------------------------------------------
 // Skills
-// 
+//
 
 #define MAX_CATEGORIES          6
 #define MAX_SKILLS              17
@@ -778,9 +692,7 @@ typedef enum
 #define COMBO_STOP              (35 * 2)
 #define LEVELUP_ID              (MAKE_ID('L', 'V', 'U', 'P'))
 #define RANKUP_ID               (MAKE_ID('R', 'K', 'U', 'P'))
-#define PAYOUT_ID               (MAKE_ID('P', 'P', 'A', 'Y'))
 #define CONFUSION_ID            (MAKE_ID('C', 'O', 'N', 'F'))
-#define CONFUSION_NONSENSE_ID   (MAKE_ID('C', 'O', 'N', '2'))
 
 #define MODULE_STAT_MULT        25
 #define MODULE_SKILL_MULT       250
@@ -825,11 +737,13 @@ typedef enum
 #define LUCK_SHIELDINC          0.0005
 #define LUCK_AUGINC             0.00025
 
-#define AURA_CALCTIME           (((35 * 30) + (Player.Energy * 5.25)) * (Player.AuraBonus + 1))
+#define AURA_CALCTIME           (((35 * 30) + (Player.EnergyTotal * 5.25)) * (Player.AuraBonus + 1))
 #define DRLA_WEAPON_MAX         6
-#define DRLA_ARMOR_MAX          2 + (Player.Capacity / 25)
+#define DRLA_ARMOR_MAX          2 + (Player.CapacityTotal / 25)
 #define DRLA_SKULL_MAX          DRLA_ARMOR_MAX
-#define DRLA_DEVICE_MAX         4 + (Player.Capacity / 50)
+#define DRLA_DEVICE_MAX         4 + (Player.CapacityTotal / 50)
+
+#define NATURALCAP              100
 
 typedef enum
 {
@@ -892,8 +806,8 @@ typedef enum
 // Turret
 //
 
-#define MAX_UPGRADES            70
-#define MAX_COMMANDS            20
+#define MAX_UPGRADES            55
+#define MAX_COMMANDS            15
 #define TURRET_BATTERY_CHARGE   60 * 3
 
 typedef enum
@@ -932,7 +846,6 @@ typedef enum
     TU_AMMO_NANOGEN_SHELL,
     TU_AMMO_NANOGEN_ROCKET,
     TU_AMMO_NANOGEN_CELL,
-    TU_WEAPON_SELFDESTRUCT,
 
     // Armor
     TU_ARMOR_PLATING,
@@ -944,24 +857,6 @@ typedef enum
     TU_ARMOR_MODULE_REFLECT,
     TU_ARMOR_MODULE_REPAIR,
     TU_ARMOR_MODULE_PHASE,
-
-    // Assist
-    TU_ASSIST_HEALTH,
-    TU_ASSIST_ARMOR,
-    TU_ASSIST_AUG,
-    TU_ASSIST_SHIELD,
-    TU_ASSIST_INJECTOR,
-    TU_ASSIST_INJECTOR_TYPE,
-    TU_ASSIST_INJECTOR_AMOUNT,
-    TU_ASSIST_INJECTOR_POTENCY,
-    TU_ASSIST_TELEPORT,
-    TU_ASSIST_TEAM,
-
-    // Sensors
-    TU_SENSORS,
-    TU_SENSORS_MODULEFINDER,
-    TU_SENSORS_ITEMFINDER,
-    TU_SENSORS_SUPPLYFINDER,
 
     // Battery
     TU_BATTERY_CAPACITY,
@@ -1008,14 +903,6 @@ typedef enum
 
 typedef enum
 {
-    TSM_NONE,
-    TSM_MODULES,
-    TSM_ITEMS,
-    TSM_CRATE
-} ETurretSensorModes;
-
-typedef enum
-{
     TC_NONE,
     TC_DRAW_FIRE,
     TC_HOLD_POSITION,
@@ -1053,8 +940,11 @@ typedef enum
 {
     KEY_PRESSED,
     KEY_ONLYPRESSED,
-    KEY_UP,
-    KEY_DOWN
+    KEY_HELD,
+    KEY_ONLYHELD,
+    KEY_ANYIDLE,
+    KEY_ANYNOTIDLE,
+    KEY_REPEAT
 } EKeyStates;
 
 typedef enum
@@ -1064,23 +954,6 @@ typedef enum
     LOG_WARNING,
     LOG_ERROR
 } ELogLevels;
-
-typedef enum
-{
-    KEYNUM_ATTACK,
-    KEYNUM_ALTATTACK,
-    KEYNUM_USE,
-    KEYNUM_MODIFIER,
-    
-    KEYNUM_SKILLS,
-    KEYNUM_TURRET,
-    KEYNUM_MENU,
-    
-    KEYNUM_FORWARD,
-    KEYNUM_BACK,
-    KEYNUM_RIGHT,
-    KEYNUM_LEFT
-} EKeyNumbers;
 
 // --------------------------------------------------
 // Address Spaces
@@ -1113,36 +986,6 @@ typedef struct AugInfo_S            AugInfo;
 
 // Charsave
 typedef struct CharSaveInfo_S       CharSaveInfo;
-
-// GUI
-// [KS] This is how it's basically gonna look:
-// GUIData
-// +--GUIMouseInfo
-// |  +--GUIContextMenu
-// |  +--GUITooltip
-// +--GUITabStrip
-//    +--GUIPanel
-//       +--GUILabel
-//       +--GUIIcon
-//       +--GUIButton
-//       +--GUIBar
-//       +--GUIList
-//       +--GUIGrid
-//       +--GUIBorder
-typedef struct GUIData_S            GUIData;
-typedef struct GUIMouseInfo_S       GUIMouseInfo;
-typedef struct GUIContextMenu_S     GUIContextMenu;
-typedef struct GUITooltip_S         GUITooltip;
-typedef struct GUITabStrip_S        GUITabStrip;
-typedef struct GUIPanel_S           GUIPanel;
-typedef struct GUIControl_S         GUIControl;
-typedef struct GUILabel_S           GUILabel;
-typedef struct GUIIcon_S            GUIIcon;
-typedef struct GUIButton_S          GUIButton;
-typedef struct GUIBar_S             GUIBar;
-typedef struct GUIList_S            GUIList;
-typedef struct GUIGrid_S            GUIGrid;
-typedef struct GUIBorder_S          GUIBorder;
 
 // Health Bars
 typedef struct HUDBarInfo_S         HUDBarInfo;
@@ -1180,12 +1023,6 @@ typedef struct TurretSensorItem_S   TurretSensorItem;
 
 // Map
 typedef struct LevelInfo_S          LevelInfo;
-
-// PDA
-typedef struct PDAMessage_S         PDAMessage;
-
-typedef struct Payout_S             Payout;
-typedef struct PayoutData_S         PayoutData;
 
 // RPG
 typedef struct PlayerData_S         PlayerData;

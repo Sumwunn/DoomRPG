@@ -1,0 +1,272 @@
+// --------------------------------------------------
+// Imp
+//
+
+// Imp Spawner
+ACTOR Colourset3RPG : Colourset3 Replaces DRPGDoomImp
+{
+}
+
+// Common Imp
+ACTOR CommonImpRPG : CommonImp Replaces CommonImp
+{
+	Tag "Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Imp
+ACTOR GreenImpRPG : GreenImp Replaces GreenImp
+{
+	Tag "Uncommon Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Imp
+ACTOR BlueImpRPG : BlueImp Replaces BlueImp
+{
+	Tag "Rare Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Imp
+ACTOR PurpleImpRPG : PurpleImp Replaces PurpleImp
+{
+	Tag "Epic Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Imp
+ACTOR YellowImpRPG : YellowImp Replaces YellowImp
+{
+	Tag "Legendary Imp"
+
+	States
+	{
+	Spawn:
+		TRO4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TRO4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Imp
+ACTOR RedImpRPG : RedImp Replaces RedImp
+{
+	Tag "Demonic Imp"
+
+	States
+	{
+	Spawn:
+		PRIM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PRIM A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Imp
+ACTOR BlackImp1RPG : BlackImp1 Replaces BlackImp1
+{
+	Tag "Smoking Black Imp"
+
+	States
+	{
+	Spawn:
+		AGUR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		AGUR A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Black Imp EX
+ACTOR BlackImpEXRPG : BlackImpEX Replaces BlackImpEX
+{
+	Tag "Smoking Black Imp EX"
+
+	States
+	{
+	Spawn:
+		AGUR A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		AGUR A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Imp
+ACTOR WhiteImp2RPG : WhiteImp2 Replaces WhiteImp2
+{
+	Tag "Imp Master"
+
+	States
+	{
+	Spawn:
+		HELN A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		HELN A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Special Imps
+ACTOR SpecialImp4RPG : SpecialImp4 Replaces SpecialImp4
+{
+	Tag "Ghostly Uncommon Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+ACTOR SpecialImp3RPG : SpecialImp3 Replaces SpecialImp3
+{
+	Tag "Ghostly Rare Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+ACTOR SpecialImp5RPG : SpecialImp5 Replaces SpecialImp5
+{
+	Tag "Ghostly Epic Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+ACTOR SpecialImp6RPG : SpecialImp6 Replaces SpecialImp6
+{
+	Tag "Ghostly Legendary Imp"
+
+	States
+	{
+	Spawn:
+		TRO4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		TRO4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+ACTOR SpecialImp7RPG : SpecialImp7 Replaces SpecialImp7
+{
+	Tag "Ghostly Demonic Imp"
+
+	States
+	{
+	Spawn:
+		PRIM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		PRIM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Gray Imp
+ACTOR GrayImp2RPG : GrayImp2 Replaces GrayImp2
+{
+	Tag "Ancient Imp"
+
+	States
+	{
+	Spawn:
+		PRIM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		PRIM A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// FireBlu Imp
+ACTOR FireBluImp2RPG : FireBluImp2 Replaces FireBluImp2
+{
+	Tag "Enchanted Imp"
+
+	States
+	{
+	Spawn:
+		TROO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TROO A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Imp
+ACTOR AbyssImp2RPG : AbyssImp2 Replaces AbyssImp2
+{
+	Tag "Abyssal Imp"
+
+	States
+	{
+	Spawn:
+		TRO4 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		TRO4 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

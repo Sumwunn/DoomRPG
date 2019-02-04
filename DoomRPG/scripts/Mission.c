@@ -91,50 +91,35 @@ NamedScript void InitMission()
             if (!Monsters[i].Init) // Skip removed monsters
                 continue;
 
-            str ActorToCheck;
+            str ActorToCheck = GetMissionMonsterActor(Player.Mission.Monster->Actor);
 
-            for (int j = 0; j < MAX_PLAYERS; j++)
+            LogMessage(StrParam("Checking: %S - Looking For: %S", Monsters[i].Actor, ActorToCheck), LOG_DEBUG);
+
+            if (StartsWith(Monsters[i].Actor, ActorToCheck, true))
             {
-                if (!PlayerInGame(j)) continue;
+                if (PotentialTargets.Position == PotentialTargets.Size)
+                    ArrayResize(&PotentialTargets);
 
-                ActorToCheck = StrParam("DRPG%S", Players(j).Mission.Monster->Actor);
-
-                if (CompatMode == COMPAT_DRLA)
-                    ActorToCheck = Players(j).Mission.Monster->Actor;
-
-                if (CompatMode == COMPAT_LEGENDOOM)
-                {
-                    ActorToCheck = StrParam("%S", Players(j).Mission.Monster->Actor);
-                    if (ActorToCheck == "LDFatso") ActorToCheck = "LDMancubus";
-                }
-                
-                LogMessage(StrParam("Checking: %S - Looking For: %S",Monsters[i].Actor, ActorToCheck), LOG_DEBUG);
-                
-                if (StartsWith(Monsters[i].Actor, ActorToCheck, true))
-                {
-                    if (PotentialTargets.Position == PotentialTargets.Size)
-                        ArrayResize(&PotentialTargets);
-
-                    ((int *)PotentialTargets.Data)[PotentialTargets.Position++] = i;
-                }
-
-                if (!(i % 1000)) Delay(1);
+                ((int *)PotentialTargets.Data)[PotentialTargets.Position++] = i;
             }
+
+            if (!(i % 1000)) Delay(1);
         }
 
         if (PotentialTargets.Position)
         {
             int Chosen = ((int *)PotentialTargets.Data)[Random(0, PotentialTargets.Position - 1)];
-            int LevelMod = Player.Mission.Difficulty * Player.Level + Random(0, 100);
 
+            int LevelMod = Player.Mission.Difficulty * Player.Level;
+            LevelMod = (int)(LevelMod * RandomFixed(1.0, 1.25));
+            Monsters[Chosen].LevelAdd += LevelMod;
             Monsters[Chosen].Target = PlayerNumber() + 1;
-            Monsters[Chosen].Level += LevelMod;
-            Monsters[Chosen].Level /= 4; // Shadow Auras always double their level, and double their stats on top
-            Monsters[Chosen].NeedReinit = true;
 
             // Shadow Aura
             for (int i = 0; i < AURA_MAX; i++)
-                Monsters[Chosen].Aura.Type[i].Active = true;
+                Monsters[Chosen].AuraAdd[i] = true;
+
+            Monsters[Chosen].NeedReinit = true;
 
             // EVIL LAUGH OF WARNING
             if (Monsters[Chosen].Threat >= 10)
@@ -157,21 +142,19 @@ NamedScript void MissionDeathCheck(int Killer, MonsterStatsPtr Stats)
         // Kill Mission
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
-            // Determine actor name
-            str Actor = GetActorClass(0);
-            str NeededActor = GetMissionMonsterActor(Players(i).Mission.Monster->Actor);
-            int Match;
-
             // Player is not in-game
             if (!PlayerInGame(i)) continue;
 
-            // Check to see if we match
-            Match = StrCmp(Actor, NeededActor);
-
             // Perform actor -> needed actor match checking
-            if (Match == 0)
-                if (Players(i).Mission.Active && Players(i).Mission.Type == MT_KILL)
+            if (Players(i).Mission.Active && Players(i).Mission.Type == MT_KILL)
+            {
+                // Determine actor name
+                str Actor = GetActorClass(0);
+                str NeededActor = GetMissionMonsterActor(Players(i).Mission.Monster->Actor);
+                // Check to see if we match
+                if (StrCmp(Actor, NeededActor) == 0)
                     Players(i).Mission.Current++;
+            }
         }
 
         // Kill Auras Mission
@@ -203,14 +186,9 @@ NamedScript void MissionDeathCheck(int Killer, MonsterStatsPtr Stats)
         // Assassination Mission
         if (Stats->Target)
         {
-            for (int i = 0; i < MAX_PLAYERS; i++)
-            {
-                // Player is not in-game
-                if (!PlayerInGame(i)) continue;
-
-                if (Players(i).Mission.Active && Players(i).Mission.Type == MT_ASSASSINATION)
-                    Players(i).Mission.Current++;
-            }
+            int Target = Stats->Target - 1;
+            if (PlayerInGame(Target) && (Players(Target).Mission.Active && Players(Target).Mission.Type == MT_ASSASSINATION))
+                Players(Target).Mission.Current++;
         }
     }
 }
@@ -354,8 +332,8 @@ void CheckMission()
 
     // Generic Checking
     if (Player.Mission.Type == MT_KILL || Player.Mission.Type == MT_KILLAURAS ||
-        Player.Mission.Type == MT_REINFORCEMENTS || Player.Mission.Type == MT_SECRETS ||
-        Player.Mission.Type == MT_ITEMS)
+            Player.Mission.Type == MT_REINFORCEMENTS || Player.Mission.Type == MT_SECRETS ||
+            Player.Mission.Type == MT_ITEMS)
         if (Player.Mission.Current >= Player.Mission.Amount)
             Complete = true;
 
@@ -401,14 +379,8 @@ void CheckMission()
         SpawnForced(Player.Mission.RewardItem->Actor, GetActorX(0), GetActorY(0), GetActorZ(0), 0, 0);
         SetActorVelocity(Player.TID, 0.01, 0.01, 0, true, false);
 
-        // Payout
-        Player.Payout.MissionsCompleted++;
-
         // Clear the Mission
         ClearMission();
-
-        // Reset the completion flag
-        Complete = false;
     }
 }
 
@@ -430,27 +402,14 @@ void ClearMission()
 
 void GetTargetMonster(MissionInfo *Mission)
 {
-    bool DRLA = (CompatMode == COMPAT_DRLA);
     int Amount;
     MonsterInfoPtr PotentialMonsters[MAX_TEMP_MONSTERS];
     int NumPotentialMonsters;
-    int MonsterDataAmount;
-
-    if (DRLA)
-        MonsterDataAmount = MAX_DEF_MONSTERS_DRLA;
-    else
-        MonsterDataAmount = MAX_DEF_MONSTERS;
 
     // Generate a list based on monsters' threat levels.
     for (int i = 0; i < MonsterDataAmount; i++)
     {
-        MonsterInfoPtr TempMonster;
-        if (DRLA)
-            TempMonster = &MonsterDataDRLA[i];
-        else if (CompatMode == COMPAT_LEGENDOOM)
-            TempMonster = &MonsterDataLD[i];
-        else
-            TempMonster = &MonsterData[i];
+        MonsterInfoPtr TempMonster = &MonsterData[i];
 
         int TestDifficulty = TempMonster->Difficulty + (10 * TempMonster->ThreatLevel);
         int TestAmount = (30 + (320 * Mission->Difficulty)) / TestDifficulty;
@@ -458,13 +417,13 @@ void GetTargetMonster(MissionInfo *Mission)
         if (Mission->Type != MT_KILL)
         {
             if (TempMonster->Difficulty > ((Mission->Difficulty + 1) * 11) - 11 &&
-                TempMonster->Difficulty < ((Mission->Difficulty + 1) * 11) + 11)
+                    TempMonster->Difficulty < ((Mission->Difficulty + 1) * 11) + 11)
                 PotentialMonsters[NumPotentialMonsters++] = TempMonster;
         }
         else
         {
             if (!TempMonster->Boss && TestAmount >= 5 &&
-                TestAmount <= 40)
+                    TestAmount <= 40)
                 PotentialMonsters[NumPotentialMonsters++] = TempMonster;
         }
     }
@@ -511,7 +470,7 @@ int CalculateAverageDifficulty()
 
 str GetMissionMonsterActor(str Actor)
 {
-    if (CompatMode == COMPAT_DRLA || CompatMode == COMPAT_LEGENDOOM)
+    if (CompatMonMode != COMPAT_NONE)
         return StrParam("%SRPG", Actor);
     else if (CompatMode == COMPAT_EXTRAS)
         return StrParam("DRPG%SExtras", Actor);

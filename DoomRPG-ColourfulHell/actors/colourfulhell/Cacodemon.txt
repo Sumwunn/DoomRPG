@@ -1,0 +1,229 @@
+// --------------------------------------------------
+// Cacodemon
+//
+
+// Cacodemon Spawner
+ACTOR Colourset7RPG : Colourset7 Replaces DRPGCacodemon
+{
+}
+
+// Common Cacodemon
+ACTOR CommonCacoRPG : CommonCaco Replaces CommonCaco
+{
+	Tag "Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Cacodemon
+ACTOR GreenCacoRPG : GreenCaco Replaces GreenCaco
+{
+	Tag "Uncommon Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Cacodemon
+ACTOR BlueCacoRPG : BlueCaco Replaces BlueCaco
+{
+	Tag "Rare Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Cacodemon
+ACTOR PurpleCacoRPG : PurpleCaco Replaces PurpleCaco
+{
+	Tag "Epic Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Cacodemon
+ACTOR YellowCacoRPG : YellowCaco Replaces YellowCaco
+{
+	Tag "Cacolich"
+
+	States
+	{
+	Spawn:
+		CALI A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		CALI A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Cacodemon
+ACTOR RedCacoRPG : RedCaco Replaces RedCaco
+{
+	Tag "Demonic Cacodemon"
+
+	States
+	{
+	Spawn:
+		HED9 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HED9 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Cacodemon
+ACTOR BlackCaco2RPG : BlackCaco2 Replaces BlackCaco2
+{
+	Tag "Shockmaster"
+
+	States
+	{
+	Spawn:
+		HELE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		HELE A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Cacodemon
+ACTOR WhiteCaco2RPG : WhiteCaco2 Replaces WhiteCaco2
+{
+	Tag "Terrifying Cacodemon"
+
+	States
+	{
+	Spawn:
+		HELE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		CACP A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR WhiteCacoREALRPG : WhiteCacoREAL Replaces WhiteCacoREAL
+{
+	Tag "Thy Flesh Consumer"
+
+	States
+	{
+	Spawn:
+		CDW2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		CDW2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+ACTOR BloodRainerCacoRPG : BloodRainerCaco Replaces BloodRainerCaco
+{
+	Tag "Blood Rainer"
+
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		CDW2 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+	//	Goto Super::See
+	}
+}
+
+ACTOR WhiteCacoOrb1RPG : WhiteCacoOrb1 Replaces WhiteCacoOrb1
+{
+	Tag "Orb of Doom"
+
+	States
+	{
+	Spawn:
+		CDW2 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn
+	See:
+		TNT1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Fireblu Cacodemon
+ACTOR FireBluCaco2RPG : FireBluCaco2 Replaces FireBluCaco2
+{
+	Tag "Enchanted Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Gray Cacodemon
+ACTOR GrayCaco2RPG : GrayCaco2 Replaces GrayCaco2
+{
+	Tag "Ancient Cacodemon"
+
+	States
+	{
+	Spawn:
+		HEAD A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HEAD A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Cacodemon
+ACTOR AbyssCaco2RPG : AbyssCaco2 Replaces AbyssCaco2
+{
+	Tag "Abyssal Cacodemon"
+
+	States
+	{
+	Spawn:
+		HED9 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HED9 A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

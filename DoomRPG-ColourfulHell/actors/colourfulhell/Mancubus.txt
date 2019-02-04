@@ -1,0 +1,200 @@
+// --------------------------------------------------
+// Mancubus
+//
+
+// Mancubus Spawner
+ACTOR Colourset10RPG : Colourset10 Replaces DRPGFatso
+{
+}
+
+// Common Mancubus
+ACTOR CommonFatsoRPG : CommonFatso Replaces CommonFatso
+{
+	Tag "Mancubus"
+
+	States
+	{
+	Spawn:
+		FATT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		FATT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Green Mancubus
+ACTOR GreenFatsoRPG : GreenFatso Replaces GreenFatso
+{
+	Tag "Uncommon Mancubus"
+
+	States
+	{
+	Spawn:
+		FATT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		FATT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Blue Mancubus
+ACTOR BlueFatsoRPG : BlueFatso Replaces BlueFatso
+{
+	Tag "Rare Mancubus"
+
+	States
+	{
+	Spawn:
+		FATT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		FATT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Purple Mancubus
+ACTOR PurpleFatsoRPG : PurpleFatso Replaces PurpleFatso
+{
+	Tag "Epic Mancubus"
+
+	States
+	{
+	Spawn:
+		FATT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		FATT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Yellow Mancubus
+ACTOR YellowFatsoRPG : YellowFatso Replaces YellowFatso
+{
+	Tag "Legendary Mancubus"
+
+	States
+	{
+	Spawn:
+		INCB A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		INCB A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Red Mancubus
+ACTOR RedFatsoRPG : RedFatso Replaces RedFatso
+{
+	Tag "Horned Beast"
+
+	States
+	{
+	Spawn:
+		HBST A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HBST A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Black Mancubus
+ACTOR BlackFatso2RPG : BlackFatso2 Replaces BlackFatso2
+{
+	Tag "Dark Beast"
+
+	States
+	{
+	Spawn:
+		BDEM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BDEM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Black Mancubus EX
+ACTOR BlackFatsoEXRPG : BlackFatsoEX Replaces BlackFatsoEX
+{
+	Tag "Dank Beast"
+
+	States
+	{
+	Spawn:
+		BDEM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		BDEM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// White Mancubus
+ACTOR WhiteFatso2RPG : WhiteFatso2 Replaces WhiteFatso2
+{
+	Tag "Angry Mama"
+
+	States
+	{
+	Spawn:
+		QUEE A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		QUEE A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
+// Fireblu Mancubus
+ACTOR FireBluFatso2RPG : FireBluFatso2 Replaces FireBluFatso2
+{
+	Tag "Enchanted Beast"
+
+	States
+	{
+	Spawn:
+		HBST A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		HBST A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Gray Mancubus
+ACTOR GrayFatso2RPG : GrayFatso2 Replaces GrayFatso2
+{
+	Tag "Ancient Mancubus"
+
+	States
+	{
+	Spawn:
+		FATT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		FATT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}
+
+// Abyss Mancubus
+ACTOR AbyssFatso2RPG : AbyssFatso2 Replaces AbyssFatso2
+{
+	Tag "Abyssal Mancubus"
+
+	States
+	{
+	Spawn:
+		UNMB A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::Spawn
+	See:
+		UNMB A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+		Goto Super::See
+	}
+}

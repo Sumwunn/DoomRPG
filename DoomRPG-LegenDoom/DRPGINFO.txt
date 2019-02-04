@@ -1,1 +1,3 @@
 Name=LegenDoom
+Conflicts=DoomRL Arsenal
+Conflicts=Extras

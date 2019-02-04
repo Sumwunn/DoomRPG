@@ -1,12 +1,3 @@
-// GUI
-gui/open                GUIOPEN
-gui/close               GUICLOSE
-gui/click               GUICLICK
-gui/beep1               GUIBEEP1
-gui/beep2               GUIBEEP2
-gui/beep3               GUIBEEP3
-gui/beep4               GUIBEEP4
-
 // Menu sounds
 menu/enter				MENUENTR
 menu/leave				MENULEAV
@@ -19,6 +10,7 @@ menu/click              CWHEEL
 
 // Credits related sounds
 credits/pickup			CREDGET
+credits/payout			CPAYOUT
 
 // Shop
 shop/autosell           AUSELL
@@ -40,6 +32,7 @@ hacking/critfail        HACKCRIT
 
 // Skills
 skills/fail				MENERROR
+skills/silence          S_SILENC
 skills/heal				S_HEAL
 skills/heal2			S_HEAL2
 skills/lifeleech		S_LSTEAL
@@ -147,7 +140,6 @@ turret/despawn          TDSPAWN
 turret/hum              THUM
 turret/beep             TBEEP
 turret/targeting        TTARGET
-turret/searching        TSEARCH
 turret/cooldown         TCOOLDN
 turret/upgrade          TUPGRAD
 turret/fire             TSHOT
@@ -161,8 +153,6 @@ turret/reloadpellet     TRLDPELL
 turret/reloadrocket     TRLDROCK
 turret/reloadplasma     TRLDPLAS
 turret/reloadrail       TRLDRAIL
-turret/countdown        TSDCOUNT
-turret/explode          TSDXPLOD
 turret/maintenance      TMAINT
 turret/maintenancedone  TMAINTDN
 turret/chargedone       TCHRDONE
@@ -205,9 +195,9 @@ aug/disable				AUGDIS
 aug/dead                AUGDEAD
 
 // Misc Sounds
-misc/levelup			LEVELUP3
-misc/rankup				LEVELUP4
-misc/statup             LEVELUP5
+misc/levelup			LEVELUP
+misc/rankup				RANKUP
+misc/statup             STATUP
 misc/secret				SECRET
 misc/edgar				LOLEDGAR
 misc/drugs              DRUGS
@@ -225,9 +215,6 @@ misc/epfocus            EPFOCUS
 misc/epfocusdone        EPFOCUS2
 misc/breakglass         BREAKGLS
 misc/gzdoom.exe         GZDOOM
-
-// PDA
-pda/boot                PDABOOT
 
 // Enemy Aura Drains
 drain/ep                D_ENERGY
@@ -298,24 +285,6 @@ transfer/loop           TRANSFER
 transfer/complete       TRANSCOM
 transfer/fail           TRANSFL
 
-// Payout
-payout/ready            PAYREADY
-payout/start            PAYSTART
-payout/end              PAYEND
-payout/next             PAYNEXT
-payout/total            PAYTOTAL
-payout/totaladd         PAYTOADD
-payout/level            PAYLEVEL
-payout/damage           PAYDAMAG
-payout/credits          PAYCRED
-payout/skills           PAYSKILL
-payout/augs             PAYAUG
-payout/shields          PAYSHLD
-payout/stims            PAYSTIMS
-payout/turret           PAYTURR
-payout/missions         PAYMISS
-payout/maps             PAYMAPS
-
 // Character Saving
 charsave/save           CHARSAVE
 charsave/accept         CHARACC
@@ -332,7 +301,8 @@ mission/gottarget2      ALAUGH2
 items/armor				ARMGET
 items/armor2			MEGAARM
 items/helmet			HELMET
-items/health			HEALUP
+items/health			HEALGET
+items/healthuse			HEALUSE
 items/pack				PACKGET
 items/vial				VIAL
 items/chip              CHIP
@@ -475,24 +445,6 @@ drpgmarinefemale1/death1			DSFM1DT1
 drpgmarinefemale1/death2			DSFM1DT2
 drpgmarinefemale1/death3			DSFM1DT3
 $random drpgmarinefemale1/death { drpgmarinefemale1/death1 drpgmarinefemale1/death2 drpgmarinefemale1/death3 }
-
-//==============================================================================
-
-drpgturret/cooldown					DSOTURST
-drpgturret/fire						DSOTURFI
-drpgturret/targeting				DSOTEDND
-drpgturret/activate					DSOTACTI
-drpgturret/beep						DSOTURBP
-drpgturret/hum						DSOTURHU
-
-drpgturret/spark1					DSOTSPA1
-drpgturret/spark2					DSOTSPA2
-$random drpgturret/spark { drpgturret/spark1 drpgturret/spark2 }
-
-drpgturret/death1					DSOTURD1
-drpgturret/death2					DSOTURD2
-drpgturret/death3					DSOTURD3
-$random drpgturret/death { drpgturret/death1 drpgturret/death2 drpgturret/death3 }
 
 //==============================================================================
 

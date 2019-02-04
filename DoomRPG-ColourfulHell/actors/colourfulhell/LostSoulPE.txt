@@ -1,0 +1,184 @@
+// --------------------------------------------------
+// Pain Elemental Lost Souls
+//
+
+// Common Lost Soul
+ACTOR PECommonLSoulRPG : CommonLSoulRPG
+{
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Green Lost Soul
+ACTOR PEGreenLSoulRPG : GreenLSoulRPG
+{
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Blue Lost Soul
+ACTOR PEBlueLSoulRPG : BlueLSoulRPG
+{
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Purple Lost Soul
+ACTOR PEPurpleLSoulRPG : PurpleLSoulRPG
+{
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Yellow Lost Soul
+ACTOR PEYellowLSoulRPG : YellowLSoulRPG
+{
+	States
+	{
+	Spawn:
+		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Red Lost Soul
+ACTOR PERedLSoulRPG : RedLSoulRPG
+{
+	States
+	{
+	Spawn:
+		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Black Lost Soul
+ACTOR PEBlackLSoul3RPG : BlackLSoul3RPG
+{
+	States
+	{
+	Spawn:
+		WASP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::Spawn+1
+	See:
+		WASP A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::See+1
+	}
+}
+
+ACTOR PEBlackLSoul2RPG : BlackLSoul2RPG
+{
+	States
+	{
+	Spawn:
+		WASP A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		WASP A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// White Lost Soul
+ACTOR PEWhiteLSoul2RPG : WhiteLSoul2RPG
+{
+	States
+	{
+	Spawn:
+		ETHS A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::Spawn+1
+	See:
+		ETHS A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS | MF_BOSS)
+		Goto Super::See+1
+	}
+}
+
+// Gray Lost Soul
+ACTOR PEGrayLSoul2RPG : GrayLSoul2RPG
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		BAL1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Gray Demon
+ACTOR PEGreyDemon2RPG : GreyDemon2RPG
+{
+	States
+	{
+	Spawn:
+		WORM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	//See:
+	//	WORM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+	//	Goto Super::See+1
+	}
+}
+
+// Gray Spectre
+ACTOR PEGraySpectre2RPG : GraySpectre2RPG
+{
+	States
+	{
+	Spawn:
+		TRIT A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		TRIT A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
+
+// Fireblu Lost Soul
+ACTOR PEFireBluLSoul2RPG : FireBluLSoul2RPG
+{
+	States
+	{
+	Spawn:
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::Spawn+1
+	See:
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See+1
+	}
+}
