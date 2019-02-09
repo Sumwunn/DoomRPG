@@ -2128,8 +2128,8 @@ NamedScript void MonsterDeath()
     MonsterStatsPtr Stats = &Monsters[GetMonsterID(0)];
 
     int Killer = WhoKilledMe();
-    long int XPAmount = Random(GetActorProperty(0, APROP_SpawnHealth) / 2.0, GetActorProperty(0, APROP_SpawnHealth)) * (1 + (Stats->Threat - (Stats->Threat > 0 ? 1 : 0)));;
-    long int RankAmount = GetActorProperty(0, APROP_SpawnHealth) * (1 + (Stats->Threat - (Stats->Threat > 0 ? 1 : 0)));
+    long int XPAmount = Random(Stats->HealthMax / 2.0, Stats->HealthMax) * (1 + (Stats->Threat - (Stats->Threat > 0 ? 1 : 0)));;
+    long int RankAmount = Stats->HealthMax * (1 + (Stats->Threat - (Stats->Threat > 0 ? 1 : 0)));
 
     // Aura-Based XP/Rank Modifiers
     if (MonsterHasShadowAura(Stats))
@@ -2663,7 +2663,7 @@ int CalculateMonsterThreatLevel(MonsterStatsPtr Stats)
 int CalculateMonsterMaxHealth(MonsterStatsPtr Stats)
 {
     long int Health = Stats->SpawnHealth;
-    long int HealthAddition = Stats->SpawnHealth * 9;
+    long int HealthAddition = Stats->SpawnHealth * GetCVar("drpg_monster_vitality_effect");
 
     HealthAddition *= Stats->Vitality;
     HealthAddition /= 1000;

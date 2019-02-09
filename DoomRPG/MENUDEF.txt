@@ -189,6 +189,7 @@ OptionMenu "DoomRPGMonsters"
     Title "Monster Level/Stat System"
     
     Option "Monster Level System", "drpg_monster_levels", "MonsterLevelType"
+	Slider "Monster Vitality Effect", "drpg_monster_vitality_effect", 1, 100.0, 1
     StaticText ""
     
     Slider "Monster Level Weight", "drpg_monster_level_weight", 0.5, 10.0, 0.1
