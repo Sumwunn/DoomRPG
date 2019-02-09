@@ -1,2 +1,2 @@
-startuptitle = "Doom RPG SE (2019-01-15)"
+startuptitle = "Doom RPG SE (2019-02-09)"
 startupcolors = "0092FF", "000000"
