@@ -3,6 +3,7 @@
 // XP System
 server  float   drpg_scalexp = 1.0;
 server  int     drpg_xp_curve = 300;
+server  float   drpg_xp_health_awareness = 0.0;
 
 // Monster Difficulty
 server  int     drpg_monster_levels = 3;

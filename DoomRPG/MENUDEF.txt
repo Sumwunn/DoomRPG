@@ -182,6 +182,7 @@ OptionMenu "DoomRPGXPSystem"
     
     Slider "XP Multiplier", "drpg_scalexp", 0.25, 8.0, 0.25
     Slider "XP Curve", "drpg_xp_curve", 0, 500, 5
+	Slider "XP based on monster health", "drpg_xp_health_awareness", 0, 1, 0.1
 }
 
 OptionMenu "DoomRPGMonsters"
