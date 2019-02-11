@@ -170,7 +170,7 @@ NamedScript void BuildItemData()
 
     // Shield Parts - Built Dynamically
     ITEMDATA_CATEGORY(5, "\CvShield Parts", CF_NONE);
-    ITEMDATA_DEF("DRPGBasicShieldPackage",      "Basic Shield Package",      5000, 0, 1, "SHPAA0", 16, 32);
+    ITEMDATA_DEF("DRPGBasicShieldPackage",      "Basic Shield Package",      6500, 0, -1, "SHPAA0", 16, 32);
     ITEMDATA_CATEGORY_END;
 
     // Shield Parts
@@ -1054,8 +1054,9 @@ void RemoveItemRanks()
     ItemRanksRemoved = true;
 }
 
-ItemInfoPtr GetRewardItem(int Difficulty)
+ItemInfoPtr OptionalArgs(1) GetRewardItem(int Difficulty, bool SkipShieldPart)
 {
+    // I was going to have SkipCategory but then I remembered that if unused, SkipCategory will equal 0 and we have a category starting at zero so rip idea.
     ItemInfoPtr Reward;
     int Index;
     int Cap;
@@ -1063,10 +1064,13 @@ ItemInfoPtr GetRewardItem(int Difficulty)
 
     if (Difficulty < 10)
     {
-        DiffPick = Random(0, 100);
-
-        if (DiffPick < 20) Difficulty--; // Unlucky, item will be a rank lower
-        if (DiffPick > 95) Difficulty++; // Lucky, item will be a rank higher
+        // Rarity Chance Modifier thingy
+        if (GetCVar("drpg_loot_rcm"))
+        {
+            DiffPick = Random(0, 100);
+            if (DiffPick < 20) Difficulty--; // Unlucky, item will be a rank lower
+            if (DiffPick > 95) Difficulty++; // Lucky, item will be a rank higher
+        }
 
         // Prevent under/overflow
         if (Difficulty < 0) Difficulty = 0;
@@ -1137,8 +1141,14 @@ ItemInfoPtr GetRewardItem(int Difficulty)
     }
 
     Index = Random(0, RewardsCount[Difficulty] - 1);
-
     Reward = RewardList[Difficulty][Index];
+
+    // Skip shield part, find something else
+    while (SkipShieldPart && Reward->Category == 5)
+    {
+        Index = Random(0, RewardsCount[Difficulty] - 1);
+        Reward = RewardList[Difficulty][Index];
+    }
 
     if (GetCVar("drpg_debug"))
         Log("\CdDEBUG: \C-Reward Item %S\C- (%S) picked - Rarity %d Item %d", Reward->Name, Reward->Actor, Difficulty, Index);

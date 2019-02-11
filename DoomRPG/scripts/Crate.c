@@ -458,39 +458,46 @@ void GenerateCrate(int ID, int Amount)
 {
     int i;
     int Firewalls;
+    int NumPlayers = PlayerCount();
+    fixed ShieldPartChance = GetCVarFixed("drpg_loot_crate_spc");
+    ItemInfoPtr Item;
 
     if (Crates[ID].SupplyDrop)
     {
-        ItemInfoPtr Backpack = FindItem("DRPGBigBackpack");
+        Item = FindItem("DRPGBigBackpack");
 
-        if (Backpack == GetBlankItem())
+        if (Item == GetBlankItem())
         {
             Log("\CgWARNING: Couldn't find the backpack item!");
         }
-
-        int NumPlayers = PlayerCount();
 
         // Create a backpack for every player in the game
         for (int j = 0; j < NumPlayers; j++)
         {
             Crates[ID].Active[i] = true;
-            Crates[ID].Item[i] = Backpack;
+            Crates[ID].Item[i] = Item;
             i++;
         }
     }
 
-    for (; i < Amount; i++)
+    // Get items for crate
+    for (bool SkipShieldPart = true; i < Amount; i++)
     {
-        ItemInfoPtr item = GetRewardItem(Crates[ID].Rarity);
+        if (RandomFixed(0.0, 99.9) > ShieldPartChance)
+            SkipShieldPart = true;
+        else
+            SkipShieldPart = false;
 
-        if (item == GetBlankItem())
+        Item = GetRewardItem(Crates[ID].Rarity, SkipShieldPart);
+
+        if (Item == GetBlankItem())
         {
             i--;
             continue;
         }
 
         Crates[ID].Active[i] = true;
-        Crates[ID].Item[i] = item;
+        Crates[ID].Item[i] = Item;
     }
 
     // DRLA Set shenanigans
@@ -696,7 +703,7 @@ void GenerateCrate(int ID, int Amount)
                 for (int j = 0; SetItems[i].Items[j].Name != NULL; j++)
                 {
                     str PickupItemName = StrParam("%SPickup", SetItems[i].Items[j].Name);
-                    ItemInfoPtr ItemPtr = FindItem(PickupItemName);
+                    Item = FindItem(PickupItemName);
                     fixed Chance = SetItems[i].Items[j].Chance * (1.0 + (Crates[ID].Rarity * 0.125));
                     fixed Pick = RandomFixed(0.0, 100.0);
 
@@ -717,10 +724,10 @@ void GenerateCrate(int ID, int Amount)
                     if (Pick <= Chance)
                     {
                         // Couldn't find the item
-                        if (ItemPtr == GetBlankItem()) continue;
+                        if (Item == GetBlankItem()) continue;
 
                         Crates[ID].Active[SetAmount] = true;
-                        Crates[ID].Item[SetAmount] = ItemPtr;
+                        Crates[ID].Item[SetAmount] = Item;
 
                         if (GetCVar("drpg_debug"))
                             Log("\CdDEBUG: \CfSet Item Spawned!");

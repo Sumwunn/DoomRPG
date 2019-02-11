@@ -201,10 +201,6 @@ class DRPGZUtilities
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_limit');
         i.ResetToDefault();
-        i = CVar.FindCVar('drpg_loot_system');
-        i.ResetToDefault();
-        i = CVar.FindCVar('drpg_lootgen_factor');
-        i.ResetToDefault();
         i = CVar.FindCVar('drpg_aurasteal_rate');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_aurasteal_amount');
@@ -214,6 +210,14 @@ class DRPGZUtilities
         i = CVar.FindCVar('drpg_minibosses');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_reinforcements');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_loot_system');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_lootgen_factor');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_loot_crate_spc');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_loot_rcm');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_mapevent_chance');
         i.ResetToDefault();

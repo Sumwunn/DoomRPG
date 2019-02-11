@@ -44,7 +44,7 @@ NamedScript void BuildItemData();
 
 void RemoveItemRanks();
 int ShieldInversePriceSort(void const *, void const *);
-ItemInfoPtr GetRewardItem(int);
+ItemInfoPtr OptionalArgs(1) GetRewardItem(int, bool);
 ItemInfoPtr FindItem(str);
 ItemInfoPtr FindItemInCategory(str, int);
 ItemInfoPtr GetBlankItem();
