@@ -182,6 +182,7 @@ OptionMenu "DoomRPGXPSystem"
 
     Slider "XP Multiplier", "drpg_scalexp", 0.25, 8.0, 0.25
     Slider "XP Curve", "drpg_xp_curve", 0, 500, 5
+	Slider "XP based on monster health", "drpg_xp_health_awareness", 0, 1, 0.1
 }
 
 OptionMenu "DoomRPGMonsters"
@@ -189,6 +190,7 @@ OptionMenu "DoomRPGMonsters"
     Title "Monster Level/Stat System"
 
     Option "Monster Level System", "drpg_monster_levels", "MonsterLevelType"
+	Slider "Monster Vitality Effect", "drpg_monster_vitality_effect", 1, 100.0, 1
     StaticText ""
 
     Slider "Monster Level Weight", "drpg_monster_level_weight", 0.5, 10.0, 0.1
@@ -349,6 +351,7 @@ OptionMenu "DoomRPGHealthBars"
 
     Option "Monster Health Bars", "drpg_healthbars", "OnOff"
     Option "Names on Health Bars", "drpg_healthbars_names", "OnOff"
+	Option "Plain Health Bars", "drpg_healthbars_plain", "OnOff"
     StaticText ""
 
     Slider "Health Bars Width", "drpg_healthbars_width", 640, 1920, 1

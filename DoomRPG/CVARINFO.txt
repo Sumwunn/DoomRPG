@@ -3,6 +3,7 @@
 // XP System
 server  float   drpg_scalexp = 1.0;
 server  int     drpg_xp_curve = 300;
+server  float   drpg_xp_health_awareness = 0.0;
 
 // Monster Difficulty
 server  int     drpg_monster_levels = 3;
@@ -13,6 +14,7 @@ server  float   drpg_monster_random_max_mult = 1.2;
 server  int     drpg_aura_curve = 0;
 server  bool    drpg_monster_specialize = true;
 server  bool    drpg_monster_shadows = false;
+server  int     drpg_monster_vitality_effect = 9;
 
 // Game Difficulty
 server  float   drpg_skill_costscale = 1.0;
@@ -98,6 +100,7 @@ server  int     drpg_damagenumbers_fade = 40;
 server  bool    drpg_modulenumbers = true;
 user    bool    drpg_damagenumbers_hud = true;
 user    bool    drpg_healthbars = true;
+user    bool    drpg_healthbars_plain = false;
 user    bool    drpg_healthbars_names = true;
 user    int     drpg_healthbars_width = 800;
 user    int     drpg_healthbars_height = 600;

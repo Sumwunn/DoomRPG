@@ -373,17 +373,35 @@ void DrawBarFill(HUDBarInfo *Info)
     }
 
     // Health fills
-    for (int i = 9; i >= 0; i--)
-        if (HealthPercent > 100 * i)
-        {
-            HealthBarClipEnabled = true;
-            HealthBarClipX = (int)HealthBarX;
-            HealthBarClipY = (int)(HealthBarY - 6);
-            HealthBarClipWidth = (HealthPercent - (100 * i)) * 203 / 100;
-            HealthBarClipHeight = (int)(HealthBarY + 6);
+    if (GetCVar("drpg_healthbars_plain"))
+    {
+        int TruePercent = (Info->Health * 100) / Info->HealthMax;
+        int tier = Info->HealthMax / Info->SpawnHealth;
+        if (tier < 1)
+            tier = 1;
+        else if (tier > 10)
+            tier = 10;
 
-            DrawBarSprite(Info, StrParam("Fill%d", i + 1));
-        }
+        HealthBarClipEnabled = true;
+        HealthBarClipX = (int)HealthBarX;
+        HealthBarClipY = (int)(HealthBarY - 6);
+        HealthBarClipWidth = TruePercent * 203 / 100;
+        HealthBarClipHeight = (int)(HealthBarY + 6);
+
+        DrawBarSprite(Info, StrParam("Fill%d", tier));
+    }
+    else
+        for (int i = 9; i >= 0; i--)
+            if (HealthPercent > 100 * i)
+            {
+                HealthBarClipEnabled = true;
+                HealthBarClipX = (int)HealthBarX;
+                HealthBarClipY = (int)(HealthBarY - 6);
+                HealthBarClipWidth = (HealthPercent - (100 * i)) * 203 / 100;
+                HealthBarClipHeight = (int)(HealthBarY + 6);
+
+                DrawBarSprite(Info, StrParam("Fill%d", i + 1));
+            }
 
     // Reset Clipping Rectangle
     HealthBarClipEnabled = false;
