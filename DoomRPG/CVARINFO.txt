@@ -74,6 +74,7 @@ user    bool    drpg_stat_weaponspeed = true;
 user    float   drpg_maxspeed = 2.0;
 user    float   drpg_maxjump = 16.0;
 server  bool    drpg_inv_capacity = true;
+server  int     drpg_overdrive_limit = 1000;
 
 // Natural Stat Leveling
 server  bool    drpg_levelup_natural = true;
