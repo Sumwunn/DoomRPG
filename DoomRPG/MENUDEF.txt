@@ -341,7 +341,7 @@ OptionMenu "DoomRPGHealthBars"
     
     Option "Monster Health Bars", "drpg_healthbars", "OnOff"
     Option "Names on Health Bars", "drpg_healthbars_names", "OnOff"
-	Option "Single-layer Health Bars", "drpg_healthbars_plain", "OnOff"
+	Option "Plain Health Bars", "drpg_healthbars_plain", "OnOff"
     StaticText ""
     
     Slider "Health Bars Width", "drpg_healthbars_width", 640, 1920, 1

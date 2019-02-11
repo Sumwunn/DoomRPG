@@ -373,7 +373,7 @@ void DrawBarFill(HUDBarInfo *Info)
     }
 
     // Health fills
-    if (GetActivatorCVar("drpg_healthbars_plain"))
+    if (GetCVar("drpg_healthbars_plain"))
     {
         int TruePercent = (Info->Health * 100) / Info->HealthMax;
         int tier = Info->HealthMax / Info->SpawnHealth;
