@@ -308,6 +308,9 @@ OptionMenu "DoomRPGStats"
     StaticText ""
 
     Option "Inventory Capacity System", "drpg_inv_capacity", "OnOff"
+	StaticText ""
+	
+	Slider "Skill Overdrive % Limit", "drpg_overdrive_limit", 0, 1000, 1
 }
 
 OptionMenu "DoomRPGStatsNatural"
