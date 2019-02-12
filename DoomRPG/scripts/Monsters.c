@@ -2126,16 +2126,20 @@ NamedScript void MonsterDeath()
 {
     // Pointer
     MonsterStatsPtr Stats = &Monsters[GetMonsterID(0)];
-
+    // Don't forget to remove stupid fixed-point avoidance code after migration (if it happens)
     int Killer = WhoKilledMe();
     int HealthXP;
     if (GetCVarFixed("drpg_xp_health_awareness") < 1.0)
-        HealthXP = GetActorProperty(0, APROP_SpawnHealth) + (Stats->HealthMax - GetActorProperty(0, APROP_SpawnHealth)) * GetCVarFixed("drpg_xp_health_awareness");
+        HealthXP = Stats->SpawnHealth + ((Stats->HealthMax - Stats->SpawnHealth) * (int)(GetCVarFixed("drpg_xp_health_awareness") * 10))/10;
     else
-        HealthXP = Stats->HealthMax * GetCVarFixed("drpg_xp_health_awareness");
+        HealthXP = (Stats->HealthMax * (int)(GetCVarFixed("drpg_xp_health_awareness") * 10))/10;
 
-    long int XPAmount = Random(HealthXP / 2.0, HealthXP) * (1 + (Stats->Threat - (Stats->Threat > 0 ? 1 : 0)));;
-    long int RankAmount = HealthXP * (1 + (Stats->Threat - (Stats->Threat > 0 ? 1 : 0)));
+    int ThreatMult = Stats->Threat;
+    if (ThreatMult < 1)
+        ThreatMult = 1;
+
+    long int XPAmount = (HealthXP * ThreatMult * (int)(Random(0.5, 1.0) * 100))/100;
+    long int RankAmount = HealthXP * ThreatMult;
 
     // Aura-Based XP/Rank Modifiers
     if (MonsterHasShadowAura(Stats))

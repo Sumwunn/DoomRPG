@@ -106,7 +106,8 @@ NamedScript DECORATE void TryStatusEffect(int Type, int Time, int Intensity)
 NamedScript void AddXP(int PlayerNum, long int XP, long int Rank)
 {
     // Scale XP/Rank Gains using the XP Scaling Option
-    XP = (int)(XP * GetCVarFixed("drpg_scalexp"));
+    // Don't forget to remove stupid fixed-point avoidance code after migration (if it happens)
+    XP = (XP * (int)(GetCVarFixed("drpg_scalexp") * 100))/100;
 
     Players(PlayerNum).ComboTimer = COMBO_MAX;
     Players(PlayerNum).Combo++;
