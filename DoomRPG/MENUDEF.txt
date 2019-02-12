@@ -302,6 +302,7 @@ OptionMenu "DoomRPGStats"
     StaticText ""
 
     Option "Movement Regeneration Mechanics", "drpg_regen_movement", "OnOff"
+    Slider "Movement Recharger efficiency %", "drpg_move_aug_battery_regen", 0, 100, 10
     Option "Agility-Based Weapon Speed", "drpg_stat_weaponspeed", "OnOff"
     Slider "Max Speed", "drpg_maxspeed", 0.5, 4.0, 0.01
     Slider "Max Jump Height", "drpg_maxjump", 8.0, 32.0, 0.1

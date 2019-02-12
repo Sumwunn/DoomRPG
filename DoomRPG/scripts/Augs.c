@@ -295,9 +295,14 @@ void CheckAugs()
 
     // Battery Recharging
     if ((!CurrentLevel->UACBase || ArenaActive || MarinesHostile) && Player.Augs.Active[AUG_BATTERY] && Player.Augs.Battery < Player.Augs.BatteryMax)
-        if ((Timer() % 35) == 0 && !IsPlayerMoving())
+        if ((Timer() % 35) == 0)
         {
-            Player.Augs.Battery += (fixed)Player.Augs.Level[AUG_BATTERY] / 2.0;
+            fixed Charge;
+            if (IsPlayerMoving())
+                Charge = (fixed)(Player.Augs.Level[AUG_BATTERY] * GetCVar("drpg_move_aug_battery_regen") / 200.0);
+            else
+                Charge = (fixed)Player.Augs.Level[AUG_BATTERY] / 2.0;
+            Player.Augs.Battery += Charge;
             DrawBattery();
         }
 
