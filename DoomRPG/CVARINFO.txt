@@ -195,6 +195,7 @@ server  bool    drpg_debug_gui = false;
 server  int     drpg_debug_drla = 0;
 user    bool    drpg_tips = true;
 server  bool    drpg_regen_movement = true;
+server  int     drpg_move_aug_battery_regen = 0;
 server  int     drpg_autosave = 5;
 server  float   drpg_monster_dropdist = 4.0;
 server  bool    drpg_transport_on_new_map = false;
