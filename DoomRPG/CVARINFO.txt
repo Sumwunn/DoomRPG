@@ -15,6 +15,7 @@ server  int     drpg_aura_curve = 0;
 server  bool    drpg_monster_specialize = true;
 server  bool    drpg_monster_shadows = false;
 server  int     drpg_monster_vitality_effect = 9;
+server  float   drpg_monster_vitality_boost = 0;
 
 // Game Difficulty
 server  float   drpg_skill_costscale = 1.0;
@@ -25,6 +26,7 @@ server  bool    drpg_shield_armorremove = true;
 server  bool    drpg_levelup_heal = false;
 server  bool    drpg_toxicity_penalties = true;
 server  bool    drpg_mission_monsterkillscount = false;
+server  bool    drpg_invulnerability_plus = false;
 server  int     drpg_monster_mapweight = 1;
 server  int     drpg_monster_population = 100;
 server  int     drpg_monster_limit = 0;

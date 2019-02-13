@@ -2130,15 +2130,15 @@ NamedScript void MonsterDeath()
     int Killer = WhoKilledMe();
     int HealthXP;
     if (GetCVarFixed("drpg_xp_health_awareness") < 1.0)
-        HealthXP = Stats->SpawnHealth + ((Stats->HealthMax - Stats->SpawnHealth) * (int)(GetCVarFixed("drpg_xp_health_awareness") * 10))/10;
+        HealthXP = Stats->SpawnHealth + ((Stats->HealthMax - Stats->SpawnHealth) * (int)(GetCVarFixed("drpg_xp_health_awareness") * 10)) / 10;
     else
-        HealthXP = (Stats->HealthMax * (int)(GetCVarFixed("drpg_xp_health_awareness") * 10))/10;
+        HealthXP = (Stats->HealthMax * (int)(GetCVarFixed("drpg_xp_health_awareness") * 10)) / 10;
 
     int ThreatMult = Stats->Threat;
     if (ThreatMult < 1)
         ThreatMult = 1;
 
-    long int XPAmount = (HealthXP * ThreatMult * (int)(Random(0.5, 1.0) * 100))/100;
+    long int XPAmount = Random(HealthXP / 2, HealthXP) * ThreatMult;
     long int RankAmount = HealthXP * ThreatMult;
 
     // Aura-Based XP/Rank Modifiers
@@ -2674,11 +2674,12 @@ int CalculateMonsterMaxHealth(MonsterStatsPtr Stats)
 {
     long int Health = Stats->SpawnHealth;
     long int HealthAddition = Stats->SpawnHealth * GetCVar("drpg_monster_vitality_effect");
+    int HealthBoost = (Stats->Vitality * (int)(GetCVarFixed("drpg_monster_vitality_boost") * 100)) / 100;
 
     HealthAddition *= Stats->Vitality;
     HealthAddition /= 1000;
 
-    Health += HealthAddition;
+    Health += HealthAddition + HealthBoost;
 
     return Health;
 }

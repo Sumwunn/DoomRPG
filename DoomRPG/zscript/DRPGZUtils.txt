@@ -163,6 +163,8 @@ class DRPGZUtilities
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_xp_curve');
         i.ResetToDefault();
+        i = CVar.FindCVar('drpg_xp_health_awareness');
+        i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_levels');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_level_weight');
@@ -178,6 +180,10 @@ class DRPGZUtilities
         i = CVar.FindCVar('drpg_monster_specialize');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_shadows');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_monster_vitality_effect');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_monster_vitality_boost');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_skill_costscale');
         i.ResetToDefault();
@@ -281,6 +287,8 @@ class DRPGZUtilities
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_inv_capacity');
         i.ResetToDefault();
+        i = CVar.FindCVar('drpg_overdrive_limit');
+        i.ResetToDefault();
         i = CVar.FindCVar('drpg_levelup_natural');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_allow_spec');
@@ -320,6 +328,8 @@ class DRPGZUtilities
         i = CVar.FindCVar('drpg_damagenumbers_hud');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_healthbars');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_healthbars_plain');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_healthbars_names');
         i.ResetToDefault();
@@ -478,6 +488,8 @@ class DRPGZUtilities
         i = CVar.FindCVar('drpg_tips');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_regen_movement');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_move_aug_battery_regen');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_autosave');
         i.ResetToDefault();

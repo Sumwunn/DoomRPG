@@ -61,7 +61,8 @@ str const LongRanks[MAX_RANK + 1] =
 NamedScript DECORATE void StatusEffect(int Type, int Time, int Intensity)
 {
     // Can't get Status Effects if Pink Aura is active
-    if (Player.Aura.Type[AURA_PINK].Active || Player.SoulActive[SOUL_PINK]) return;
+    if (Player.Aura.Type[AURA_PINK].Active || Player.SoulActive[SOUL_PINK] || (GetCVar("drpg_invulnerability_plus") && GetActorPowerupTics(0, "PowerInvulnerable") > 0))
+        return;
 
     if (Intensity <= 0)
         Intensity = 1;

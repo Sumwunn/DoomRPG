@@ -182,7 +182,7 @@ OptionMenu "DoomRPGXPSystem"
 
     Slider "XP Multiplier", "drpg_scalexp", 0.25, 8.0, 0.25
     Slider "XP Curve", "drpg_xp_curve", 0, 500, 5
-	Slider "XP based on monster health", "drpg_xp_health_awareness", 0, 1, 0.1
+    Slider "XP based on monster health", "drpg_xp_health_awareness", 0, 1, 0.1
 }
 
 OptionMenu "DoomRPGMonsters"
@@ -190,7 +190,8 @@ OptionMenu "DoomRPGMonsters"
     Title "Monster Level/Stat System"
 
     Option "Monster Level System", "drpg_monster_levels", "MonsterLevelType"
-	Slider "Monster Vitality Effect", "drpg_monster_vitality_effect", 1, 100.0, 1
+    Slider "Monster Vitality Effect", "drpg_monster_vitality_effect", 1, 100, 1
+    Slider "Monster Health Boost", "drpg_monster_vitality_boost", 0.0, 10.0, 0.1
     StaticText ""
 
     Slider "Monster Level Weight", "drpg_monster_level_weight", 0.5, 10.0, 0.1
@@ -221,6 +222,7 @@ OptionMenu "DoomRPGDifficulty"
     Option "Heal HP/EP on Level-up", "drpg_levelup_heal", "OnOff"
     Option "Toxicity Penalties", "drpg_toxicity_penalties", "OnOff"
     Option "Mission Kills Affected By Monsters", "drpg_mission_monsterkillscount", "OnOff"
+    Option "Invulnerability resists status", "drpg_invulnerability_plus", "OnOff"
     StaticText ""
 
     Slider "Starting Map Weight", "drpg_monster_mapweight", 1, 1000, 1
@@ -309,9 +311,9 @@ OptionMenu "DoomRPGStats"
     StaticText ""
 
     Option "Inventory Capacity System", "drpg_inv_capacity", "OnOff"
-	StaticText ""
-	
-	Slider "Skill Overdrive % Limit", "drpg_overdrive_limit", 0, 1000, 1
+    StaticText ""
+    
+    Slider "Skill Overdrive % Limit", "drpg_overdrive_limit", 0, 1000, 1
 }
 
 OptionMenu "DoomRPGStatsNatural"
@@ -355,7 +357,7 @@ OptionMenu "DoomRPGHealthBars"
 
     Option "Monster Health Bars", "drpg_healthbars", "OnOff"
     Option "Names on Health Bars", "drpg_healthbars_names", "OnOff"
-	Option "Plain Health Bars", "drpg_healthbars_plain", "OnOff"
+    Option "Plain Health Bars", "drpg_healthbars_plain", "OnOff"
     StaticText ""
 
     Slider "Health Bars Width", "drpg_healthbars_width", 640, 1920, 1
