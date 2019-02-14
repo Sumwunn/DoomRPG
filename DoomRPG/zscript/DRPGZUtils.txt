@@ -165,6 +165,10 @@ class DRPGZUtilities
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_xp_health_awareness');
         i.ResetToDefault();
+        i = CVar.FindCVar('drpg_monster_level_cap');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_monster_stat_cap');
+        i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_levels');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_level_weight');
@@ -274,6 +278,10 @@ class DRPGZUtilities
         i = CVar.FindCVar('drpg_module_statfactor');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_module_skillfactor');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_hard_stat_cap');
+        i.ResetToDefault();
+        i = CVar.FindCVar('drpg_soft_stat_cap_mult');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_auto_spend');
         i.ResetToDefault();

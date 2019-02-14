@@ -182,16 +182,21 @@ OptionMenu "DoomRPGXPSystem"
 
     Slider "XP Multiplier", "drpg_scalexp", 0.25, 8.0, 0.25
     Slider "XP Curve", "drpg_xp_curve", 0, 500, 5
+//    Slider "Max Player Level", "drpg_max_player_level", 1, 1000, 1
     Slider "XP based on monster health", "drpg_xp_health_awareness", 0, 1, 0.1
 }
 
 OptionMenu "DoomRPGMonsters"
 {
     Title "Monster Level/Stat System"
+    
+    Slider "Monster Level Cap", "drpg_monster_level_cap", 1, 10000, 1
+    Slider "Monster Stat Cap", "drpg_monster_stat_cap", 1, 10000, 1
+    StaticText ""
 
     Option "Monster Level System", "drpg_monster_levels", "MonsterLevelType"
     Slider "Monster Vitality Effect", "drpg_monster_vitality_effect", 1, 100, 1
-    Slider "Monster Health Boost", "drpg_monster_vitality_boost", 0.0, 10.0, 0.1
+    Slider "Monster Health Boost", "drpg_monster_vitality_boost", 0.0, 100.0, 0.1
     StaticText ""
 
     Slider "Monster Level Weight", "drpg_monster_level_weight", 0.5, 10.0, 0.1
@@ -292,6 +297,8 @@ OptionMenu "DoomRPGStats"
     Slider "Modules Skill Cost Amount Factor", "drpg_module_skillfactor", 0.5, 10.0, 0.1
     StaticText ""
 
+    Slider "Hard Stat Cap", "drpg_hard_stat_cap", 1, 10000, 1
+    Slider "Soft Stat Cap Multiplier", "drpg_soft_stat_cap_mult", 1, 100, 1
     Option "Stat Randomizer", "drpg_auto_spend", "OnOff"
     Option "Stat Preference", "drpg_auto_spend_pref", "StatPreference"
     StaticText ""

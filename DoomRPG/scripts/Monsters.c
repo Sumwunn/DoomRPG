@@ -2139,7 +2139,7 @@ NamedScript void MonsterDeath()
         ThreatMult = 1;
 
     long int XPAmount = Random(HealthXP / 2, HealthXP) * ThreatMult;
-	long int RankAmount = HealthXP * ThreatMult;
+    long int RankAmount = HealthXP * ThreatMult;
 
     // Aura-Based XP/Rank Modifiers
     if (MonsterHasShadowAura(Stats))
@@ -2597,26 +2597,28 @@ void MonsterLevelup(MonsterStatsPtr Stats)
 
 void CapMonsterStats(MonsterStatsPtr Stats)
 {
+    int MonsterLevelCap = GetCVar("drpg_monster_level_cap");
+    int MonsterStatCap = GetCVar("drpg_monster_stat_cap");
     if (Stats->Level <= 0)
         Stats->Level = 1;
-    if (Stats->Level > 1000)
-        Stats->Level = 1000;
-    if (Stats->Strength > 1000)
-        Stats->Strength = 1000;
-    if (Stats->Defense > 1000)
-        Stats->Defense = 1000;
-    if (Stats->Vitality > 1000)
-        Stats->Vitality = 1000;
-    if (Stats->Energy > 1000)
-        Stats->Energy = 1000;
-    if (Stats->Regeneration > 1000)
-        Stats->Regeneration = 1000;
-    if (Stats->Agility > 1000)
-        Stats->Agility = 1000;
-    if (Stats->Capacity > 1000)
-        Stats->Capacity = 1000;
-    if (Stats->Luck > 1000)
-        Stats->Luck = 1000;
+    if (Stats->Level > MonsterLevelCap)
+        Stats->Level = MonsterLevelCap;
+    if (Stats->Strength > MonsterStatCap)
+        Stats->Strength = MonsterStatCap;
+    if (Stats->Defense > MonsterStatCap)
+        Stats->Defense = MonsterStatCap;
+    if (Stats->Vitality > MonsterStatCap)
+        Stats->Vitality = MonsterStatCap;
+    if (Stats->Energy > MonsterStatCap)
+        Stats->Energy = MonsterStatCap;
+    if (Stats->Regeneration > MonsterStatCap)
+        Stats->Regeneration = MonsterStatCap;
+    if (Stats->Agility > MonsterStatCap)
+        Stats->Agility = MonsterStatCap;
+    if (Stats->Capacity > MonsterStatCap)
+        Stats->Capacity = MonsterStatCap;
+    if (Stats->Luck > MonsterStatCap)
+        Stats->Luck = MonsterStatCap;
 }
 
 int CalculateMonsterThreatLevel(MonsterStatsPtr Stats)

@@ -6,7 +6,7 @@
 extern long int XPCurve;
 
 extern int const SoftStatCap;
-extern int const HardStatCap;
+extern int HardStatCap;
 
 extern long int XPTable[MAX_LEVEL];
 extern long int *StatTable;
