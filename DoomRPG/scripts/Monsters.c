@@ -2139,7 +2139,7 @@ NamedScript void MonsterDeath()
         ThreatMult = 1;
 
     long int XPAmount = Random(HealthXP / 2, HealthXP) * ThreatMult;
-    long int RankAmount = HealthXP * ThreatMult;
+	long int RankAmount = HealthXP * ThreatMult;
 
     // Aura-Based XP/Rank Modifiers
     if (MonsterHasShadowAura(Stats))

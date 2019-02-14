@@ -2761,17 +2761,17 @@ void DrawToxicityBar(fixed X, fixed Y, bool HideInfo)
         if (Player.Toxicity >= 25)
         {
             HudMessage("- No Regeneration");
-            EndHudMessage(HUDMSG_PLAIN, 0, "Brick", X + 0.1, Y + 32.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "Brick", X + 0.0, Y + 32.0, 0.05);
         }
         if (Player.Toxicity >= 50)
         {
             HudMessage("- Energy Loss");
-            EndHudMessage(HUDMSG_PLAIN, 0, "Brick", X + 0.1, Y + 40.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "Brick", X + 0.0, Y + 40.0, 0.05);
         }
         if (Player.Toxicity >= 75)
         {
             HudMessage("- Reduced Movement Speed");
-            EndHudMessage(HUDMSG_PLAIN, 0, "Brick", X + 0.1, Y + 48.0, 0.05);
+            EndHudMessage(HUDMSG_PLAIN, 0, "Brick", X + 0.0, Y + 48.0, 0.05);
         }
     }
 }
