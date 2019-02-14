@@ -19,6 +19,14 @@ server  bool    drpg_monster_specialize = true;
 server  bool    drpg_monster_shadows = false;
 server  int     drpg_monster_vitality_effect = 9;
 server  float   drpg_monster_vitality_boost = 0;
+server  bool    drpg_monster_weak_red = false;
+server  bool    drpg_monster_weak_orange = false;
+server  bool    drpg_monster_weak_yellow = false;
+server  bool    drpg_monster_weak_blue = false;
+server  bool    drpg_monster_weak_darkblue = false;
+server  bool    drpg_monster_weak_purple = false;
+server  bool    drpg_monster_weak_pink = false;
+server  bool    drpg_monster_weak_white = false;
 
 // Game Difficulty
 server  float   drpg_skill_costscale = 1.0;

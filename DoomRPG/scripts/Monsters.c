@@ -1040,8 +1040,9 @@ OptionalArgs(1) NamedScript void MonsterInitStats(int StatFlags)
     // Apply extra levels from white aura and any other sources
     if (Stats->LevelAdd > 0)
     {
-        if (Stats->Level + Stats->LevelAdd >= 1000)
-            Stats->LevelAdd = 1000 - Stats->Level;
+        int LevelCap = GetCVar("drpg_monster_level_cap");
+        if (Stats->Level + Stats->LevelAdd >= LevelCap)
+            Stats->LevelAdd = LevelCap - Stats->Level;
         MonsterStatPool = GameSkill() * Stats->LevelAdd;
 
         int StrengthAdd = 0;
@@ -1510,7 +1511,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_white"))
     {
         Delay(35);
         goto Start;
@@ -1558,7 +1559,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_blue"))
     {
         Delay(35);
         goto Start;
@@ -1624,6 +1625,7 @@ NamedScript void MonsterRegenerationHandler()
     if (CheckInventory("DRPGMonsterRegenerationHandler"))
         return;
 
+    int DelayTime;
     GiveInventory("DRPGMonsterRegenerationHandler", 1);
 
     // Delay Stagger
@@ -1659,17 +1661,19 @@ Start:
     SetActorProperty(0, APROP_Health, GetActorProperty(0, APROP_Health) + RegenAmount);
     Stats->RegenHealth += RegenAmount;
 
-    if (Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted"))
+    if ((Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted")) || GetCVar("drpg_monster_weak_purple"))
+    {
         GiveInventory("DRPGMonsterRadiusHealer", 1);
+        DelayTime = 35 * 10;
+    }
+    else
+        DelayTime = 35 * 30;
 
     // Prevent going over 100%
     if (GetActorProperty(0, APROP_Health) > Stats->HealthMax)
         SetActorProperty(0, APROP_Health, Stats->HealthMax);
 
-    if (Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted"))
-        Delay(35 * 10);
-    else
-        Delay(35 * 30);
+    Delay(DelayTime);
     goto Start;
 }
 
@@ -1713,7 +1717,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_red"))
     {
         Delay(35);
         goto Start;
@@ -1812,7 +1816,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_yellow"))
     {
         Delay(35);
         goto Start;
@@ -1878,7 +1882,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_darkblue"))
     {
         Delay(35);
         goto Start;
@@ -1970,7 +1974,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_pink"))
     {
         Delay(35);
         goto Start;
@@ -2009,7 +2013,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if (ClassifyActor(0) & ACTOR_DEAD)
+    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_orange"))
     {
         Delay(35);
         goto Start;
@@ -2546,7 +2550,7 @@ NamedScript int WhoShotMe()
 void MonsterLevelup(MonsterStatsPtr Stats)
 {
     // If the monster is max level, return
-    if (Stats->Level >= 1000) return;
+    if (Stats->Level >= GetCVar("drpg_monster_level_cap")) return;
 
     // Apply the stats to the monster
     Stats->Level++;

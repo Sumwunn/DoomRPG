@@ -209,6 +209,17 @@ OptionMenu "DoomRPGMonsters"
     Option "Monster Stat Specialization", "drpg_monster_specialize", "OnOff"
     Option "Are You A Bad Enough Dude?", "drpg_monster_shadows", "YesNo"
     Option "Fast Monsters", "sv_fastmonsters", "OnOff"
+    StaticText ""
+
+    StaticText "Aura effects"
+    Option "Disable damage retaliation", "drpg_monster_weak_red", "OnOff"
+    Option "Disable surprise teleports", "drpg_monster_weak_orange", "OnOff"
+    Option "Disable money drain", "drpg_monster_weak_yellow", "OnOff"
+    Option "Disable energy drain", "drpg_monster_weak_blue", "OnOff"
+    Option "Disable ammo drain", "drpg_monster_weak_darkblue", "OnOff"
+    Option "Disable super regeneration", "drpg_monster_weak_purple", "OnOff"
+    Option "Disable random resurrection", "drpg_monster_weak_pink", "OnOff"
+    Option "Disable additional levelups", "drpg_monster_weak_white", "OnOff"
 }
 
 OptionMenu "DoomRPGDifficulty"
