@@ -1661,7 +1661,7 @@ Start:
     SetActorProperty(0, APROP_Health, GetActorProperty(0, APROP_Health) + RegenAmount);
     Stats->RegenHealth += RegenAmount;
 
-    if ((Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted")) || GetCVar("drpg_monster_weak_purple"))
+    if (Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted") && !GetCVar("drpg_monster_weak_purple"))
     {
         GiveInventory("DRPGMonsterRadiusHealer", 1);
         DelayTime = 35 * 10;

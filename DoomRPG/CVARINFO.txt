@@ -41,6 +41,7 @@ server  bool    drpg_invulnerability_plus = false;
 server  int     drpg_monster_mapweight = 1;
 server  int     drpg_monster_population = 100;
 server  int     drpg_monster_limit = 0;
+server  bool    drpg_monster_adaptive_spawns = true;
 server  int     drpg_aurasteal_rate = 70;
 server  float   drpg_aurasteal_amount = 1.0;
 server  bool    drpg_aura_removeondeath = false;

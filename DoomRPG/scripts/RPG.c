@@ -1369,6 +1369,9 @@ NamedScript OptionalArgs(1) void DynamicLootGenerator(str Actor, int MaxItems)
         Z = GetActorFloorZ(TID);
         Thing_Remove(TID);
 
+        if (GetCVar("drpg_monster_adaptive_spawns"))
+            Actor = Monsters[Random(1, GetLevelInfo(LEVELINFO_TOTAL_MONSTERS))].Actor;
+
         bool Spawned = Spawn("MapSpotGravity", X, Y, Z, TID, A);
         if (Spawned)
         {

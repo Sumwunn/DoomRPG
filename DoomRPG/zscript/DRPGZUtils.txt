@@ -211,6 +211,8 @@ class DRPGZUtilities
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_monster_limit');
         i.ResetToDefault();
+        i = CVar.FindCVar('drpg_monster_adaptive_spawns');
+        i.ResetToDefault();
         i = CVar.FindCVar('drpg_aurasteal_rate');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_aurasteal_amount');
