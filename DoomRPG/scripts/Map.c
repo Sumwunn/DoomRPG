@@ -1607,7 +1607,12 @@ NamedScript void MegaBossEvent()
         if (Spawned)
         {
             SpawnForced("TeleportFog", ChosenPosition->X, ChosenPosition->Y, ChosenPosition->Z, 0, 0);
-            GiveActorInventory(TID, "DRPGWhiteAuraGiver", 1);
+            // former WhiteAuraGiver
+            SetActorFlag(TID, "LOOKALLAROUND", GetCVar("drpg_monster_lookallaround"));
+            SetActorFlag(TID, "NOTARGETSWITCH", GetCVar("drpg_monster_notargetswitch"));
+            SetActorFlag(TID, "NOTARGET", GetCVar("drpg_monster_notarget"));
+            SetActorFlag(TID, "NOINFIGHTING", GetCVar("drpg_monster_noinfighting"));
+            SetActorFlag(TID, "BRIGHT", GetCVar("drpg_monster_bright"));
             if (GetCVar("drpg_debug"))
                 Log("\CdDEBUG: \Cg%S MegaBoss successfully spawned", CurrentLevel->MegabossActor->Actor);
         }

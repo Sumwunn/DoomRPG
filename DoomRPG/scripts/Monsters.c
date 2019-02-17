@@ -971,7 +971,7 @@ OptionalArgs(1) NamedScript void MonsterInitStats(int StatFlags)
         Stats->Aura.Type[AURA_WHITE].Active = true;
         Stats->AuraAdd[AURA_WHITE] = false;
         Stats->LevelAdd += Stats->Level;
-        GiveInventory("DRPGWhiteAuraGiver", 1);
+        MonsterWhiteAuraCheck(true);
         MonsterLevelupHandler();
     }
     if (Stats->AuraAdd[AURA_RED] && !Stats->Aura.Type[AURA_RED].Active) // Red Aura - Strength
@@ -979,7 +979,7 @@ OptionalArgs(1) NamedScript void MonsterInitStats(int StatFlags)
         Stats->Aura.Type[AURA_RED].Active = true;
         Stats->AuraAdd[AURA_RED] = false;
         Stats->Strength *= 2;
-        GiveInventory("DRPGRedAuraGiver", 1);
+        MonsterRedAuraCheck(true);
         MonsterDamageRetaliationHandler();
     }
     if (Stats->AuraAdd[AURA_GREEN] && !Stats->Aura.Type[AURA_GREEN].Active) // Green Aura - Defense
@@ -987,14 +987,14 @@ OptionalArgs(1) NamedScript void MonsterInitStats(int StatFlags)
         Stats->Aura.Type[AURA_GREEN].Active = true;
         Stats->AuraAdd[AURA_GREEN] = false;
         Stats->Defense *= 2;
-        GiveInventory("DRPGGreenAuraGiver", 1);
+        MonsterGreenAuraCheck(true);
     }
     if (Stats->AuraAdd[AURA_PINK] && !Stats->Aura.Type[AURA_PINK].Active) // Pink Aura - Vitality
     {
         Stats->Aura.Type[AURA_PINK].Active = true;
         Stats->AuraAdd[AURA_PINK] = false;
         Stats->Vitality *= 2;
-        GiveInventory("DRPGPinkAuraGiver", 1);
+        MonsterPinkAuraCheck(true);
         MonsterFellowResurrectionHandler();
     }
     if (Stats->AuraAdd[AURA_BLUE] && !Stats->Aura.Type[AURA_BLUE].Active) // Blue Aura - Energy
@@ -1002,7 +1002,7 @@ OptionalArgs(1) NamedScript void MonsterInitStats(int StatFlags)
         Stats->Aura.Type[AURA_BLUE].Active = true;
         Stats->AuraAdd[AURA_BLUE] = false;
         Stats->Energy *= 2;
-        GiveInventory("DRPGBlueAuraGiver", 1);
+        MonsterBlueAuraCheck(true);
         MonsterEPDrainHandler();
     }
     if (Stats->AuraAdd[AURA_PURPLE] && !Stats->Aura.Type[AURA_PURPLE].Active) // Purple Aura - Regeneration
@@ -1016,7 +1016,7 @@ OptionalArgs(1) NamedScript void MonsterInitStats(int StatFlags)
         Stats->Aura.Type[AURA_ORANGE].Active = true;
         Stats->AuraAdd[AURA_ORANGE] = false;
         Stats->Agility *= 2;
-        GiveInventory("DRPGOrangeAuraGiver", 1);
+        MonsterOrangeAuraCheck(true);
         MonsterEpicVisitTimeHandler();
     }
     if (Stats->AuraAdd[AURA_DARKBLUE] && !Stats->Aura.Type[AURA_DARKBLUE].Active) // Dark Blue Aura - Capacity
@@ -1368,17 +1368,17 @@ Start:
         if (!MonsterWasDisrupted)
         {
             if (Stats->Aura.Type[AURA_WHITE].Active)
-                GiveInventory("DRPGWhiteAuraRemover", 1);
+                MonsterWhiteAuraCheck(false);
             if (Stats->Aura.Type[AURA_RED].Active)
-                GiveInventory("DRPGRedAuraRemover", 1);
+                MonsterRedAuraCheck(false);
             if (Stats->Aura.Type[AURA_GREEN].Active)
-                GiveInventory("DRPGGreenAuraRemover", 1);
+                MonsterGreenAuraCheck(false);
             if (Stats->Aura.Type[AURA_PINK].Active)
-                GiveInventory("DRPGPinkAuraRemover", 1);
+                MonsterPinkAuraCheck(false);
             if (Stats->Aura.Type[AURA_BLUE].Active)
-                GiveInventory("DRPGBlueAuraRemover", 1);
+                MonsterBlueAuraCheck(false);
             if (Stats->Aura.Type[AURA_ORANGE].Active)
-                GiveInventory("DRPGOrangeAuraRemover", 1);
+                MonsterOrangeAuraCheck(false);
 
             ActivatorSound("skills/disruption", 127);
             MonsterWasDisrupted = true;
@@ -1391,17 +1391,17 @@ Start:
         if (MonsterWasDisrupted)
         {
             if (Stats->Aura.Type[AURA_WHITE].Active)
-                GiveInventory("DRPGWhiteAuraGiver", 1);
+                MonsterWhiteAuraCheck(true);
             if (Stats->Aura.Type[AURA_RED].Active)
-                GiveInventory("DRPGRedAuraGiver", 1);
+                MonsterRedAuraCheck(true);
             if (Stats->Aura.Type[AURA_GREEN].Active)
-                GiveInventory("DRPGGreenAuraGiver", 1);
+                MonsterGreenAuraCheck(true);
             if (Stats->Aura.Type[AURA_PINK].Active)
-                GiveInventory("DRPGPinkAuraGiver", 1);
+                MonsterPinkAuraCheck(true);
             if (Stats->Aura.Type[AURA_BLUE].Active)
-                GiveInventory("DRPGBlueAuraGiver", 1);
+                MonsterBlueAuraCheck(true);
             if (Stats->Aura.Type[AURA_ORANGE].Active)
-                GiveInventory("DRPGOrangeAuraGiver", 1);
+                MonsterOrangeAuraCheck(true);
 
             MonsterWasDisrupted = false;
         }
@@ -1511,7 +1511,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_white"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_white_masslevel"))
     {
         Delay(35);
         goto Start;
@@ -1559,7 +1559,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_blue"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_blue_epdrain"))
     {
         Delay(35);
         goto Start;
@@ -1661,7 +1661,7 @@ Start:
     SetActorProperty(0, APROP_Health, GetActorProperty(0, APROP_Health) + RegenAmount);
     Stats->RegenHealth += RegenAmount;
 
-    if (Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted") && !GetCVar("drpg_monster_weak_purple"))
+    if (Stats->Aura.Type[AURA_PURPLE].Active && !CheckInventory("DRPGMonsterDisrupted") && GetCVar("drpg_monster_purple_massheal"))
     {
         GiveInventory("DRPGMonsterRadiusHealer", 1);
         DelayTime = 35 * 10;
@@ -1717,7 +1717,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_red"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_red_retaliation"))
     {
         Delay(35);
         goto Start;
@@ -1816,7 +1816,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_yellow"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_yellow_moneydrain"))
     {
         Delay(35);
         goto Start;
@@ -1882,7 +1882,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_darkblue"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_darkblue_ammodrain"))
     {
         Delay(35);
         goto Start;
@@ -1974,7 +1974,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_pink"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_pink_resurrect"))
     {
         Delay(35);
         goto Start;
@@ -2013,7 +2013,7 @@ Start:
     if (ClassifyActor(0) & ACTOR_WORLD)
         return;
 
-    if ((ClassifyActor(0) & ACTOR_DEAD) || GetCVar("drpg_monster_weak_orange"))
+    if ((ClassifyActor(0) & ACTOR_DEAD) || !GetCVar("drpg_monster_orange_teleport"))
     {
         Delay(35);
         goto Start;
@@ -2714,12 +2714,12 @@ void RemoveMonsterAura(MonsterStatsPtr Stats)
     };
 
     // Flag Removers
-    GiveInventory("DRPGRedAuraRemover", 1);
-    GiveInventory("DRPGGreenAuraRemover", 1);
-    GiveInventory("DRPGWhiteAuraRemover", 1);
-    GiveInventory("DRPGPinkAuraRemover", 1);
-    GiveInventory("DRPGBlueAuraRemover", 1);
-    GiveInventory("DRPGOrangeAuraRemover", 1);
+    MonsterRedAuraCheck(false);
+    MonsterGreenAuraCheck(false);
+    MonsterWhiteAuraCheck(false);
+    MonsterPinkAuraCheck(false);
+    MonsterBlueAuraCheck(false);
+    MonsterOrangeAuraCheck(false);
 
     // Reset Renderstyle
     SetActorProperty(0, APROP_RenderStyle, Stats->RenderStyle);
@@ -2816,3 +2816,110 @@ NamedScript Console void OutputMonsters()
         //Output Monsters[i];
     }
 }
+
+NamedScript void MonsterRedAuraCheck(bool Enable)
+{
+    if (Enable)
+    {
+        SetActorFlag(0, "MISSILEMORE", GetCVar("drpg_monster_red_missilemore"));
+        SetActorFlag(0, "MISSILEEVENMORE", GetCVar("drpg_monster_red_missileevenmore"));
+        SetActorFlag(0, "NOFEAR", GetCVar("drpg_monster_red_nofear"));
+    }
+    else
+    {
+        SetActorFlag(0, "MISSILEMORE", false);
+        SetActorFlag(0, "MISSILEEVENMORE", false);
+        SetActorFlag(0, "NOFEAR", false);
+    }
+}
+
+NamedScript void MonsterGreenAuraCheck(bool Enable)
+{
+    if (Enable)
+    {
+        SetActorFlag(0, "REFLECTIVE", GetCVar("drpg_monster_green_reflective"));
+        SetActorFlag(0, "SHIELDREFLECT", GetCVar("drpg_monster_green_shieldreflect"));
+        SetActorFlag(0, "NOPAIN", GetCVar("drpg_monster_green_nopain"));
+        SetActorFlag(0, "NORADIUSDMG", GetCVar("drpg_monster_green_noradiusdmg"));
+        SetActorFlag(0, "DONTBLAST", GetCVar("drpg_monster_green_dontblast"));
+        SetActorFlag(0, "DONTRIP", GetCVar("drpg_monster_green_dontrip"));
+    }
+    else
+    {
+        SetActorFlag(0, "REFLECTIVE", false);
+        SetActorFlag(0, "SHIELDREFLECT", false);
+        SetActorFlag(0, "NOPAIN", false);
+        SetActorFlag(0, "NORADIUSDMG", false);
+        SetActorFlag(0, "DONTBLAST", false);
+        SetActorFlag(0, "DONTRIP", false);
+    }
+}
+
+NamedScript void MonsterWhiteAuraCheck(bool Enable)
+{
+    if (Enable)
+    {
+        SetActorFlag(0, "LOOKALLAROUND", GetCVar("drpg_monster_white_lookallaround"));
+        SetActorFlag(0, "NOTARGETSWITCH", GetCVar("drpg_monster_white_notargetswitch"));
+        SetActorFlag(0, "NOTARGET", GetCVar("drpg_monster_white_notarget"));
+        SetActorFlag(0, "NOINFIGHTING", GetCVar("drpg_monster_white_noinfighting"));
+        SetActorFlag(0, "BRIGHT", GetCVar("drpg_monster_white_bright"));
+    }
+    else
+    {
+        SetActorFlag(0, "LOOKALLAROUND", false);
+        SetActorFlag(0, "NOTARGETSWITCH", false);
+        SetActorFlag(0, "NOTARGET", false);
+        SetActorFlag(0, "NOINFIGHTING", false);
+        SetActorFlag(0, "BRIGHT", false);
+    }
+}
+
+NamedScript void MonsterPinkAuraCheck(bool Enable)
+{
+    if (Enable)
+    {
+        SetActorFlag(0, "DONTDRAIN", GetCVar("drpg_monster_pink_dontdrain"));
+    }
+    else
+    {
+        SetActorFlag(0, "DONTDRAIN", false);
+    }
+}
+
+NamedScript void MonsterBlueAuraCheck(bool Enable)
+{
+    if (Enable)
+    {
+        SetActorFlag(0, "NOTIMEFREEZE", GetCVar("drpg_monster_blue_notimefreeze"));
+        SetActorFlag(0, "SEEINVISIBLE", GetCVar("drpg_monster_blue_seeinvisible"));
+    }
+    else
+    {
+        SetActorFlag(0, "NOTIMEFREEZE", false);
+        SetActorFlag(0, "SEEINVISIBLE", false);
+    }
+}
+
+NamedScript void MonsterOrangeAuraCheck(bool Enable)
+{
+    if (Enable)
+    {
+        SetActorFlag(0, "ALWAYSFAST", GetCVar("drpg_monster_orange_alwaysfast"));
+        SetActorFlag(0, "QUICKTORETALIATE", GetCVar("drpg_monster_orange_quicktoretaliate"));
+        SetActorFlag(0, "JUMPDOWN", GetCVar("drpg_monster_orange_jumpdown"));
+        SetActorFlag(0, "NOTELESTOMP", GetCVar("drpg_monster_orange_notelestomp"));
+    }
+    else
+    {
+        SetActorFlag(0, "ALWAYSFAST", false);
+        SetActorFlag(0, "QUICKTORETALIATE", false);
+        SetActorFlag(0, "JUMPDOWN", false);
+        SetActorFlag(0, "NOTELESTOMP", false);
+    }
+}
+
+//NamedScript void MonsterPurpleAuraCheck(bool Enable)
+//NamedScript void MonsterDarkBlueAuraCheck(bool Enable)
+//NamedScript void MonsterYellowBlueAuraCheck(bool Enable)
+

@@ -52,4 +52,14 @@ str DetermineBestStatColor(MonsterStatsPtr);
 int BestStat(MonsterStatsPtr);
 int FindMonster(int);
 
+NamedScript void MonsterRedAuraCheck(bool);
+NamedScript void MonsterGreenAuraCheck(bool);
+NamedScript void MonsterWhiteAuraCheck(bool);
+NamedScript void MonsterPinkAuraCheck(bool);
+NamedScript void MonsterBlueAuraCheck(bool);
+//NamedScript void MonsterPurpleAuraCheck(bool);
+NamedScript void MonsterOrangeAuraCheck(bool);
+//NamedScript void MonsterDarkBlueAuraCheck(bool);
+//NamedScript void MonsterYellowBlueAuraCheck(bool);
+
 #endif
