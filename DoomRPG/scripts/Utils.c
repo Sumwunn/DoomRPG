@@ -1069,6 +1069,7 @@ void DropEntireInventory()
         { "RLNanoModItem" },
         { "RLOnyxModItem" },
         { "RLArmorModItem" },
+        { "RLArtiModItem" },
         { "RLModLimit", true, true, 4 },
         { "RLScavengerModLimit", true, true, 8 },
         { "RLArmorModItemInInventory", true },

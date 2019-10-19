@@ -355,6 +355,20 @@ ACTOR RLSpiderMastermindBFGRPG : RLSpiderMastermindBFG Replaces RLSpiderMastermi
 	}
 }
 
+// SPIDER MASTERMIND (FUSION MORTAR)
+ACTOR RLSpiderMastermindMortarRPG : RLSpiderMastermindMortar Replaces RLSpiderMastermindMortar
+{
+	States
+	{
+	Spawn:
+		SFUM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		TNT1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::See
+	}
+}
+
 // Agony Elemental
 ACTOR RLAgonyElementalRPG : RLAgonyElemental Replaces RLAgonyElemental
 {
@@ -392,6 +406,20 @@ ACTOR RLLostSoulAgonyRPG : RLLostSoulAgony replaces RLLostSoulAgony
 		Goto Super::Spawn
 	See:
 		LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		Goto Super::See
+	}
+}
+
+// Abominant
+ACTOR RLAbominantRPG : RLAbominant Replaces RLAbominant
+{
+    States
+	{
+	Spawn:
+		ABOM A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
+		Goto Super::Spawn
+	See:
+		ABOM A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_BOSS)
 		Goto Super::See
 	}
 }

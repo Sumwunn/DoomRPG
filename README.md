@@ -18,8 +18,8 @@ https://github.com/Sumwunn/DoomRPG/wiki
 
 ## Compatible mods
 
-- DoomRL Arsenal - [1.1.1] [MP-B7.1].
-- LegenDoom v2.5.
+- DoomRL Arsenal - [1.1.2] [MP-B7.2].
+- LegenDoom v2.6.
 - Colourful Hell v0.97ccc.
 - Custom version of Jimmy's Jukebox Instant Randomizer has been included which allows DRPG's map events and Outpost music to play.
 
@@ -28,7 +28,7 @@ https://github.com/Sumwunn/DoomRPG/wiki
 I hope my fork has achieved some stability at least, I haven't had any crashes in a while so that's nice but testing for total stability isn't possible.
 - Only OpenGL renderer works properly, all others will crash in outpost, not sure why.
 - Consider all mods incompatible with DRPG unless stated otherwise.
-- Why "SE" you ask? It just means "Sumwunn's Edition". It's just for differential proposes.
+- Why "SE" you ask? It means "Sumwunn's Edition", it's just for differential proposes.
 - If you wish to submit a PR, please make sure your changes haven't affected the stability of DRPG itself. DRPG is very sensitive creature. Must be handled gently. Also please use the GDCC version listed in Links.txt.
 - Refer to Links.txt for all required tools for compiling.
 - I will try to keep mod compatibilty updated as fast as I can.

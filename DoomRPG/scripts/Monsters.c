@@ -90,7 +90,8 @@ MonsterInfo const MonsterDataDRLA[MAX_DEF_MONSTERS_DRLA] =
     { "RLMancubus",                         "Mancubus",                         60,     0, false, "You hear deep, guttural noises!" },
     { "RLArchvile",                         "Arch-Vile",                        70,     0, false, "You hear crackling flames!" },
     { "RLCyberdemon",                       "Cyberdemon",                       87,     0, true,  "Suddenly you have a great urge to turn back!\nYou scream in TERROR!" },
-    { "RLSpiderMastermind",                 "Spider Mastermind",                95,     0, true,  "Looks like this is where all the local invasions are planned!" },
+    { "RLSpiderMastermind",                 "Spider Mastermind",                95,     0, true,  "The smell of sulfur and gunpowder hangs in the air, the war machine is close." },
+    { "RLSpiderMastermindMortar",           "Spider Disastermind",              95,     0, true,  "Looks like this is where all the local invasions are planned!" },
 
     // Special Normal enemies
     { "RLBruiserBrother",                   "Bruiser Brothers",                 85,     0, true,  "The heat in here has gotten intense!" },
@@ -126,6 +127,7 @@ MonsterInfo const MonsterDataDRLA[MAX_DEF_MONSTERS_DRLA] =
 
     // Special Nightmare enemies
     { "RLAgonyElemental",                   "Agony Elemental",                  100,    1, true, "You feel the presence of great conduits of the damned!" },
+    { "RLAbominant",                  	    "Abominant",                        100,    1, true, "Death waits for the slightest lapse in concentration." },
 
     // Cybernetic
     { "RLFormerCyborgBattleRifle",          "Former Human Cyborg",              4,      1, false, "Sounds like a platoon of the UAC's finest got corrupted!" },
@@ -164,7 +166,7 @@ MonsterInfo const MonsterDataDRLA[MAX_DEF_MONSTERS_DRLA] =
     { "RLArmageddonPainElemental",          "Hellstorm Elemental",              80,     4, false, "The air ripples with instability!\nYou feel like you are being slowly torn apart!" },
     { "RLArmageddonRevenant",               "Revenihilator",                    60,     4, false, "Beeping and the sound of bones scraping\nagainst metal alerts you to the danger ahead!" },
     { "RLArmageddonMancubus",               "Magmabus",                         75,     4, false, "Deep growling and blasts of searing heat greet you here!" },
-    { "RLArmageddonArchvile",               "De-Vile",                          85,     5, false, "This entire area seems to be corrupted with great and terrible magic!" },
+    { "RLArmageddonArchvile",               "De-Vile",                          85,     5, false, "This entire area seems to be corrupted with great and terrible magic!" }
 //  { "RLArmageddonCyberdemon",             "Nightmare Cyberdemon Mk. II",      100,    5, true,  "Hell has gone all out to stop you!\nYou are one doomed space marine..." },
 //  { "RLArmageddonSpiderMastermind",       "Nightmare Overmind",               100,    5, true,  "The greatest of foul minds,\nthey taunt you telepathically before their hunt begins!" },
 
