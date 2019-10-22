@@ -35,6 +35,15 @@ NamedScript KeyBind void OpenShop(bool OpenLocker)
     // If you're looking inside a crate, return
     if (Player.CrateOpen) return;
 
+    // If settings say no
+    if (!CurrentLevel->UACBase && GetCVar("drpg_shoptype") == 2)
+    {
+        ActivatorSound("menu/invalid", 127);
+        SetFont("BIGFONT");
+        PrintError("This is only accessible within the UAC Outpost");
+        return;
+    }
+
     // Close the main menu if it's open
     Player.InMenu = false;
 

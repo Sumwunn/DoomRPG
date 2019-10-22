@@ -31,6 +31,13 @@ OptionValue "StatPreference"
     7, "\cfLuck"
 }
 
+OptionValue "ShopAnywhereTypes"
+{
+    0, "\chLocker"
+    1, "\cfShop"
+    2, "\cgClosed"
+}
+
 OptionValue "ShopSpecialTypes"
 {
     0, "Min/Max"
@@ -474,7 +481,7 @@ OptionMenu "DoomRPGShop"
 {
     Title "Shop"
 
-    Option "Shop anywhere", "drpg_shoptype", "OnOff"
+    Option "Shop anywhere", "drpg_shoptype", "ShopAnywhereTypes"
     StaticText ""
 
     Slider "Shop Special Cycle Time", "drpg_shopspecial_time", 1, 60, 1

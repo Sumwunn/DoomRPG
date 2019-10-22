@@ -197,15 +197,17 @@ void DrawMainMenu()
     bool AllKills = (CurrentLevel && CurrentLevel->KillBonus);
     bool AllItems = (CurrentLevel && CurrentLevel->ItemsBonus);
     bool AllSecrets = (CurrentLevel && CurrentLevel->SecretsBonus);
+    int ShopType = GetCVar("drpg_shoptype");
 
-    if (!CurrentLevel->UACBase && !GetCVar("drpg_shoptype"))
+    if (!CurrentLevel->UACBase && ShopType != 1)
     {
-        //MainMenuColor[6] = "Blue";
-        MainMenu[6] = "Locker";
+        if (!ShopType)
+            MainMenu[6] = "Locker";
+        else
+            MainMenu[6] = "Closed";
     }
     else
     {
-        //MainMenuColor[6] = "Gold";
         MainMenu[6] = "Shop";
     }
 

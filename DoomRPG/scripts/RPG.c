@@ -1738,6 +1738,7 @@ str const Loadout_DRLAModPacks[LOADOUT_DRLAMODPACKS] =
     "RLFirestormModItem",
     "RLNanoModItem",
     "RLOnyxModItem",
+    // RLArtiModItem is unnecessary since it provides random modpacks from above
 };
 
 // Shield Databases
