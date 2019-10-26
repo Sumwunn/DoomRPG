@@ -190,13 +190,15 @@ ACTOR RLLostSoulRPG : RLLostSoul Replaces RLLostSoul
 
 ACTOR RLLostSoulPERPG : RLLostSoulPE Replaces RLLostSoulPE
 {
+	-COUNTKILL
+
 	States
 	{
 	Spawn:
-		LSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		LSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::Spawn+1
 	See:
-		LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::See+1
 	}
 }
@@ -386,6 +388,8 @@ ACTOR RLAgonyElementalRPG : RLAgonyElemental Replaces RLAgonyElemental
 // And its' spawns
 ACTOR RLPainElementalAgonyRPG : RLPainElementalAgony replaces RLPainElementalAgony
 {
+	-COUNTKILL
+
 	States
 	{
 	Spawn:
@@ -399,6 +403,8 @@ ACTOR RLPainElementalAgonyRPG : RLPainElementalAgony replaces RLPainElementalAgo
 
 ACTOR RLLostSoulAgonyRPG : RLLostSoulAgony replaces RLLostSoulAgony
 {
+	-COUNTKILL
+
 	States
 	{
 	Spawn:
@@ -644,13 +650,15 @@ ACTOR RLNightmareSpectreRPG : RLNightmareSpectre Replaces RLNightmareSpectre
 // Nightmare Lost Soul
 ACTOR RLNightmareLostSoulRPG : RLNightmareLostSoul Replaces RLNightmareLostSoul
 {
+	-COUNTKILL
+
 	States
 	{
 	Spawn:
-		NSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		NSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0,  MF_NOAURA | MF_NODROPS)
 		Goto Super::Spawn
 	See:
-		NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::See
 	}
 }
@@ -867,13 +875,15 @@ ACTOR RLCyberneticSpectreRPG : RLCyberneticSpectre Replaces RLCyberneticSpectre
 // Cybernetic Lost Soul
 ACTOR RLCyberneticLostSoulRPG : RLCyberneticLostSoul Replaces RLCyberneticLostSoul
 {
+	-COUNTKILL
+
 	States
 	{
 	Spawn:
-		CSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		CSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::Spawn
 	See:
-		CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::See
 	}
 }
@@ -881,13 +891,15 @@ ACTOR RLCyberneticLostSoulRPG : RLCyberneticLostSoul Replaces RLCyberneticLostSo
 // Alternate version
 ACTOR RLTechnophobiaHellmineRPG : RLTechnophobiaHellmine Replaces RLTechnophobiaHellmine
 {
+	-COUNTKILL
+
 	States
 	{
 	Spawn:
-		CSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		CSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::Spawn
 	See:
-		CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+		CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		Goto Super::See
 	}
 }

@@ -17,11 +17,11 @@ ACTOR CommonLSoulRPG : CommonLSoul Replaces CommonLSoul
 	States
 	{
 	Spawn:
-		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -37,11 +37,11 @@ ACTOR GreenLSoulRPG : GreenLSoul Replaces GreenLSoul
 	States
 	{
 	Spawn:
-		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -57,11 +57,11 @@ ACTOR CyanLSoul2RPG : CyanLSoul2 Replaces CyanLSoul2
 	States
 	{
 	Spawn:
-		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		TNT1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -77,11 +77,11 @@ ACTOR BlueLSoulRPG : BlueLSoul Replaces BlueLSoul
 	States
 	{
 	Spawn:
-		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -97,11 +97,11 @@ ACTOR FireBluLSoul2RPG : FireBluLSoul2 Replaces FireBluLSoul2
 	States
 	{
 	Spawn:
-		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -117,11 +117,11 @@ ACTOR PurpleLSoulRPG : PurpleLSoul Replaces PurpleLSoul
 	States
 	{
 	Spawn:
-		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -137,11 +137,11 @@ ACTOR GrayLSoul2RPG : GrayLSoul2 Replaces GrayLSoul2
 	States
 	{
 	Spawn:
-		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		TNT1 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		BAL1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		BAL1 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -157,11 +157,11 @@ ACTOR YellowLSoulRPG : YellowLSoul Replaces YellowLSoul
 	States
 	{
 	Spawn:
-		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -177,11 +177,11 @@ ACTOR RedLSoulRPG : RedLSoul Replaces RedLSoul
 	States
 	{
 	Spawn:
-		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		FRGO A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		FRGO A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -197,11 +197,11 @@ ACTOR AbyssLSoul2RPG : AbyssLSoul2 Replaces AbyssLSoul2
 	States
 	{
 	Spawn:
-		BST7 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		BST7 A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::Spawn
 	See:
-		BST7 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+		BST7 A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
 		TNT1 A 0
 		Goto Super::See
 	}
@@ -227,6 +227,7 @@ ACTOR BlackLSoul3RPG : BlackLSoul3 Replaces BlackLSoul3
 	}
 }
 
+// And it's spawns
 ACTOR BlackLSoul2RPG : BlackLSoul2 Replaces BlackLSoul2
 {
 	Tag "Bee"

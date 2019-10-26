@@ -142,26 +142,13 @@ actor DRPGLostSoul : LostSoul Replaces LostSoul
     States
     {
     Spawn:
-        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
         Goto Super::Spawn
     See:
-        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
         Goto Super::See
-    }
-}
-
-actor DRPGLostSoulPE : DRPGLostSoul
-{
-    States
-    {
-    Spawn:
-        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
-        Goto Super::Spawn+1
-    See:
-        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
-        Goto Super::See+1
     }
 }
 
@@ -177,12 +164,6 @@ actor DRPGPainElemental : PainElemental Replaces PainElemental
     See:
         PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
         Goto Super::See
-	Missile:
-		PAIN D 5 A_FaceTarget
-		PAIN E 5 A_FaceTarget
-		PAIN F 4 Bright A_FaceTarget
-		PAIN F 1 Bright A_PainAttack("DRPGLostSoulPE")
-		Goto See
     }
 }
 
