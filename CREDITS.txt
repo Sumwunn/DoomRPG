@@ -50,6 +50,7 @@ Contributors
 worldendDominator
 itsmedoggo (thank you for your work on colourful hell compat (that I nicked :D).)
 Forevener
+WNC12k
 
 Graphics
 https://opengameart.org/content/pong-graphics. Used for the mission bbs boxes.
