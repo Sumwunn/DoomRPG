@@ -199,12 +199,12 @@ void DrawMainMenu()
     bool AllSecrets = (CurrentLevel && CurrentLevel->SecretsBonus);
     int ShopType = GetCVar("drpg_shoptype");
 
-    if (!CurrentLevel->UACBase && ShopType != 1)
+    if (!CurrentLevel->UACBase && ShopType < 2)
     {
         if (!ShopType)
-            MainMenu[6] = "Locker";
-        else
             MainMenu[6] = "Closed";
+        else
+            MainMenu[6] = "Locker";
     }
     else
     {

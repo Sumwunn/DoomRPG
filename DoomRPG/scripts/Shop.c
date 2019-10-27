@@ -36,7 +36,7 @@ NamedScript KeyBind void OpenShop(bool OpenLocker)
     if (Player.CrateOpen) return;
 
     // If settings say no
-    if (!CurrentLevel->UACBase && GetCVar("drpg_shoptype") == 2)
+    if (!CurrentLevel->UACBase && !GetCVar("drpg_shoptype"))
     {
         ActivatorSound("menu/invalid", 127);
         SetFont("BIGFONT");
@@ -232,8 +232,8 @@ void ShopLoop()
     if (GetActivatorCVar("drpg_menu_background_border"))
         DrawBorder("Bor", -1, 8, -5.0, 0.0, 470, 470);
 
-    // Force Locker mode if the Shop Anywhere CVAR is off
-    if (!GetCVar("drpg_shoptype") && !CurrentLevel->UACBase)
+    // Switch to Locker mode if Shop Anywhere CVAR is set to Locker
+    if (GetCVar("drpg_shoptype") == 1 && !CurrentLevel->UACBase)
         Player.LockerMode = true;
 
     // Setup dynamic Medikit refill pricing
@@ -392,7 +392,8 @@ void ShopLoop()
             else if (Player.ItemAutoMode[Player.ShopPage][Player.ShopIndex] != AT_SELL)
                 BuyItem(ItemPtr->Actor);
         }
-    if (CheckInput(BT_JUMP, KEY_PRESSED, false, PlayerNumber()) && (GetCVar("drpg_shoptype") || CurrentLevel->UACBase))
+    //
+    if (CheckInput(BT_JUMP, KEY_PRESSED, false, PlayerNumber()) && (GetCVar("drpg_shoptype") == 2 || CurrentLevel->UACBase))
     {
         Player.LockerMode = !Player.LockerMode;
         ActivatorSound("menu/move", 127);
@@ -515,7 +516,8 @@ void BuyItem(str Item)
         return;
     }
 
-    if (CurrentLevel->UACBase && !GetCVar("drpg_shoptype"))
+    // Spawn item on ShopSpotID if Shop Anywhere CVAR is set to Locker or Closed
+    if (CurrentLevel->UACBase && GetCVar("drpg_shoptype") < 2)
         Spawned = SpawnSpotForced(Item, ShopSpotID, 0, 0);
     else
     {

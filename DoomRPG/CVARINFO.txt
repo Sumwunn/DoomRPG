@@ -162,7 +162,7 @@ server  bool    drpg_multi_sharecredits = false;
 server  bool    drpg_multi_revives = false;
 
 // Shop
-server  int     drpg_shoptype = 1;
+server  int     drpg_shoptype = 0;
 server  int     drpg_shopspecial_type = 0;
 server  int     drpg_shopspecial_category = -1;
 server  int     drpg_shopspecial_time = 10;
