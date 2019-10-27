@@ -111,6 +111,7 @@ class DRPGZEHandler : EventHandler
                 "RLCorruptedRenegade1",
                 "RLCorruptedDemolitionist1",
                 "RLDarkMarty",
+                // Misc
                 "RLArtifactGuardian"
             };
 
@@ -138,6 +139,10 @@ class DRPGZEHandler : EventHandler
         {
             // Default
             "DRPGLostSoul",
+            // Extras
+            "DRPGLostSoulExtras",
+            // LegenDoom
+            "LDLostSoulRPG",
             // RLMonsters
             "RLLostSoulRPG",
             "RLLostSoulPERPG",
