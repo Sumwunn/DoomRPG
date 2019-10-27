@@ -33,9 +33,9 @@ OptionValue "StatPreference"
 
 OptionValue "ShopAnywhereTypes"
 {
-    0, "\chLocker"
-    1, "\cfShop"
-    2, "\cgClosed"
+    0, "\cgClosed"
+    1, "\chLocker"
+    2, "\cfShop"
 }
 
 OptionValue "ShopSpecialTypes"
