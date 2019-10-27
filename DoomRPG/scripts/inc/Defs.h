@@ -463,7 +463,7 @@ typedef enum
 // Namegen
 //
 
-#define NAME_MAX_SHARED         91
+#define NAME_MAX_SHARED         90
 #define NAME_MAX_DEMON_NAMES    109
 #define NAME_MAX_BOSS_SUFFIXES  27
 #define NAME_MAX_COLORS         20
