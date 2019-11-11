@@ -310,6 +310,7 @@ NamedScript Type_ENTER void Init()
     ShieldTimer();
     WeaponSpeed();
     StatRandomizer();
+    DamageNumbers();
     InfoPopoffs();
     HealthBars();
     AutosaveHandler();
@@ -1635,6 +1636,7 @@ NamedScript Type_RESPAWN void Respawn()
     Loop();
     PlayerHealth();
     MoneyChecker();
+    DamageNumbers();
     InfoPopoffs();
     HealthBars();
     ShieldTimer();

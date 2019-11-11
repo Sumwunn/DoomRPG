@@ -518,7 +518,7 @@ NamedScript DECORATE void MonsterInit(int Flags)
     MonsterStatCap = GetCVar("drpg_monster_stat_cap");
 
     // Start Damage Numbers Script
-    // Handled via ZScript
+    DamageNumbers();
 
     // Give it a Health Bar
     if (!(Flags & MF_NOHEALTHBAR))
@@ -2120,6 +2120,7 @@ NamedScript DECORATE void MonsterRevive()
         SetActorPropertyString(0, APROP_Species, "None");
 
     // Reboot handlers
+    DamageNumbers();
     MonsterStatsHandler();
     MonsterAuraDisplayHandler();
     if (!(Stats->Flags & MF_NOSTATS))

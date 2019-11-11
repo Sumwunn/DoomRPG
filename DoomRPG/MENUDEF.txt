@@ -482,6 +482,8 @@ OptionMenu "DoomRPGShop"
     Title "Shop"
 
     Option "Shop anywhere", "drpg_shoptype", "ShopAnywhereTypes"
+    StaticText "CLOSED & LOCKER will cause purchased items to appear on the shop desk,", "Orange"
+    StaticText "rather than at your feet like the SHOP option would.", "Orange"
     StaticText ""
 
     Slider "Shop Special Cycle Time", "drpg_shopspecial_time", 1, 60, 1
@@ -767,7 +769,7 @@ OptionMenu "DoomRPG"
     Title "Doom RPG Options"
 
     StaticText ""
-    StaticText "Changes to options marked * take effect upon next map"
+    StaticText "Changes to options marked * take effect upon next map.", "Orange"
     StaticText ""
 
     SubMenu "XP System",                    "DoomRPGXPSystem"

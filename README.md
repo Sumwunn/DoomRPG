@@ -5,7 +5,9 @@ I recommend reading CHANGELOG.txt and the commits for all the changes.
 
 ## Installing
 
-GZDoom v3.7.0 or higher is required to play this mod. 
+Compatible source ports:
+GZDoom v3.7.0 or higher.
+LZDoom v3.83a or higher.
 
 DRPG's launcher is the recommended method. 
 Found here: https://github.com/Forevener/DRPGSEL/releases

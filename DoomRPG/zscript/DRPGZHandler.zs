@@ -85,7 +85,6 @@ class DRPGZEHandler : EventHandler
             {
                 Damage += e.Thing.Health;
             }
-            e.Thing.ACS_ScriptCall("DamageNumbers", Damage, e.Thing.Health);
             e.Thing.ACS_ScriptCall("MonsterDamaged", e.DamageSource.TID, Damage);
         }
     }
@@ -93,9 +92,7 @@ class DRPGZEHandler : EventHandler
     override void WorldThingRevived(WorldEvent e)
     {
         if (e.Thing && e.Thing.bIsMonster)
-        {
             e.Thing.ACS_ScriptCall("MonsterRevive");
-        }
     }
 
     override void WorldThingSpawned(WorldEvent e)
@@ -103,21 +100,27 @@ class DRPGZEHandler : EventHandler
         if (e.Thing && e.Thing.bIsMonster)
         {
             // Monsters that cannot be defined via Decorate are handled here
-            static const string RLMonstersSpecial[] =
+            static const string RLMonsters[] =
             {
                 // CORRUPTED PLAYERS
                 "RLCorruptedMarine1",
                 "RLCorruptedTechnician1",
                 "RLCorruptedRenegade1",
-                "RLCorruptedDemolitionist1",
+                "RLCorruptedDemolitionist1"
+            };
+            static const string RLMBosses[] =
+            {
                 "RLDarkMarty",
-                // Misc
-                "RLArtifactGuardian"
+                "RLArtifactGuardian" // This may need corrected
             };
 
-            for (int i = 0; i < RLMonstersSpecial.size(); i++)
-                if (e.Thing.GetClassName() == RLMonstersSpecial[i])
+            for (int i = 0; i < RLMonsters.size(); i++)
+                if (e.Thing.GetClassName() == RLMonsters[i])
                     e.Thing.ACS_ScriptCall("MonsterInit", 0);
+
+            for (int i = 0; i < RLMBosses.size(); i++)
+                if (e.Thing.GetClassName() == RLMBosses[i])
+                    e.Thing.ACS_ScriptCall("MonsterInit", MF_BOSS);
 
             if (SpawnIterations < level.total_monsters)
             {
@@ -126,8 +129,6 @@ class DRPGZEHandler : EventHandler
                 // Helps account for replacers
                 if (SpawnIterations == level.total_monsters)
                     MaxSpawnTime++;
-                //console.printf("SpawnIterations: %i", SpawnIterations);
-                //console.printf("e.Thing.SpawnTime: %i", e.Thing.SpawnTime);
             }
         }
     }
@@ -169,17 +170,10 @@ class DRPGZEHandler : EventHandler
         {
             if (e.Thing.SpawnTime > MaxSpawnTime)
             {
-                //console.printf("Non map-based monster detected: %s", e.Thing.GetClassName());
                 for (int i = 0; i < XPBlacklist.size(); i++)
                     if (e.Thing.GetClassName() == XPBlacklist[i])
-                    {
-                        //console.printf("XP Refused for: %s", e.Thing.GetClassName());
                         e.Thing.ACS_ScriptCall("MonsterSet", 0, 0, MF_NOXP | MF_NOAURA | MF_NODROPS, true);
-                    }
             }
-
-            //console.printf("MaxSpawnTime: %i", MaxSpawnTime);
-            //console.printf("e.Thing.SpawnTime: %i", e.Thing.SpawnTime);
 
             e.Thing.ACS_ScriptCall("MonsterDeathCheck");
         }
