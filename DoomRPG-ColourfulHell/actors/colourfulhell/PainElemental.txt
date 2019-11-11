@@ -20,12 +20,6 @@ ACTOR CommonPERPG : CommonPE Replaces CommonPE
 	See:
 		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	Missile:
-		PAIN D 5 A_FaceTarget
-		PAIN E 5 A_FaceTarget
-		PAIN F 4 Bright A_FaceTarget
-		PAIN F 1 Bright A_PainAttack("PECommonLsoulRPG")
-		Goto See
 	}
 }
 
@@ -42,10 +36,6 @@ ACTOR GreenPERPG : GreenPE Replaces GreenPE
 	See:
 		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	SoulIt:
-		PAIN F 4 Bright A_FaceTarget
-		PAIN F 1 Bright A_PainAttack("PEGreenLSoulRPG")
-		Goto See
 	}
 }
 
@@ -62,12 +52,6 @@ ACTOR BluePERPG : BluePE Replaces BluePE
 	See:
 		PAIN A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	SoulIt:
-		PAIN F 4 Bright A_FaceTarget
-		PAIN F 1 Bright A_PainAttack("PEBlueLSoulRPG")
-		PAIN EDE 8
-		PAIN F 3 Bright A_PainAttack("PEBlueLSoulRPG",0, PAF_NOSKULLATTACK)
-		Goto See
 	}
 }
 
@@ -100,14 +84,6 @@ ACTOR PurplePERPG : PurplePE Replaces PurplePE
 	See:
 		TORT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	SoulIt:
-		TORT F 0
-		TORT F 0 A_Jumpif(user_slowdownbuddy>6, "Maaybe")
-		TORT F 7 Bright A_DualPainAttack("PEPurpleLSoulRPG")
-		TORT D 6
-		TORT D 0 A_SetUserVar("user_slowdownbuddy",user_slowdownbuddy+1)
-		TORT D 0
-		Goto See
 	}
 }
 
@@ -124,11 +100,6 @@ ACTOR YellowPERPG : YellowPE Replaces YellowPE
 	See:
 		INFR A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	Spawns2:
-		INFR BC 5
-		INFR D 5 A_PainAttack("PEYellowLSoulRPG")
-		INFR D 0 A_CheckSight("See")
-		Goto Missile
 	}
 }
 
@@ -161,10 +132,6 @@ ACTOR RedPERPG : RedPE Replaces RedPE
 	See:
 		TORT A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	SoulIt:
-		TORT C 9 Bright A_PainAttack("PERedLSoulRPG")
-		TORT D 5
-		Goto See
 	}
 }
 
@@ -181,29 +148,6 @@ ACTOR GrayPE2RPG : GrayPE2 Replaces GrayPE2
 	See:
 		INFR A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
 		Goto Super::See
-	SoulIt:
-		INFR C 4 Bright A_SpawnItemEx("PEGrayLSoul2RPG",random(-128,128),random(-128,128),0,0,0,0,0,SXF_TRANSFERPOINTERS ) 
-		INFR D 5
-		Goto See
-	Bug1:
-		INFR C 4 A_PainAttack("PEGreyDemon2RPG")
-		INFR D 5
-		Goto See
-	Bug2:
-		INFR C 4 A_SpawnItemEx("PEGraySpectre2RPG",random(-64,64),random(-64,64),0,0,0,0,0,SXF_TRANSFERPOINTERS ) 
-		INFR D 5
-		Goto See
-	}
-}
-
-ACTOR BoomPEBluRPG : BoomPEBlu Replaces BoomPEBlu
-{
-	States
-	{
-	Death:
-		MISL CD 4 Bright a_explode(random(20,40),64,0)
-		TNT1 A 0 A_SpawnItemEx ("FireBluLSoul2", 0,0,6, VelX,VelY,VelZ, 0, SXF_ABSOLUTEMOMENTUM | SXF_NOCHECKPOSITION,128)
-		Stop
 	}
 }
 
@@ -247,16 +191,6 @@ ACTOR BundleRandom3RPG : RandomSpawner Replaces BundleRandom3
     DropItem "PEPurpleLSoulRPG", 255, 75
 	DropItem "PEYellowLSoulRPG", 255, 50
 	DropItem "PERedLSoulRPG", 255, 50
-}
-
-ACTOR BEESHOTRPG : BEESHOT Replaces BEESHOT
-{
-	States
-	{
-	Death:
-		LFX1 SS 2 Bright A_SpawnItemEx("PEBlackLSoul2RPG",random(-12,12),random(-12,12),random(-12,12),0,0,0,0,SXF_SetMaster)
-		stop
-	}
 }
 
 // White Pain Elemental

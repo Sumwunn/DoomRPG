@@ -518,7 +518,7 @@ NamedScript DECORATE void MonsterInit(int Flags)
     MonsterStatCap = GetCVar("drpg_monster_stat_cap");
 
     // Start Damage Numbers Script
-    // Handled via ZScript
+    DamageNumbers();
 
     // Give it a Health Bar
     if (!(Flags & MF_NOHEALTHBAR))
@@ -556,10 +556,11 @@ NamedScript DECORATE void MonsterInit(int Flags)
 }
 
 // Modify the targeted monster (mainly for debugging)
-NamedScript Console void MonsterSet(int Level, int Aura, int Flags)
+NamedScript Console void MonsterSet(int Level, int Aura, int Flags, bool Decorate)
 {
     // Move script to the targeted monster
-    SetActivatorToTarget(Player.TID);
+    if (!Decorate)
+        SetActivatorToTarget(Player.TID);
 
     // Pointer
     MonsterStatsPtr Stats = &Monsters[GetMonsterID(0)];
@@ -2119,6 +2120,7 @@ NamedScript DECORATE void MonsterRevive()
         SetActorPropertyString(0, APROP_Species, "None");
 
     // Reboot handlers
+    DamageNumbers();
     MonsterStatsHandler();
     MonsterAuraDisplayHandler();
     if (!(Stats->Flags & MF_NOSTATS))

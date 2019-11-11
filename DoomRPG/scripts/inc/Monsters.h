@@ -17,7 +17,7 @@ extern MegabossInfo const MegaBossesDF[MAX_MEGABOSSES_DF];
 extern MegabossInfo const MegaBossesCH[MAX_MEGABOSSES_CH];
 
 NamedScript DECORATE void MonsterInit(int);
-NamedScript Console  void MonsterSet(int, int, int);
+NamedScript Console  void MonsterSet(int, int, int, bool);
 NamedScript Console  void MonsterSetShadow();
 NamedScript Console  void MonsterModStat(int, int);
 NamedScript Console  void MonsterDump();

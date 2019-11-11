@@ -936,12 +936,12 @@ actor DRPGLostSoulExtras : LostSoul replaces LostSoul
     states
     {
     Spawn:
-        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
         SKUL AB 10 BRIGHT A_Look
         Goto Spawn+1
     See:
-        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
         Goto Super::See
     Death:
@@ -951,19 +951,6 @@ actor DRPGLostSoulExtras : LostSoul replaces LostSoul
         SKUL I 6 bright
         SKUL JK 6
         stop
-    }
-}
-
-actor DRPGLostSoulExtrasPE : DRPGLostSoulExtras
-{
-    states
-    {
-    Spawn:
-        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
-        Goto Super::Spawn+1
-    See:
-        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
-        Goto Super::See+1
     }
 }
 
@@ -983,13 +970,13 @@ actor DRPGPainElementalExtras : PainElemental Replaces PainElemental
         PAIN D 5 A_FaceTarget
         PAIN E 5 A_FaceTarget
         PAIN F 4 Bright A_FaceTarget
-        PAIN F 1 Bright A_PainAttack("DRPGLostSoulExtrasPE")
+        PAIN F 1 Bright A_PainAttack("DRPGLostSoulExtras")
         Goto See
     Death:
         PAIN H 8 Bright
         PAIN I 8 Bright A_Scream
         PAIN JK 8 Bright
-        PAIN L 8 Bright A_PainDie("DRPGLostSoulExtrasPE")
+        PAIN L 8 Bright A_PainDie("DRPGLostSoulExtras")
     Death.Massacre:
         PAIN M 8 Bright
         Stop

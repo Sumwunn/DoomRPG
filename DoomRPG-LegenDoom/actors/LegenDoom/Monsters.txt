@@ -142,11 +142,11 @@ actor LDLostSoulRPG : LDLostSoul Replaces DRPGLostSoul
     States
     {
     Spawn:
-        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+        SKUL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
         Goto Super::Spawn
     See:
-        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+        SKUL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
         Goto Super::See
     }

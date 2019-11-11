@@ -6,55 +6,129 @@
 #include "Utils.h"
 
 // Handles Damage Numbers
-NamedScript DECORATE void DamageNumbers(int Damage, int Health)
+NamedScript void DamageNumbers()
 {
+    int Health;
+    bool IsPlayer;
+    bool ShieldActive;
+    int Shield;
     int Color;
+    int OldTID;
+    int DrawDist = GetCVar("drpg_popoffs_drawdistance");
+    bool CloseToPlayers;
 
-    if (!GetCVar("drpg_damagenumbers"))
-        return;
+    IsPlayer = PlayerNumber() > -1;
 
-    if (Damage >= Health) // Critical
-        Color = DNUM_CRITICAL;
-    else // Normal
-        Color = DNUM_NORMAL;
+Start:
 
-    // Damage Popoff
-    Popoff(0, Damage, Color, "DRPGDigit", true);
+    // Initial delay so we don't show max health being calculated or other nonsense
+    Delay(4);
+
+    while (GetCVar("drpg_damagenumbers"))
+    {
+        // Distance 'n sight checks
+        for (int i = 0; i < MAX_PLAYERS; i++)
+        {
+            if (!PlayerInGame(i))
+                continue;
+
+            if (Distance(Players(i).TID, 0) < DrawDist)
+                CloseToPlayers = true;
+            else
+            {
+                CloseToPlayers = false;
+                break;
+            }
+
+            if (CheckSight(Players(i).TID, 0, CSF_NOBLOCKALL))
+                break;
+        }
+
+        if (!CloseToPlayers)
+        {
+            Delay(35);
+            continue;
+        }
+
+        Health = GetActorProperty(0, APROP_Health);
+        if (IsPlayer)
+        {
+            ShieldActive = CheckInventory("DRPGShield");
+            Shield = Player.Shield.Charge;
+        }
+
+        // Lag handling
+        Delay(1 + GetDamageNumbersDelay());
+
+        // Check Health
+        Health = Health - GetActorProperty(0, APROP_Health);
+
+        if (IsPlayer)
+        {
+            // Nullify Health if a Shield is active
+            if (PlayerNumber() > -1 && CheckInventory("DRPGShield") || GetActorProperty(0, APROP_Health) >= MAX_HEALTH - GetActorProperty(0, APROP_SpawnHealth))
+                Health = 0;
+
+            // Shield breaking hits will cause a major health drop, don't show this
+            if (PlayerNumber() > -1 && Health >= (MAX_HEALTH / 1000) - GetActorProperty(0, APROP_SpawnHealth))
+                Health = 0;
+
+            // Shield checks
+            if (CheckInventory("DRPGShield"))
+                Shield = Shield - Player.Shield.Charge;
+        }
+
+        if (Health != 0 || Shield != 0)
+        {
+            if (Health >= GetActorProperty(0, APROP_SpawnHealth)) // Critical
+                Color = DNUM_CRITICAL;
+            else if (Health < 0 && IsPlayer && !CheckInventory("DRPGShield")) // Healed
+                Color = DNUM_HEAL;
+            else if (Health == 1) // Scratch
+                Color = DNUM_SCRATCH;
+            else if (IsPlayer && ShieldActive && Shield > 0) // Shield Loss
+                Color = DNUM_SHIELDLOSS;
+            else if (IsPlayer && ShieldActive && Shield < 0) // Shield Gain
+                Color = DNUM_SHIELDGAIN;
+            else // Normal
+                Color = DNUM_NORMAL;
+
+            // Damage Popoff
+            if (IsPlayer && CheckInventory("DRPGShield"))
+                Popoff(0, Shield, Color, "DRPGDigit", true);
+            else
+                Popoff(0, Health, Color, "DRPGDigit", true);
+        }
+
+        // Terminate if the Actor is dead
+        if (GetActorProperty(0, APROP_Health) <= 0) return;
+    }
+
+    Delay(35);
+    goto Start;
 }
 
 // Handles informational popoffs
 NamedScript void InfoPopoffs()
 {
-    int BeforeCredits;
-    int AfterCredits;
-    int BeforeEP;
-    int AfterEP;
-    int SpawnHealth = GetActorProperty(0, APROP_SpawnHealth);
-    int Health;
-    int Shield;
-    int Color;
-
 Start:
 
     while (GetCVar("drpg_popoffs"))
     {
+        int BeforeCredits;
+        int AfterCredits;
+        int BeforeEP;
+        int AfterEP;
+
         // Before Checks
         BeforeCredits = CheckInventory("DRPGCredits");
         BeforeEP = Player.EP;
-
-        // Health 'n Shield
-        Health = GetActorProperty(0, APROP_Health);
-        Shield = Player.Shield.Charge;
 
         Delay(1);
 
         // After Checks
         AfterCredits = CheckInventory("DRPGCredits");
         AfterEP = Player.EP;
-
-        // Health 'n Shield
-        Health = Health - GetActorProperty(0, APROP_Health);
-        Shield = Shield - Player.Shield.Charge;
 
         // Credits Popoffs
         if (AfterCredits > BeforeCredits)
@@ -67,28 +141,6 @@ Start:
             Popoff(Player.TID, AfterEP - BeforeEP, DNUM_EPGAIN, "DRPGDigit", true);
         if (AfterEP < BeforeEP)
             Popoff(Player.TID, AfterEP - BeforeEP, DNUM_EPLOSS, "DRPGDigit", true);
-
-        // Damage Popoff
-        if (Health != 0 || Shield != 0)
-        {
-            if (Health >= SpawnHealth) // Critical
-                Color = DNUM_CRITICAL;
-            else if (Health < 0 && !Player.Shield.Active) // Healed
-                Color = DNUM_HEAL;
-            else if (Health == 1) // Scratch
-                Color = DNUM_SCRATCH;
-            else if (Player.Shield.Active && Shield > 0) // Shield Loss
-                Color = DNUM_SHIELDLOSS;
-            else if (Player.Shield.Active && Shield < 0) // Shield Gain
-                Color = DNUM_SHIELDGAIN;
-            else // Normal
-                Color = DNUM_NORMAL;
-
-            if (Player.Shield.Active && Shield > 0)
-                Popoff(0, Shield, Color, "DRPGDigit", true);
-            else
-                Popoff(0, Health, Color, "DRPGDigit", true);
-        }
 
         // Terminate if the Player is dead
         if (GetActorProperty(0, APROP_Health) <= 0) return;
@@ -186,4 +238,12 @@ void Popoff(int TID, int Value, int Color, str DigitType, bool FloatAway)
         else
             SetActorVelocity(DigitTID, RandomFixed(-1.0, 1.0), RandomFixed(-1.0, 1.0), 0.5, 0, 0);
     }
+}
+
+int GetDamageNumbersDelay()
+{
+    int Monsters = GetLevelInfo(LEVELINFO_KILLED_MONSTERS);
+    int TotalMonsters = GetLevelInfo(LEVELINFO_TOTAL_MONSTERS);
+
+    return (TotalMonsters - Monsters) / DNUM_MONSTER_DIV;
 }

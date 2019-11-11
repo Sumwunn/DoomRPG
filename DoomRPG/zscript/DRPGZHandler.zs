@@ -1,8 +1,13 @@
 class DRPGZEHandler : EventHandler
 {
+    int SpawnIterations;
+    int MaxSpawnTime;
+
     // Replaces exits with ACS_Execute which calls DRPG's map exit script instead
     override void WorldLoaded(WorldEvent e)
     {
+        SpawnIterations = 0;
+
         CallACS("SetDebugMode");
 
         // Iterate through all lines in the current map to find exits to replace
@@ -80,23 +85,96 @@ class DRPGZEHandler : EventHandler
             {
                 Damage += e.Thing.Health;
             }
-            e.Thing.ACS_ScriptCall("DamageNumbers", Damage, e.Thing.Health);
             e.Thing.ACS_ScriptCall("MonsterDamaged", e.DamageSource.TID, Damage);
         }
     }
 
     override void WorldThingRevived(WorldEvent e)
     {
-        if (e.Thing.CheckInventory("DRPGMonsterInit", 1))
-        {
+        if (e.Thing && e.Thing.bIsMonster)
             e.Thing.ACS_ScriptCall("MonsterRevive");
+    }
+
+    override void WorldThingSpawned(WorldEvent e)
+    {
+        if (e.Thing && e.Thing.bIsMonster)
+        {
+            // Monsters that cannot be defined via Decorate are handled here
+            static const string RLMonsters[] =
+            {
+                // CORRUPTED PLAYERS
+                "RLCorruptedMarine1",
+                "RLCorruptedTechnician1",
+                "RLCorruptedRenegade1",
+                "RLCorruptedDemolitionist1"
+            };
+            static const string RLMBosses[] =
+            {
+                "RLDarkMarty",
+                "RLArtifactGuardian" // This may need corrected
+            };
+
+            for (int i = 0; i < RLMonsters.size(); i++)
+                if (e.Thing.GetClassName() == RLMonsters[i])
+                    e.Thing.ACS_ScriptCall("MonsterInit", 0);
+
+            for (int i = 0; i < RLMBosses.size(); i++)
+                if (e.Thing.GetClassName() == RLMBosses[i])
+                    e.Thing.ACS_ScriptCall("MonsterInit", MF_BOSS);
+
+            if (SpawnIterations < level.total_monsters)
+            {
+                MaxSpawnTime = e.Thing.SpawnTime;
+                SpawnIterations++;
+                // Helps account for replacers
+                if (SpawnIterations == level.total_monsters)
+                    MaxSpawnTime++;
+            }
         }
     }
 
     override void WorldThingDied(WorldEvent e)
     {
-        if (e.Thing.CheckInventory("DRPGMonsterInit", 1))
+        // Turn off XP gain for Lost Souls that spawn after map-based ones (monsters that can be spammed from Pain Elementals).
+        static const string XPBlacklist[] =
         {
+            // Default
+            "DRPGLostSoul",
+            // Extras
+            "DRPGLostSoulExtras",
+            // LegenDoom
+            "LDLostSoulRPG",
+            // RLMonsters
+            "RLLostSoulRPG",
+            "RLLostSoulPERPG",
+            "RLNightmareLostSoulRPG",
+            "RLCyberneticLostSoulRPG",
+            "RLTechnophobiaHellmineRPG",
+            // Colourful Hell
+            "CommonLSoulRPG",
+            "GreenLSoulRPG",
+            "BlueLSoulRPG",
+            "PurpleLSoulRPG",
+            "YellowLSoulRPG",
+            "RedLSoulRPG",
+            "BlackLSoul3RPG",
+            "BlackLSoul2RPG",
+            "WhiteLSoul2RPG",
+            "GrayLSoul2RPG",
+            "GreyDemon2RPG",
+            "GraySpectre2RPG",
+            "FireBluLSoul2RPG"
+        };
+
+        if (e.Thing && e.Thing.bIsMonster)
+        {
+            if (e.Thing.SpawnTime > MaxSpawnTime)
+            {
+                for (int i = 0; i < XPBlacklist.size(); i++)
+                    if (e.Thing.GetClassName() == XPBlacklist[i])
+                        e.Thing.ACS_ScriptCall("MonsterSet", 0, 0, MF_NOXP | MF_NOAURA | MF_NODROPS, true);
+            }
+
             e.Thing.ACS_ScriptCall("MonsterDeathCheck");
         }
     }
