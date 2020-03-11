@@ -780,7 +780,7 @@ NamedScript MapSpecial void SkillComputer()
 NamedScript MapSpecial void ToggleArena()
 {
     // If Marines are hostile or the power is out, terminate
-    if (MarinesHostile || PowerOut || ArenaState != ARENA_READY) return;
+    if (MarinesHostile || PowerOut) return;
 
     // If you try to toggle the Arena and you aren't the Arena Arbitrator, terminate
     if (InMultiplayer && (ArenaPlayerNumber >= 0 && PlayerNumber() != ArenaPlayerNumber)) return;
@@ -814,7 +814,7 @@ NamedScript MapSpecial void PassArenaLine()
 
     if (InMultiplayer && (ArenaPlayerNumber >= 0 && PlayerNumber() != ArenaPlayerNumber)) return;
 
-    if (ArenaActive && ArenaState == ARENA_READY)
+    if (ArenaActive)
     {
         Ceiling_LowerToFloor(99, 64);
         ArenaLoop();
@@ -824,7 +824,7 @@ NamedScript MapSpecial void PassArenaLine()
 NamedScript MapSpecial void SelectArenaWave()
 {
     // If Marines are hostile or the power is out, terminate
-    if (MarinesHostile || PowerOut || ArenaActive) return;
+    if (MarinesHostile || PowerOut) return;
 
     // if you're already in a menu, terminate
     if (Player.OutpostMenu == OMENU_MODULECONVERTER) return;

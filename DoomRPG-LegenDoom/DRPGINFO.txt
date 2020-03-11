@@ -1,4 +1,4 @@
 Name=LegenDoom
 Conflicts=DoomRL Arsenal
 Conflicts=Extras
-Mods=LegenDoom_2.6.pk3
+Mods=LegenDoom_2.7.pk3

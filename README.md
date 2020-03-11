@@ -6,8 +6,9 @@ I recommend reading CHANGELOG.txt and the commits for all the changes.
 ## Installing
 
 Compatible source ports:
-GZDoom v3.7.0 or higher.
-LZDoom v3.83a or higher.
+- GZDoom v3.7.0 or higher.
+- LZDoom v3.83a or higher.
+- Delta Touch on Android v3.1 or higher (includes the above versions or higher).
 
 DRPG's launcher is the recommended method. 
 Found here: https://github.com/Forevener/DRPGSEL/releases
