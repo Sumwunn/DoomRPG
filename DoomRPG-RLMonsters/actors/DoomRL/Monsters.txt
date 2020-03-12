@@ -173,16 +173,32 @@ ACTOR RLSpectreRPG : RLSpectre Replaces RLSpectre
 // Lost Soul
 ACTOR RLLostSoulRPG : RLLostSoul Replaces RLLostSoul
 {
-    -COUNTKILL
+	+COUNTKILL
 
 	States
 	{
 	Spawn:
-		LSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+    	// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	LSOL A 0 NoDelay A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	LSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	LSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
 		Goto Super::Spawn
 	See:
-		LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NODROPS)
+    	// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	LSOL A 0 A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	LSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	LSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
         TNT1 A 0
 		Goto Super::See
 	}
@@ -190,16 +206,34 @@ ACTOR RLLostSoulRPG : RLLostSoul Replaces RLLostSoul
 
 ACTOR RLLostSoulPERPG : RLLostSoulPE Replaces RLLostSoulPE
 {
-	-COUNTKILL
+	+COUNTKILL
 
 	States
 	{
 	Spawn:
-		LSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
-		Goto Super::Spawn+1
+    	// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	LSOL A 0 NoDelay A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	LSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	LSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
+		Goto Super::Spawn+5
 	See:
-		LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
-		Goto Super::See+1
+    	// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	LSOL A 0 A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	LSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	LSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	LSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
+		Goto Super::See+5
 	}
 }
 
@@ -650,15 +684,33 @@ ACTOR RLNightmareSpectreRPG : RLNightmareSpectre Replaces RLNightmareSpectre
 // Nightmare Lost Soul
 ACTOR RLNightmareLostSoulRPG : RLNightmareLostSoul Replaces RLNightmareLostSoul
 {
-	-COUNTKILL
+	+COUNTKILL
 
 	States
 	{
 	Spawn:
-		NSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0,  MF_NOAURA | MF_NODROPS)
+		// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	NSOL A 0 NoDelay A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	NSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	NSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
 		Goto Super::Spawn
 	See:
-		NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+		// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	NSOL A 0 A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	NSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	NSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	NSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
 		Goto Super::See
 	}
 }
@@ -875,15 +927,33 @@ ACTOR RLCyberneticSpectreRPG : RLCyberneticSpectre Replaces RLCyberneticSpectre
 // Cybernetic Lost Soul
 ACTOR RLCyberneticLostSoulRPG : RLCyberneticLostSoul Replaces RLCyberneticLostSoul
 {
-	-COUNTKILL
+	+COUNTKILL
 
 	States
 	{
 	Spawn:
-		CSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+		// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	CSOL A 0 NoDelay A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	CSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	CSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
 		Goto Super::Spawn
 	See:
-		CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+		// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	CSOL A 0 A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	CSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	CSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
 		Goto Super::See
 	}
 }
@@ -891,15 +961,33 @@ ACTOR RLCyberneticLostSoulRPG : RLCyberneticLostSoul Replaces RLCyberneticLostSo
 // Alternate version
 ACTOR RLTechnophobiaHellmineRPG : RLTechnophobiaHellmine Replaces RLTechnophobiaHellmine
 {
-	-COUNTKILL
+	+COUNTKILL
 
 	States
 	{
 	Spawn:
-		CSOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+		// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	CSOL A 0 NoDelay A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	CSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	CSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
 		Goto Super::Spawn
 	See:
-		CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+		// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	CSOL A 0 A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	CSOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	CSOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	CSOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+    	TNT1 A 0
 		Goto Super::See
 	}
 }
@@ -1177,13 +1265,33 @@ ACTOR RLCacobyssOrbRPG : RLCacobyssOrb Replaces RLCacobyssOrb
 // The Hungry
 ACTOR RLArmageddonLostSoulRPG : RLArmageddonLostSoul Replaces RLArmageddonLostSoul
 {
+	+COUNTKILL
+
 	States
 	{
 	Spawn:
-		ASOL A 0 NoDelay ACS_NamedExecuteAlways("MonsterInit", 0)
+    	// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	ASOL A 0 NoDelay A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	ASOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	ASOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	ASOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	ASOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+        TNT1 A 0
 		Goto Super::Spawn
 	See:
-		ASOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0)
+    	// ----- Lost Souls that are not map-based should not have their kills and XP taken into account due to possible spawn spam (Pain Elementals for example). ----- //
+    	// Check if monster is map-based.
+    	ASOL A 0 A_JumpIf(GetLevelSpawnTime() == 0, 4)
+    	// Not map-based.
+    	ASOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOXP | MF_NOAURA | MF_NODROPS)
+    	ASOL A 0 A_ChangeFlag("COUNTKILL", false)
+    	ASOL A 0 A_Jump(256, 2)
+    	// Map-based.
+    	ASOL A 0 ACS_NamedExecuteAlways("MonsterInit", 0, MF_NOAURA | MF_NODROPS)
+        TNT1 A 0
 		Goto Super::See
 	}
 }

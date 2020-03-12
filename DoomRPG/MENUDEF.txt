@@ -307,7 +307,7 @@ OptionMenu "DoomRPGDifficulty"
 
     Slider "Starting Map Weight", "drpg_monster_mapweight", 1, 1000, 1
     Slider "Monster Population %", "drpg_monster_population", 10.0, 200.0, 1.0
-    Slider "Absolute Monster Limit", "drpg_monster_limit", 0.0, 16200.0, 200.0
+    Slider "Absolute Monster Limit", "drpg_monster_limit", 0.0, 16200.0, 50.0
     Option "Map-based monster spawns", "drpg_monster_adaptive_spawns", "OnOff"
     StaticText ""
 

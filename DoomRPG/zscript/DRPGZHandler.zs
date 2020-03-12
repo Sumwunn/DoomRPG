@@ -1,13 +1,8 @@
 class DRPGZEHandler : EventHandler
 {
-    int SpawnIterations;
-    int MaxSpawnTime;
-
     // Replaces exits with ACS_Execute which calls DRPG's map exit script instead
     override void WorldLoaded(WorldEvent e)
     {
-        SpawnIterations = 0;
-
         CallACS("SetDebugMode");
 
         // Iterate through all lines in the current map to find exits to replace
@@ -121,61 +116,12 @@ class DRPGZEHandler : EventHandler
             for (int i = 0; i < RLMBosses.size(); i++)
                 if (e.Thing.GetClassName() == RLMBosses[i])
                     e.Thing.ACS_ScriptCall("MonsterInit", MF_BOSS);
-
-            if (SpawnIterations < level.total_monsters)
-            {
-                MaxSpawnTime = e.Thing.SpawnTime;
-                SpawnIterations++;
-                // Helps account for replacers
-                if (SpawnIterations == level.total_monsters)
-                    MaxSpawnTime++;
-            }
         }
     }
 
     override void WorldThingDied(WorldEvent e)
     {
-        // Turn off XP gain for Lost Souls that spawn after map-based ones (monsters that can be spammed from Pain Elementals).
-        static const string XPBlacklist[] =
-        {
-            // Default
-            "DRPGLostSoul",
-            // Extras
-            "DRPGLostSoulExtras",
-            // LegenDoom
-            "LDLostSoulRPG",
-            // RLMonsters
-            "RLLostSoulRPG",
-            "RLLostSoulPERPG",
-            "RLNightmareLostSoulRPG",
-            "RLCyberneticLostSoulRPG",
-            "RLTechnophobiaHellmineRPG",
-            // Colourful Hell
-            "CommonLSoulRPG",
-            "GreenLSoulRPG",
-            "BlueLSoulRPG",
-            "PurpleLSoulRPG",
-            "YellowLSoulRPG",
-            "RedLSoulRPG",
-            "BlackLSoul3RPG",
-            "BlackLSoul2RPG",
-            "WhiteLSoul2RPG",
-            "GrayLSoul2RPG",
-            "GreyDemon2RPG",
-            "GraySpectre2RPG",
-            "FireBluLSoul2RPG"
-        };
-
         if (e.Thing && e.Thing.bIsMonster)
-        {
-            if (e.Thing.SpawnTime > MaxSpawnTime)
-            {
-                for (int i = 0; i < XPBlacklist.size(); i++)
-                    if (e.Thing.GetClassName() == XPBlacklist[i])
-                        e.Thing.ACS_ScriptCall("MonsterSet", 0, 0, MF_NOXP | MF_NOAURA | MF_NODROPS, true);
-            }
-
             e.Thing.ACS_ScriptCall("MonsterDeathCheck");
-        }
     }
 }

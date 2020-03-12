@@ -8,7 +8,7 @@ I recommend reading CHANGELOG.txt and the commits for all the changes.
 Compatible source ports:
 - GZDoom v3.7.0 or higher.
 - LZDoom v3.83a or higher.
-- Delta Touch on Android v3.1 or higher (includes the above versions or higher).
+- Delta Touch (Android) v3.1 or higher (includes the above versions or higher).
 
 DRPG's launcher is the recommended method. 
 Found here: https://github.com/Forevener/DRPGSEL/releases
@@ -22,7 +22,7 @@ https://github.com/Sumwunn/DoomRPG/wiki
 ## Compatible mods
 
 - DoomRL Arsenal - [1.1.2] [MP-B7.2].
-- LegenDoom v2.6.
+- LegenDoom v2.7.
 - Colourful Hell v0.97ccc.
 - Custom version of Jimmy's Jukebox Instant Randomizer has been included which allows DRPG's map events and Outpost music to play.
 
