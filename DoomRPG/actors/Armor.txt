@@ -126,7 +126,7 @@ actor DRPGYellowArmorEffect : BasicArmorPickup
     Armor.Saveamount 200
 }
 
-Actor DRPGYellowArmor : CustomInventory 20042
+Actor DRPGYellowArmor : CustomInventory 25042
 {
     Tag "Yellow Armor - 50% Damage Protection"
     
@@ -170,7 +170,7 @@ actor DRPGRedArmorEffect : BasicArmorPickup
     Armor.Saveamount 200
 }
 
-Actor DRPGRedArmor : CustomInventory 20044
+Actor DRPGRedArmor : CustomInventory 25044
 {
     Game Doom
     
@@ -219,7 +219,7 @@ actor DRPGWhiteArmorEffect : BasicArmorPickup
     Armor.Saveamount 200
 }
 
-Actor DRPGWhiteArmor : CustomInventory 20046
+Actor DRPGWhiteArmor : CustomInventory 25046
 {
     Tag "White Armor - 100% Damage Protection"
     
@@ -266,7 +266,7 @@ actor DRPGReinforcedGreenArmorEffect : BasicArmorPickup
     Armor.SaveAmount 200
 }
 
-Actor DRPGReinforcedGreenArmor : CustomInventory 20047
+Actor DRPGReinforcedGreenArmor : CustomInventory 25047
 {
     Tag "Reinforced Green Armor - 10% Damage Protection"
     
@@ -310,7 +310,7 @@ actor DRPGReinforcedBlueArmorEffect : BasicArmorPickup
     Armor.SaveAmount 200
 }
 
-Actor DRPGReinforcedBlueArmor : CustomInventory 20048
+Actor DRPGReinforcedBlueArmor : CustomInventory 25048
 {
     Tag "Reinforced Blue Armor - 25% Damage Protection"
     
@@ -354,7 +354,7 @@ actor DRPGReinforcedYellowArmorEffect : BasicArmorPickup
     Armor.SaveAmount 400
 }
 
-Actor DRPGReinforcedYellowArmor : CustomInventory 20049
+Actor DRPGReinforcedYellowArmor : CustomInventory 25049
 {
     Tag "Reinforced Yellow Armor - 50% Damage Protection"
     
@@ -398,7 +398,7 @@ actor DRPGReinforcedRedArmorEffect : BasicArmorPickup
     Armor.SaveAmount 400
 }
 
-Actor DRPGReinforcedRedArmor : CustomInventory 20050
+Actor DRPGReinforcedRedArmor : CustomInventory 25050
 {
     Tag "Reinforced Red Armor - 75% Damage Protection"
     
@@ -442,7 +442,7 @@ actor DRPGReinforcedWhiteArmorEffect : BasicArmorPickup
     Armor.SaveAmount 400
 }
 
-Actor DRPGReinforcedWhiteArmor : CustomInventory 20051
+Actor DRPGReinforcedWhiteArmor : CustomInventory 25051
 {
     Tag "Reinforced White Armor - 100% Damage Protection"
     

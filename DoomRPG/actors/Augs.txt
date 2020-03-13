@@ -1,4 +1,4 @@
-actor DRPGAugCanister : Inventory 20070
+actor DRPGAugCanister : Inventory 25070
 {
     Inventory.MaxAmount 100
     Inventory.InterHubAmount 100
@@ -14,7 +14,7 @@ actor DRPGAugCanister : Inventory 20070
     }
 }
 
-actor DRPGAugUpgradeCanister : Inventory 20071
+actor DRPGAugUpgradeCanister : Inventory 25071
 {
     Inventory.MaxAmount 100
     Inventory.InterHubAmount 100
@@ -30,7 +30,7 @@ actor DRPGAugUpgradeCanister : Inventory 20071
     }
 }
 
-actor DRPGAugSlotUpgrade : Inventory 20072
+actor DRPGAugSlotUpgrade : Inventory 25072
 {
     Scale 0.5
     

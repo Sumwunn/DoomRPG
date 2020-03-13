@@ -29,7 +29,7 @@ actor DRPGCreditsEmpty
 }
 
 // 1 Credit - Green
-actor DRPGCredits1 : CustomInventory 20020
+actor DRPGCredits1 : CustomInventory 25020
 {
     scale 0.5
     
@@ -50,7 +50,7 @@ actor DRPGCredits1 : CustomInventory 20020
 }
 
 // 5 Credits - Blue
-actor DRPGCredits5 : DRPGCredits1 20021
+actor DRPGCredits5 : DRPGCredits1 25021
 {
     Inventory.PickupMessage "You got \cn5 Credits\c-."
     
@@ -68,7 +68,7 @@ actor DRPGCredits5 : DRPGCredits1 20021
 }
 
 // 10 Credits - Yellow
-actor DRPGCredits10 : DRPGCredits1 20022
+actor DRPGCredits10 : DRPGCredits1 25022
 {
     Inventory.PickupMessage "You got \cf10 Credits\c-."
     
@@ -86,7 +86,7 @@ actor DRPGCredits10 : DRPGCredits1 20022
 }
 
 // 20 Credits - Red
-actor DRPGCredits20 : DRPGCredits1 20023
+actor DRPGCredits20 : DRPGCredits1 25023
 {
     Inventory.PickupMessage "You got \ca20 Credits\c-."
     
@@ -104,7 +104,7 @@ actor DRPGCredits20 : DRPGCredits1 20023
 }
 
 // 50 Credits - Purple
-actor DRPGCredits50 : DRPGCredits1 20024
+actor DRPGCredits50 : DRPGCredits1 25024
 {
     Inventory.PickupMessage "You got \ct50 Credits\c-."
     
@@ -122,7 +122,7 @@ actor DRPGCredits50 : DRPGCredits1 20024
 }
 
 // 100 Credits - Orange
-actor DRPGCredits100 : DRPGCredits1 20025
+actor DRPGCredits100 : DRPGCredits1 25025
 {
     Inventory.PickupMessage "You got \ci100 Credits\c-."
     
@@ -140,7 +140,7 @@ actor DRPGCredits100 : DRPGCredits1 20025
 }
 
 // 250 Credits - Silver
-actor DRPGCredits250 : DRPGCredits1 20027
+actor DRPGCredits250 : DRPGCredits1 25027
 {
     Inventory.PickupMessage "You got \cw250 Credits\c-."
     
@@ -158,7 +158,7 @@ actor DRPGCredits250 : DRPGCredits1 20027
 }
 
 // 500 Credits - Gold
-actor DRPGCredits500 : DRPGCredits1 20028
+actor DRPGCredits500 : DRPGCredits1 25028
 {
     Inventory.PickupMessage "You got \cf500 Credits\c-."
     
@@ -176,7 +176,7 @@ actor DRPGCredits500 : DRPGCredits1 20028
 }
 
 // 1000 Credits - Rainbow
-actor DRPGCredits1000 : DRPGCredits1 20026
+actor DRPGCredits1000 : DRPGCredits1 25026
 {
     Inventory.PickupMessage "You got 1000 \cjC\cdr\cne\cfd\cai\ctt\cis\c-! Holy Crap!"
     

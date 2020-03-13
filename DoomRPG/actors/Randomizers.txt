@@ -83,7 +83,7 @@ actor DRPGGenericBossDropper : RandomSpawner
     DropItem "DRPGTurretDropper"
 }
 
-actor DRPGMoneyDropper : RandomSpawner 20000
+actor DRPGMoneyDropper : RandomSpawner 25000
 {
     DropItem "DRPGCredits1"         255 75
     DropItem "DRPGCredits5"         255 10
@@ -93,7 +93,7 @@ actor DRPGMoneyDropper : RandomSpawner 20000
     DropItem "DRPGCredits100"       255 1
 }
 
-actor DRPGHealthDropper : RandomSpawner 20001
+actor DRPGHealthDropper : RandomSpawner 25001
 {
     DropItem "DRPGStimpack"         255 40
     DropItem "DRPGMedikit"          255 30
@@ -110,19 +110,19 @@ actor DRPGLifeDropper : RandomSpawner
     DropItem "DRPG5Up"              255 1
 }
 
-actor DRPGEPDropper : RandomSpawner 20002
+actor DRPGEPDropper : RandomSpawner 25002
 {
     DropItem "DRPGEPCapsule"    255 4
     DropItem "DRPGBigEPCapsule" 255 1
 }
 
-actor DRPGArmorDropper : RandomSpawner 20003
+actor DRPGArmorDropper : RandomSpawner 25003
 {
     DropItem "DRPGGreenArmorRandomizer" 255 75
     DropItem "DRPGBlueArmorRandomizer"  255 25
 }
 
-actor DRPGPowerupDropper : RandomSpawner 20004
+actor DRPGPowerupDropper : RandomSpawner 25004
 {
     DropItem "DRPGInvulnerabilitySphere"
     DropItem "DRPGInvulnerabilityCharge"
@@ -146,7 +146,7 @@ actor DRPGImmunityCrystalDropper : RandomSpawner
     DropItem "DRPGImmunityCrystalRadiation"
 }
 
-actor DRPGWeaponDropper : RandomSpawner 20005
+actor DRPGWeaponDropper : RandomSpawner 25005
 {
     DropItem "Pistol"           255 7
     DropItem "Shotgun"          255 6
@@ -158,7 +158,7 @@ actor DRPGWeaponDropper : RandomSpawner 20005
     DropItem "Chainsaw"         255 1
 }
 
-actor DRPGAmmoDropper : RandomSpawner 20006
+actor DRPGAmmoDropper : RandomSpawner 25006
 {
     DropItem "DRPGClipBox"              255 40
     DropItem "DRPGShellBox"             255 30
@@ -166,25 +166,25 @@ actor DRPGAmmoDropper : RandomSpawner 20006
     DropItem "DRPGCellPack"             255 10
 }
 
-actor DRPGModuleDropper : RandomSpawner 20007
+actor DRPGModuleDropper : RandomSpawner 25007
 {
     DropItem "DRPGModulePickup"
 }
 
-actor DRPGAugDropper : RandomSpawner 20009
+actor DRPGAugDropper : RandomSpawner 25009
 {
     DropItem "DRPGAugCanister"          255 25
     DropItem "DRPGAugUpgradeCanister"   255 70
     DropItem "DRPGAugSlotUpgrade"       255 5
 }
 
-actor DRPGBatteryDropper : RandomSpawner 20010
+actor DRPGBatteryDropper : RandomSpawner 25010
 {
     DropItem "DRPGBatterySmall"         255 4
     DropItem "DRPGBatteryLarge"         255 1
 }
 
-actor DRPGShieldDropper : RandomSpawner 20011
+actor DRPGShieldDropper : RandomSpawner 25011
 {
     // Bodies
     DropItem "DRPGShieldBody1"          255 40 // UAC
@@ -312,7 +312,7 @@ actor DRPGShieldDropper : RandomSpawner 20011
     DropItem "DRPGShieldAccessory66"    255 3 // S-SP4G3TT
 }
 
-actor DRPGStimDropper : RandomSpawner 20012
+actor DRPGStimDropper : RandomSpawner 25012
 {
     // Stims
     DropItem "DRPGStimSmall"            255 70
@@ -321,7 +321,7 @@ actor DRPGStimDropper : RandomSpawner 20012
     DropItem "DRPGStimXL"               255 1
 }
 
-actor DRPGVialDropper : RandomSpawner 20013
+actor DRPGVialDropper : RandomSpawner 25013
 {
     // Stats
     DropItem "DRPGVialStrength"         255 10
@@ -341,7 +341,7 @@ actor DRPGVialDropper : RandomSpawner 20013
     DropItem "DRPGStimPackagePowerup"   255 1
 }
 
-actor DRPGVialDropperRare : RandomSpawner 20014
+actor DRPGVialDropperRare : RandomSpawner 25014
 {
     // Boosters
     DropItem "DRPGVialPotency"
@@ -359,13 +359,13 @@ actor DRPGVialDropperRare : RandomSpawner 20014
     DropItem "DRPGVialMagnetic"
 }
 
-actor DRPGTurretDropper : RandomSpawner 20015
+actor DRPGTurretDropper : RandomSpawner 25015
 {
     DropItem "DRPGDestroyedTurret"  255 90
     DropItem "DRPGTurretPartCrate"  255 10
 }
 
-actor DRPGChipDropper : RandomSpawner 20016
+actor DRPGChipDropper : RandomSpawner 25016
 {
     DropItem "DRPGChipGold"         255 32
     DropItem "DRPGChipPlatinum"     255 1

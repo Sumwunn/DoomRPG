@@ -9,7 +9,7 @@ actor DRPGShieldCharge : Inventory              { Inventory.MaxAmount 1000000 }
 actor DRPGShieldChargeMax : Inventory           { Inventory.MaxAmount 1000000 }
 
 // Shield Booster
-actor DRPGShieldBooster : CustomInventory 20080
+actor DRPGShieldBooster : CustomInventory 25080
 {
     Scale 0.5
     

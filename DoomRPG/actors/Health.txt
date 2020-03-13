@@ -91,7 +91,7 @@ ACTOR DRPGMedikit : CustomInventory
 }
 
 // Large Medikit
-actor DRPGLargeMedikit : CustomInventory 20030
+actor DRPGLargeMedikit : CustomInventory 25030
 {
     Inventory.PickupMessage "You got a large Medikit!"
     Inventory.PickupSound "items/health"
@@ -113,7 +113,7 @@ actor DRPGLargeMedikit : CustomInventory 20030
 }
 
 // Extra-Large Medikit
-actor DRPGXLMedikit : CustomInventory 20031
+actor DRPGXLMedikit : CustomInventory 25031
 {
     Inventory.PickupMessage "You got an Extra-large Medikit!"
     Inventory.PickupSound "items/health"
@@ -135,7 +135,7 @@ actor DRPGXLMedikit : CustomInventory 20031
 }
 
 // Med Pack
-actor DRPGMedPack : CustomInventory 20032
+actor DRPGMedPack : CustomInventory 25032
 {
     Inventory.PickupMessage "You got a Med Pack!"
     Inventory.PickupSound "items/health"
@@ -157,7 +157,7 @@ actor DRPGMedPack : CustomInventory 20032
 }
 
 // Surgery Kit
-actor DRPGSurgeryKit : CustomInventory 20033
+actor DRPGSurgeryKit : CustomInventory 25033
 {
     Inventory.PickupMessage "You got a Surgery Kit!"
     Inventory.PickupSound "items/health"
@@ -222,7 +222,7 @@ ACTOR DRPGSoulsphere : CustomInventory
     }
 }
 
-ACTOR DRPGSoulsphere2 : DRPGSoulsphere 20034
+ACTOR DRPGSoulsphere2 : DRPGSoulsphere 25034
 {
     Translation "192 : 207 = 112 : 127", "240 : 247 = 127 : 127"
     
@@ -235,7 +235,7 @@ ACTOR DRPGSoulsphere2 : DRPGSoulsphere 20034
     }
 }
 
-ACTOR DRPGSoulsphere3 : DRPGSoulsphere 20035
+ACTOR DRPGSoulsphere3 : DRPGSoulsphere 25035
 {
     Translation "192 : 207 = 172 : 187", "240 : 247 = 191 : 191"
     
@@ -259,7 +259,7 @@ ACTOR DRPGLife : Inventory
     Inventory.PickupSound "health/1up"
 }
 
-ACTOR DRPG1Up : CustomInventory 20036
+ACTOR DRPG1Up : CustomInventory 25036
 {
     -INVBAR
     +FLOATBOB
@@ -326,7 +326,7 @@ ACTOR DRPG5Up : DRPG1Up
 }
 
 // EP Capsule
-actor DRPGEPCapsule : CustomInventory 20037
+actor DRPGEPCapsule : CustomInventory 25037
 {
     inventory.PickupMessage "Got an EP Capsule!"
     Inventory.PickupSound "health/epcapsule"
@@ -348,7 +348,7 @@ actor DRPGEPCapsule : CustomInventory 20037
 }
 
 // Big EP Capsule
-actor DRPGBigEPCapsule : DRPGEPCapsule 20038
+actor DRPGBigEPCapsule : DRPGEPCapsule 25038
 {
     Scale 0.75
     

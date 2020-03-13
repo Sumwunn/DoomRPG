@@ -183,7 +183,7 @@ actor DRPGTimeFreezer : PowerupGiver
     Powerup.Duration -10
 }
 
-actor DRPGTimeSphere : CustomInventory 20052
+actor DRPGTimeSphere : CustomInventory 25052
 {
     Tag "Time Sphere - Stops Time for 10 Seconds"
     
@@ -219,7 +219,7 @@ actor DRPGTimeSphere : CustomInventory 20052
 }
 
 // Regeneration Sphere
-actor DRPGRegenSphere : CustomInventory 20053
+actor DRPGRegenSphere : CustomInventory 25053
 {
     Tag "Regeneration Sphere - Quickly regenerates HP and EP"
     
@@ -420,7 +420,7 @@ actor DRPGFlightPower : PowerupGiver
     Powerup.Duration -0x7FFFFFFF
 }
 
-actor DRPGWings : CustomInventory 20054
+actor DRPGWings : CustomInventory 25054
 {
     Tag "Wings - Allows Flight"
     
