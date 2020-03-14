@@ -2,6 +2,7 @@
 
 // XP System
 server  float   drpg_scalexp = 1.0;
+server  float   drpg_scalecomboxp = 1.0;
 server  int     drpg_xp_curve = 300;
 //server  int     drpg_max_player_level = 100;
 server  float   drpg_xp_health_awareness = 0.0;

@@ -219,6 +219,8 @@ void CheckCombo()
     if (Player.ComboTimer == COMBO_STOP || (Player.Aura.Type[AURA_WHITE].Active && Player.Aura.Type[AURA_WHITE].Level >= 2 && Timer() == 4))
     {
         long int ComboBonus = ((Player.XPGained + Player.RankGained) / 100 * Player.Combo);
+        // Don't forget to remove stupid fixed-point avoidance code after migration (if it happens)
+        ComboBonus = (ComboBonus * (int)(GetCVarFixed("drpg_scalecomboxp") * 100)) / 100;
 
         // You cannot gain Negative XP, but you can lose Rank
         if (Player.XPGained < 0) Player.XPGained = 0;
