@@ -232,6 +232,8 @@ class DRPGZUtilities
         // XP System
         i = CVar.FindCVar('drpg_scalexp');
         i.ResetToDefault();
+        i = CVar.FindCVar('drpg_scalecomboxp');
+        i.ResetToDefault();
         i = CVar.FindCVar('drpg_xp_curve');
         i.ResetToDefault();
         i = CVar.FindCVar('drpg_xp_health_awareness');
