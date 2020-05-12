@@ -1,4 +1,4 @@
 Name=DoomRL Arsenal
 Conflicts=LegenDoom
 Conflicts=Extras
-Mods=DoomRL_Arsenal_1.1.2.pk3
+Mods=DoomRL_Arsenal_1.1.4.pk3
