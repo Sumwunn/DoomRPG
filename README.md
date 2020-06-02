@@ -1,3 +1,6 @@
+## - This fork is now archived. Please see link below for details. - ##
+https://forum.zdoom.org/viewtopic.php?style=12&f=19&t=63766&start=150#p1153749
+
 ## Fork overview
 
 The main goal of this fork is bugfixing/stability & performance improvements. However some usability/gameplay tweaks have been made here and there.
