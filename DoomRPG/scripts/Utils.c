@@ -2668,6 +2668,7 @@ void CreateTranslations()
     CreateTranslationEnd();
 }
 
+// Needs reworked
 bool CheckInput(int Key, int State, bool ModInput, int PlayerNumber)
 {
     int Input = INPUT_BUTTONS;
@@ -2745,7 +2746,7 @@ bool CheckInput(int Key, int State, bool ModInput, int PlayerNumber)
             OldAxisX = AxisX;
             return true;
         }
-        else if (Buttons == Key && OldButtons != Key)
+        else if (Buttons & Key && !(OldButtons & Key))
             return true;
     }
     break;
@@ -2759,7 +2760,7 @@ bool CheckInput(int Key, int State, bool ModInput, int PlayerNumber)
     break;
     case KEY_ONLYHELD:
     {
-        if (Buttons == Key)
+        if (Buttons & Key)
             return true;
     }
     break;
@@ -2909,6 +2910,20 @@ void ClearInfo(CharSaveInfo *Info)
 
 void ArrayCreate(DynamicArray *Array, str Name, int InitSize, int ItemSize)
 {
+    if (DebugLog)
+    {
+        Log("acArgName: %S", Name);
+        Log("acArgInitSize: %i", InitSize);
+        Log("acArgItemSize: %i", ItemSize);
+
+        Log("Array: %i", Array);
+        Log("Array->Name: %S", Array->Name);
+        Log("Array->Position: %i", Array->Position);
+        Log("Array->Size: %i", Array->Size);
+        Log("Array->ItemSize: %i", Array->ItemSize);
+        Log("Array->Data: %i", Array->Data);
+    }
+
     bool Recreate = false;
     if (Array && Array->Data != NULL)
         Recreate = true;
@@ -2921,19 +2936,26 @@ void ArrayCreate(DynamicArray *Array, str Name, int InitSize, int ItemSize)
 
     if (Recreate)
     {
-        LogMessage("Reallocating Array",LOG_DEBUG);
-        LogMessage(StrParam("Previously: @ %p Size: %i", Array->Data, sizeof(Array->Data)),LOG_DEBUG);
-        LogMessage(StrParam("To size: %i",Array->Size * Array->ItemSize),LOG_DEBUG);
         if(Array->Size != InitSize || Array->ItemSize != ItemSize)
+        {
+            LogMessage("Reallocating Array",LOG_DEBUG);
+            LogMessage(StrParam("Previously: @ %p Size: %i", Array->Data, Array->Size),LOG_DEBUG);
+            LogMessage(StrParam("To size: %i",Array->Size * Array->ItemSize),LOG_DEBUG);
+            Array->Size = InitSize;
+            Array->ItemSize = ItemSize;
             Array->Data = realloc(Array->Data, Array->Size * Array->ItemSize);
+        }
+
         LogMessage("Erasing Leftover data",LOG_DEBUG);
         memset(Array->Data, NULL, Array->Size * Array->ItemSize);
     }
     else
+    {
+        Array->Size = InitSize;
+        Array->ItemSize = ItemSize;
         LogMessage("Creating Array",LOG_DEBUG);
-    Array->Size = InitSize;
-    Array->ItemSize = ItemSize;
-    Array->Data = calloc(Array->Size, Array->ItemSize);
+        Array->Data = calloc(Array->Size, Array->ItemSize);
+    }
 
     if (Array->Data == NULL)
     {
@@ -2956,10 +2978,11 @@ void ArrayResize(DynamicArray *Array)
     }
 
     int OldSize = Array->Size;
-
     Array->Size *= 2;
+
     if (DebugLog)
         Log("\CdAttempting to resize DynamicArray: \Cj%S\Cd @ %p", Array->Name, Array->Data);
+
     void *tmp = realloc(Array->Data, Array->ItemSize * Array->Size);
 
     if (tmp == NULL)
@@ -2984,6 +3007,7 @@ void ArrayDestroy(DynamicArray *Array)
 
     free(Array->Data);
 
+    Array->Name = "";
     Array->Position = 0;
     Array->Size = 0;
     Array->ItemSize = 0;
@@ -2997,18 +3021,14 @@ void ArrayDestroy(DynamicArray *Array)
     Log("\Cd* Item bytesize: \Cj%d", Array->ItemSize);
     Log("\Cd* End Position: \Cj%d", Array->Position);
     Log("");
-
     Log("\CiItem data:");
-
     for (int i = 0; i < Array->Size; i++)
     {
         str DataString = StrParam("  %X: ", i);
         for (int b = 0; b < Array->ItemSize; b++)
             DataString = StrParam("%S%X ", DataString, (char)((char *)Array->Data)[Array->ItemSize * i + b]);
-
         if (i >= Array->Position)
             DataString = StrParam("%s\Cj(\CgUnused\Cj)", DataString);
-
         Log("%s", DataString);
     }
 }*/

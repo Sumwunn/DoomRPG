@@ -76,7 +76,7 @@ NamedScript Type_OPEN void GlobalInit()
     if (!GlobalsInitialized)
     {
         // Version Info
-        Log("\CnDoom RPG SE (GDCC) (Compiled on %S) loaded!", __DATE__);
+        Log("\CnDoom RPG SE [EXPERIMENTAL] (GDCC) (Compiled on %S) loaded!", __DATE__);
 
         // Compatibility checking
         CheckCompatibility();

@@ -84,6 +84,11 @@ NamedScript void InitMission()
         if (MonsterID <= 1) return; // No monsters, no assassination.
 
         auto DynamicArray PotentialTargets;
+        // Initialise to prevent junk data from crashing ArrayCreate()
+        // Name & Position are initialised by ArrayCreate()
+        PotentialTargets.Size = 0;
+        PotentialTargets.ItemSize = 0;
+        PotentialTargets.Data = NULL;
         ArrayCreate(&PotentialTargets, "Targets", 32, sizeof(LevelInfo));
 
         for (int i = 1; i < MonsterID; i++)

@@ -218,7 +218,7 @@ if __name__ == "__main__":
 
     if not failure:
     	log_file = open('DoomRPG/GAMEINFO.txt', 'w')
-        log_file.write('startuptitle = "Doom RPG SE ({})"'.format(datetime.date.today()) + "\n")
+        log_file.write('startuptitle = "Doom RPG SE [EXPERIMENTAL] ({})"'.format(datetime.date.today()) + "\n")
         log_file.write('startupcolors = "0092FF", "000000"' + "\n")
         log_file.write('startuptype = "Hexen"' + "\n")
         print(TERMCAP_BOLD + TERMCAP_GREEN + "Finished compiling." + TERMCAP_RESET)
