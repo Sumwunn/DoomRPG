@@ -51,7 +51,7 @@ After installation be sure to DoomRPG settings reset (Options -> DoomRPG Otions 
 
 Use the following load order:
 
-1. [WadSmoosh](https://forum.zdoom.org/viewtopic.php?f=19&t=52757) and/or [The Sentinel's Lexicon - PvE mapset Compilaition](https://github.com/WNC12k/DoomRPG-Lexicon/releases) or another mapset;
+1. [WadSmoosh](https://forum.zdoom.org/viewtopic.php?f=19&t=52757) or [The Sentinel's Lexicon - PvE mapset Compilaition](https://github.com/WNC12k/DoomRPG-Lexicon/releases) or another mapset;
 2. [DoomRL Arsenal 1.1.5](https://forum.zdoom.org/viewtopic.php?f=43&t=37044) or [LegenDoom v2.8.3](https://forum.zdoom.org/viewtopic.php?t=51035);
 3. [DoomRL Monsters Beta 7.3](https://forum.zdoom.org/viewtopic.php?f=43&t=37044) or [Colourful Hell v0.99b](https://forum.zdoom.org/viewtopic.php?t=47980) or [Rampancy v2.0](https://forum.zdoom.org/viewtopic.php?f=43&t=67193) or [Dehacked Attack v4.0](https://forum.zdoom.org/viewtopic.php?f=43&t=72362) or [Pandemonia Monsters v2.2](https://forum.zdoom.org/viewtopic.php?t=60984);
 4. [DoomRL Arsenal Extended 1.1c](https://forum.zdoom.org/viewtopic.php?f=43&t=70549);
