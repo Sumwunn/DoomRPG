@@ -1,0 +1,26 @@
+AddOptionMenu "DoomRPG"
+{
+    StaticText ""
+    SubMenu "Pandemonia Monsters Options",            "Pandemonia Monsters Options"
+}
+
+OptionMenu "Pandemonia Monsters Options"
+{
+    Title "Pandemonia Monsters Options"
+
+    StaticText ""
+    StaticText "Quality loot items, armor, weapons and spawn monsters depends on the number of WADs passed."
+    StaticText "Lower number of WADs that you plan to go through to increases the intensity."
+
+    StaticText ""
+    StaticText "Use the slider below to set up the number of WADs that you plan to go through."
+
+    StaticText ""
+    Slider "Estimated counts of WADs", "drpg_ws_use_wads", 1, 20, 1, 0
+
+    StaticText ""
+    Slider "Starting Map/Game Level", "drpg_monster_mapweight", 1, 1000, 1, 0
+
+    StaticText ""
+    Option "Weapon/Armor Loot Type", "drpg_loot_type", "LootTypes"
+}

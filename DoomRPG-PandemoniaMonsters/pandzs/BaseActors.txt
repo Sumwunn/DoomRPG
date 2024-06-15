@@ -1,0 +1,880 @@
+Mixin Class PandIncreaseGameLevel
+{
+  action void A_IncreaseGameLevel(int level = 1)
+	{
+	let g = PandGlobalVariables.Get();
+	if(g)
+		g.GameLevel += level;
+	}
+	
+  /*action void A_IncreaseGameLevelMonstersOnly(int level = 1)
+	{
+	let g = PandGlobalVariables.Get();
+	if(g && g.MonstersOnly)
+		{
+		self.Destroy();
+		A_IncreaseGameLevel(level);
+		}
+	}*/
+}
+
+Mixin Class PandBetterPickupSound
+{
+  override void PlayPickupSound(actor toucher)
+	{
+	let handler = Pand_TestHandler(EventHandler.Find("Pand_TestHandler"));
+	if(handler)
+		{
+		if ( handler.lastpickuptic[toucher.PlayerNumber()] == gametic )
+		return;
+		handler.lastpickuptic[toucher.PlayerNumber()] = gametic;
+		}
+	double atten;
+	int flags = CHANF_OVERLAP|CHANF_MAYBE_LOCAL;
+	if ( bNoAttenPickupSound ) atten = ATTN_NONE;
+	else atten = ATTN_NORM;
+	if ( toucher && toucher.CheckLocalView() )
+	flags |= CHANF_NOPAUSE;
+	toucher.A_StartSound(PickupSound,CHAN_ITEM,flags,1.0,atten);
+	}
+}
+
+Mixin Class PandTextureID
+{
+  TextureID PTex(string name) //just a shortened function name
+	{
+	return TexMan.CheckForTexture(name);
+	}
+}
+
+Class PandFX : Actor
+{
+  private int pandfxflags;
+  flagdef DontChoke: pandfxflags, 0;
+  Default
+  {
+  +FORCEXYBILLBOARD;
+  }
+}
+
+Class PandInventory : Inventory
+{
+  Mixin PandIncreaseGameLevel;
+  Mixin PandBetterPickupSound;
+  Mixin PandTextureID;
+
+  string coltag;
+  property ColorTag: coltag;
+
+  string desctag;
+  property Description: desctag;
+  string newtag;
+
+  array <color> ParticleColor;
+  
+  color pcolor1;
+  color pcolor2;
+  color pcolor3;
+  color pcolor4;
+  property ParticleColors: pcolor1, pcolor2, pcolor3, pcolor4;
+
+  Default
+  {
+  PandInventory.ColorTag "ass";
+  PandInventory.Description "null";
+  PandInventory.ParticleColors "000000", "000000", "FFFFFF", "FFFFFF";
+  }
+  
+  virtual color GetParticleColor()
+	{
+	return ParticleColor[random(0,ParticleColor.Size()-1)];
+	}
+
+  override void BeginPlay()
+	{
+	Super.BeginPlay();
+	ParticleColor.Push(pcolor1);
+	ParticleColor.Push(pcolor2);
+	ParticleColor.Push(pcolor3);
+	ParticleColor.Push(pcolor4);
+	let g = PandGlobalVariables.Get();
+	if(g && g.MonstersOnly) return;
+	if(coltag != "ass")
+		SetTag("\c"..coltag..GetTag().."\c-");
+	newtag = GetTag();
+	SetTag(" ");
+	}
+}
+
+Class PandProjectile : Actor
+{
+  Default
+  {
+  Projectile;
+  PandProjectile.FireSound "";
+  PandProjectile.ParticleColors "000000", "000000", "FFFFFF", "FFFFFF";
+  PandProjectile.StatusEffectAmount 1;
+  +FORCEXYBILLBOARD;
+  }
+
+  Mixin PandTextureID;
+  
+  int user_fx;
+  int user_pcolor;
+  array <color> ParticleColor;
+  
+  color pcolor1;
+  color pcolor2;
+  color pcolor3;
+  color pcolor4;
+  property ParticleColors: pcolor1, pcolor2, pcolor3, pcolor4;
+  
+  sound projfiresound;
+  property FireSound: projfiresound;
+  sound projfiresound2;
+  property FireSound2: projfiresound2;
+
+  name seffect;
+  property StatusEffect: seffect;
+  int seffectgive;
+  property StatusEffectAmount: seffectgive;
+  
+  virtual color GetParticleColor()
+	{
+	return ParticleColor[random(0,ParticleColor.Size()-1)];
+	}
+	
+  override void BeginPlay()
+	{
+	Super.BeginPlay();
+	ParticleColor.Push(pcolor1);
+	ParticleColor.Push(pcolor2);
+	ParticleColor.Push(pcolor3);
+	ParticleColor.Push(pcolor4);
+	}
+	
+  override void PostBeginPlay()
+	{
+	if(target)
+		{
+		target.A_StartSound(projfiresound2,10);
+		target.A_StartSound(projfiresound,1,CHANF_OVERLAP);
+		}
+	else
+		{
+		A_StartSound(projfiresound2,10);
+		A_StartSound(projfiresound,1,CHANF_OVERLAP);
+		}
+	Super.PostBeginPlay();
+	}
+	
+  override int DoSpecialDamage(actor target, int damage, name damagetype)
+	{
+	if(target && self.target && (target.bISMONSTER || target is "PlayerPawn") && seffect && target.Species != self.target.Species)
+		target.A_GiveInventory(seffect,seffectgive);
+	return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+}
+
+Class PandFastProjectile : FastProjectile
+{
+  Default
+  {
+  PandFastProjectile.FireSound "";
+  PandFastProjectile.ParticleColors "000000", "000000", "FFFFFF", "FFFFFF";
+  }
+
+  Mixin PandTextureID;
+  
+  int user_fx;
+  int user_pcolor;
+  array <color> ParticleColor;
+  
+  color pcolor1;
+  color pcolor2;
+  color pcolor3;
+  color pcolor4;
+  property ParticleColors: pcolor1, pcolor2, pcolor3, pcolor4;
+  
+  sound projfiresound;
+  property FireSound: projfiresound;	//this one overlaps
+  sound projfiresound2;
+  property FireSound2: projfiresound2;	//this one doesn't
+
+  name seffect;
+  property StatusEffect: seffect;
+  int seffectgive;
+  property StatusEffectAmount: seffectgive;
+  
+  virtual color GetParticleColor()
+	{
+	return ParticleColor[random(0,ParticleColor.Size()-1)];
+	}
+	
+  override void BeginPlay()
+	{
+	Super.BeginPlay();
+	ParticleColor.Push(pcolor1);
+	ParticleColor.Push(pcolor2);
+	ParticleColor.Push(pcolor3);
+	ParticleColor.Push(pcolor4);
+	}
+	
+  override void PostBeginPlay()
+	{
+	if(target)
+		{
+		target.A_StartSound(projfiresound2,10);
+		target.A_StartSound(projfiresound,1,CHANF_OVERLAP);
+		}
+	else
+		{
+		A_StartSound(projfiresound2,10);
+		A_StartSound(projfiresound,1,CHANF_OVERLAP);
+		}
+	Super.PostBeginPlay();
+	}
+	
+  override int DoSpecialDamage(actor target, int damage, name damagetype)
+	{
+	if(target && self.target && (target.bISMONSTER || target is "PlayerPawn") && seffect && target.Species != self.target.Species)
+		target.A_GiveInventory(seffect,seffectgive);
+	return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+}
+
+Class PandParticle : PandFX
+{
+  Default
+  {
+  PandParticle.ParticleColors "000000", "000000", "FFFFFF", "FFFFFF";
+  Renderstyle "Add";
+  +PANDFX.DONTCHOKE;
+  +NOINTERACTION;
+  +BRIGHT;
+  +FORCEXYBILLBOARD;
+  +ROLLSPRITE;
+  }
+
+  Mixin PandTextureID;
+  
+  int user_fx;
+  int user_pcolor;
+  array <color> ParticleColor;
+  
+  color pcolor1;
+  color pcolor2;
+  color pcolor3;
+  color pcolor4;
+  property ParticleColors: pcolor1, pcolor2, pcolor3, pcolor4;
+  
+  virtual color GetParticleColor()
+	{
+	return ParticleColor[random(0,ParticleColor.Size()-1)];
+	}
+	
+  override void BeginPlay()
+	{
+	Super.BeginPlay();
+	ParticleColor.Push(pcolor1);
+	ParticleColor.Push(pcolor2);
+	ParticleColor.Push(pcolor3);
+	ParticleColor.Push(pcolor4);
+	}
+}
+
+Class PandRandomSpawner : RandomSpawner
+{
+  static int GetGameLevel()
+	{
+	let g = PandGlobalVariables.Get();
+	if(!pan_progressivespawn)
+		return 1000;
+	return g.GameLevel;
+	}
+
+  bool GetBossStatus(DropItem ass)
+	{
+	class<PandMonster> pclass = ass.Name;
+	if(pclass == null || !GetDefaultByType(pclass).bPANDBOSS) return true;
+	if(!pan_pandbosses) return false;
+	if(!pan_bossprogression) return true;
+	let g = PandGlobalVariables.Get();
+	if(GetDefaultByType(pclass).bMIDTIERBOSS && g.KilledLowTier < 3) return false;
+	if(GetDefaultByType(pclass).bHIGHTIERBOSS && g.KilledMidTier < 3) return false;
+	if(GetDefaultByType(pclass).bSUPERTIERBOSS && g.KilledHighTier < 3) return false;
+	return true;
+	}
+
+  override void PostSpawn(Actor spawned)
+	{
+	let pmon = PandMonster(spawned);
+	if(pmon && !pmon.spawner)
+		{
+		let spawnname = GetClassName();
+		pmon.spawner = spawnname;
+		}
+	}
+
+  override Name ChooseSpawn()
+	{
+	DropItem di;   // di will be our drop item list iterator
+	DropItem drop; // while drop stays as the reference point.
+	int n = 0;
+	bool nomonsters = sv_nomonsters || level.nomonsters;
+			
+
+	drop = di = GetDropItems();
+	if(di != null)
+		{
+		while(di != null)
+			{
+			let prob = di.Probability;
+			let level = prob * pan_progressionslider;
+			bool shouldSkip = (di.Name == 'None') || (nomonsters && IsMonster(di)) || GetGameLevel() < level;
+
+			if (!shouldSkip)
+				{
+				int amt = di.Amount;
+				if(amt < 0) amt = 1; // default value is -1, we need a positive value.
+				n += amt; // this is how we can weight the list.
+				}
+
+			di = di.Next;
+			}
+			
+			if (n == 0)
+				{ // Nothing left to spawn. They must have all been monsters, and monsters are disabled.
+				return 'None';
+				}
+				
+			// Then we reset the iterator to the start position...
+			di = drop;
+			
+			// Take a random number...
+			n = random[randomspawn](0, n-1);
+			
+			// And iterate in the array up to the random number chosen.
+			while (n > -1 && di != null)
+			{
+			let prob = di.Probability;
+			let level = prob * pan_progressionslider;
+			
+			if (di.Name != 'None' && (!nomonsters || !IsMonster(di)) && (level <= GetGameLevel() && GetBossStatus(di)))
+				{
+				int amt = di.Amount;
+				if (amt < 0) amt = 1;
+				n -= amt;
+				if ((di.Next != null) && (n > -1))
+					di = di.Next;
+				else
+					n = -1;
+				}
+			else
+				{
+				di = di.Next;
+				}
+			}
+			
+		if (di == null)
+			{
+			return 'Unknown';
+			}
+		
+		return di.Name;
+		}
+	else
+		{
+		return 'None';
+		}
+	}
+}
+
+Class PandMonster : Actor
+{
+  Default
+  {
+  Monster;
+  +FLOORCLIP;
+  TeleFogSourceType "EnemyTeleportFog";
+  TeleFogDestType "EnemyTeleportFog";
+  PandMonster.Species2 "None";
+  PandMonster.TagColor "j"; //white
+  PandMonster.ExtraDrops "null";
+  Tag "Default Monster Name";
+  }
+
+  string xtradrops;
+  property ExtraDrops: xtradrops; //mainly for Anarchy and monster only compatibility
+
+  class<Actor> spawner;
+  property RandomSpawner: spawner;
+
+  private int pandflags;
+  flagdef DropSidegrade: pandflags, 0;
+
+  string spec2;
+  property Species2: spec2;
+
+  string tagcol;
+  property TagColor: tagcol;
+
+  private int bossflags;
+  flagdef PandBoss: bossflags, 0;
+  flagdef Strong: bossflags, 1;
+  flagdef LowTierBoss: bossflags, 2;
+  flagdef MidTierBoss: bossflags, 3;
+  flagdef HighTierBoss: bossflags, 4;
+  flagdef SuperTierBoss: bossflags, 5;
+  flagdef AnarchicBoss: bossflags, 6;
+  flagdef HasAnarchicForm: bossflags, 7;
+
+  int attackloop;
+  int reload;
+  bool seeklock;
+
+  void A_ChangePainChance(int pchance)
+	{
+	painchance = pchance;
+	}
+	
+  int GetGameLevel()
+    {
+	let g = PandGlobalVariables.Get();
+	let glevel = g.GameLevel;
+	if(g)
+		return glevel;
+	else
+		return 0;
+	}
+	
+  void A_RevertMusic()
+	{
+	S_ChangeMusic("*");
+	}
+
+  void A_PandGib()
+	{
+	A_SpawnItemEx("GibGenerator",0,0,0,vel.x,vel.y,vel.z,0,SXF_USEBLOODCOLOR|SXF_ABSOLUTEVELOCITY);
+	}
+
+  void A_PandGibSubtract()
+	{
+	A_SpawnItemEx("SubtractGibGenerator",0,0,0,vel.x,vel.y,vel.z,0,SXF_USEBLOODCOLOR|SXF_ABSOLUTEVELOCITY);
+	}
+
+  void A_PandSmallGib()
+	{
+	A_SpawnItemEx("SmallGibGenerator",0,0,0,vel.x,vel.y,vel.z,0,SXF_USEBLOODCOLOR|SXF_ABSOLUTEVELOCITY);
+	}
+
+  void A_PandBossGib()
+	{
+	A_SpawnItemEx("BossGibGenerator",0,0,0,vel.x,vel.y,vel.z,0,SXF_USEBLOODCOLOR|SXF_ABSOLUTEVELOCITY);
+	}
+
+  void A_Dash(double speed, double angle)
+	{
+	Thrust(speed,angle);
+	}
+
+  void Pand_SetMusic(int musnum)
+	{
+	if(pan_bossmusic == false) return;
+	string filler;
+	if(musnum < 100)
+		filler = "0";
+	if(musnum < 10)
+		filler = "00";
+	S_ChangeMusic("PMUS_"..filler..musnum);
+	}
+
+  void A_BeginFloat()
+	{
+	A_NoGravity(); //these are only here to prevent certain Boom/ZDoom map things from breaking with flying enemies, Sunlust map07 for example
+	bFLOAT = true;
+	bFLOORCLIP = false;
+	}
+
+  override void PostBeginPlay()
+	{
+	Super.PostBeginPlay();
+	if(pan_coloredtags)
+		PandMonsterTag(GetTag());
+	}
+
+  virtual void PandMonsterTag(name montag)
+	{
+  	let coloredtag = "\c"..tagcol..montag.."\c-";
+	SetTag(coloredtag);
+	}
+
+  action actor A_LobProjectile(class<Actor> MissileType, double SpawnHeight = 32, double SpawnOfs_XY = 0, double Angle = 0, int Flags = 0, double Pitch = 0, int Ptr = AAPTR_TARGET)
+	{
+	actor proj = A_SpawnProjectile(MissileType,SpawnHeight,SpawnOfs_XY,Angle,Flags,Pitch,Ptr);
+	actor other = GetPointer(Ptr);
+	if(proj)
+		{
+		if(other)
+			{
+			int ZDiff = int(other.Pos.Z + other.Height / 2 - Pos.Z - SpawnHeight);
+			proj.Vel.Z += (ZDiff + Distance2D(other)) / TICRATE * proj.GetGravity() / 2;
+			}
+		return proj;
+		}
+	return null;
+	}
+
+  action actor A_InterceptProjectile(class<Actor> MissileType, double SpawnHeight = 32, double SpawnOfs_XY = 0, double Angle = 0, int Flags = 0, double Pitch = 0, int Ptr = AAPTR_TARGET)
+	{
+	actor proj = A_SpawnProjectile(MissileType,SpawnHeight,SpawnOfs_XY,Angle,Flags,Pitch,Ptr);
+	actor other = GetPointer(Ptr);
+	if(proj)
+		{
+		if(other)
+			{
+			proj.VelIntercept(other);
+			}
+		return proj;
+		}
+	return null;
+	}
+
+  action actor A_SpawnProjectileSpeed(class<Actor> MissileType, double SpawnHeight = 32, double SpawnOfs_XY = 0, double Angle = 0, int Flags = 0, double Pitch = 0, int Ptr = AAPTR_TARGET, double projspeed = 1)
+	{
+	actor proj = A_SpawnProjectile(MissileType,SpawnHeight,SpawnOfs_XY,Angle,Flags,Pitch,Ptr);
+	if(proj)
+		{
+		proj.A_ScaleVelocity(projspeed);
+		return proj;
+		}
+	return null;
+	}
+
+  void A_BetterRailgun(int damage, int spawnofs_xy = 0, color color1 = 0, color color2 = 0, int flags = 0, int aim = 0, double maxdiff = 0, class<Actor> pufftype = "BulletPuff", double spread_xy = 0, double spread_z = 0, double range = 0, int duration = 0, double sparsity = 1.0, double driftspeed = 1.0, class<Actor> spawnclass = null, double spawnofs_z = 0, int spiraloffset = 270, int limit = 0, double veleffect = 3) //I HATE RAILGUNS I HATE RAILGUNS
+	{
+	vector3 oldpos = pos;
+	SetXYZ(Vec3Angle(spawnofs_xy,angle-90));
+	SetZ(pos.z+spawnofs_z);
+	A_CustomRailgun(damage,0,color1,color2,flags,aim,maxdiff,pufftype,spread_xy,spread_z,range,duration,sparsity,driftspeed,spawnclass,0,spiraloffset,limit,veleffect);
+	SetXYZ(oldpos);
+	}
+
+  override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
+	{
+	if(source && source.bISMONSTER == true && source is "PandMonster")
+		{
+		let source2 = PandMonster(source);
+		if(source.bDONTHARMSPECIES == true && spec2 != "None" && spec2 == source2.spec2)
+			return 0;
+		}
+	return Super.DamageMobj(inflictor,source,damage,mod,flags,angle);
+	}
+
+  override void Die(Actor source, Actor inflictor, int dmgflags, name MeansOfDeath)
+	{
+	let g = PandGlobalVariables.Get();
+	if(bLOWTIERBOSS)
+		g.KilledLowTier++;
+	if(bMIDTIERBOSS)
+		g.KilledMidTier++;
+	if(bHIGHTIERBOSS)
+		g.KilledHighTier++;
+	if(bSUPERTIERBOSS)
+		g.KilledSuperTier++;
+	if(xtradrops != "null" && g.MonstersOnly == false)
+		A_SpawnItemEx(xtradrops,flags:SXF_SETTRACER|SXF_NOCHECKPOSITION);
+	Super.Die(source,inflictor,dmgflags,meansofdeath);
+	}
+
+  void Pand_Replace(class<actor> replclass = null, bool force = false)
+	{
+	if(health < 0 || (force == false && target) || (force == false && !spawner))
+		return;
+	actor newmobj;
+	if(replclass)
+		newmobj = Spawn(replclass,pos,NO_REPLACE);
+	else
+		newmobj = Spawn(spawner,pos,NO_REPLACE);
+	bool boss = false;
+	if(newmobj != null)
+		{
+			// copy everything relevant
+			newmobj.SpawnAngle = SpawnAngle;
+			newmobj.Angle		= Angle;
+			newmobj.Pitch		= Pitch;
+			newmobj.Roll		= Roll;
+			newmobj.SpawnPoint = SpawnPoint;
+			newmobj.special    = special;
+			newmobj.args[0]    = args[0];
+			newmobj.args[1]    = args[1];
+			newmobj.args[2]    = args[2];
+			newmobj.args[3]    = args[3];
+			newmobj.args[4]    = args[4];
+			newmobj.special1   = special1;
+			newmobj.special2   = special2;
+			newmobj.SpawnFlags = SpawnFlags & ~MTF_SECRET;	// MTF_SECRET needs special treatment to avoid incrementing the secret counter twice. It had already been processed for the spawner itself.
+			newmobj.HandleSpawnFlags();
+			newmobj.SpawnFlags = SpawnFlags;
+			newmobj.bCountSecret = SpawnFlags & MTF_SECRET;	// "Transfer" count secret flag to spawned actor
+			newmobj.ChangeTid(tid);
+			newmobj.Vel	= Vel;
+			newmobj.master = master;	// For things such as DamageMaster/DamageChildren, transfer mastery.
+			newmobj.target = target;
+			newmobj.tracer = tracer;
+			newmobj.CopyFriendliness(self, false);
+			if (!bDropped) newmobj.bDropped = false;
+			// Handle special altitude flags
+			if (newmobj.bSpawnCeiling)
+			{
+				newmobj.SetZ(newmobj.ceilingz - newmobj.Height - SpawnPoint.Z);
+			}
+			else if (newmobj.bSpawnFloat) 
+			{
+				double space = newmobj.ceilingz - newmobj.Height - newmobj.floorz;
+				if (space > 48)
+				{
+					space -= 40;
+					newmobj.SetZ((space * random[randomspawn]()) / 256. + newmobj.floorz + 40);
+				}
+				newmobj.AddZ(SpawnPoint.Z);
+			}
+			if (newmobj.bMissile && !(newmobj is 'RandomSpawner'))
+				newmobj.CheckMissileSpawn(0);
+			// Bouncecount is used to count how many recursions we're in.
+			if (newmobj is 'RandomSpawner')
+				newmobj.bouncecount = ++bouncecount;
+			// If the spawned actor has either of those flags, it's a boss.
+			if (newmobj.bBossDeath || newmobj.bBoss)
+				boss = true;
+			// If a replaced actor has either of those same flags, it's also a boss.
+			readonly<Actor> rep = GetDefaultByType(GetReplacee(GetClass()));
+			if (rep && (rep.bBossDeath || rep.bBoss))
+				boss = true;
+		}
+	ClearCounters();
+	if (boss)
+		{
+		tracer = newmobj;
+		SetStateLabel("Oopsie");
+		A_ChangeLinkFLags(1);
+		bNOINTERACTION = true;
+		bISMONSTER = false;
+		for(int a = 0;a<10;a++)
+			A_StopSound(a);
+		}
+	else
+		{
+		A_RemoveChildren(RMVF_EVERYTHING);
+		Destroy();
+		}
+	}
+
+  States
+  {
+  Crush:
+  GenericCrush:
+	TNT1 A 0
+		{
+		let g = VerySatisfyingSquish(Spawn("VerySatisfyingSquish",pos));
+		if(g)
+			{
+			g.master = self;
+			g.translation = bloodtranslation;
+			}
+		}
+	TNT1 A -1;
+	Stop;
+  Oopsie:
+	TNT1 A 1;
+	TNT1 A 10
+		{
+		if(!tracer || tracer.health <= 0)
+			{
+			A_BossDeath();
+			Destroy();
+			}
+		}
+	Wait;
+  	}
+}
+
+Mixin Class ChaosEnemy
+{
+  Default
+  {
+  PandMonster.Species2 "Chaos";
+  PandMonster.TagColor "[j5]";
+  }
+
+  override bool CanCollideWith(Actor other, bool passive)
+	{
+	let g = PandGlobalVariables.Get();
+	string otherspec = "None";
+	if(other is "PandMonster")
+		otherspec = PandMonster(other).spec2;
+	if(g && g.SpawnEventActive == 6 && otherspec == "Chaos") return false;
+	if(other.master && other.master is "ChaosMonolith") return false;
+	if(other.target && other.target.master && other.bNOBLOCKMAP == true && other.target.master is "ChaosMonolith" && other.target.Species == "Chaos") return false;
+	else return Super.CanCollideWith(other,passive);
+	}
+
+  void ChaosDie()
+	{
+	if(master && master is "ChaosMonolith")
+		master.TakeInventory("MonolithSpawnCount",1);
+	}
+
+  void DropChaoticEssence(int chance = 256, int amount = 1)
+	{
+	let g = PandGlobalVariables.Get();
+	if(g && g.GotChaosWeapon > 0)
+		{
+		for(int a = 0;a < amount;a++)
+		if(amount <= 3)
+			A_DropItem("Nothing",20,chance);
+		else
+			A_SpawnItemEx("Nothing",frandom(0,6),0,frandom(2,4),frandom(0,8),0,frandom(0,4),random(0,360),failchance:256-chance);
+		}
+	}
+}
+
+Mixin Class AbyssalEnemy
+{
+  Default
+  {
+  PandMonster.Species2 "Abyssal";
+  PandMonster.TagColor "[v4]";
+  StencilColor "DarkBlue";
+  }
+
+  int dmgtaken;
+  int dmgwait;
+  int rush;
+
+  override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
+	{
+	if(source && source.bISMONSTER == true && source is "PandMonster")
+		{
+		let source2 = PandMonster(source);
+		if(source.bDONTHARMSPECIES == true && spec2 != "None" && spec2 == source2.spec2)
+			return 0;
+		}
+	dmgtaken += damage;
+	if(!bNOPAIN && dmgtaken >= 200 && health > 0)
+		{
+		bNOPAIN = true;
+		GiveInventory("AbyssalResistance",1);
+		if(CountInv("AbyssalDashCooldown"))
+			{
+			A_StartSound("Abyssal/Resistance",11);
+			bNOPAIN = false;
+			}
+		else
+			{
+			dmgtaken = 50;
+			GiveInventory("AbyssalDashCooldown",1);
+			SetStateLabel("PainTeleport");
+			}
+		}
+	return Actor.DamageMobj(inflictor,source,damage,mod,flags,angle);
+	}
+
+  override void Tick()
+	{
+	Super.Tick();
+	if(health > 0 && !IsFrozen())
+		{
+		A_SpawnItemEx("AbyssalGhost",-1,0,0,-0.5,frandom(-0.5,0.5),0.5,0,SXF_TRANSFERSCALE|SXF_TRANSFERSPRITEFRAME);
+		A_SpawnParticle("0000FF",SPF_RELATIVE,random(10,14),frandom(4,8),random(0,360),random(0,radius),0,random(4,height),frandom(0,5),0,frandom(1,3),0,0,2,1,-1,-1);
+		A_SpawnItemEx("AbyssalSmoke",frandom(0,radius-10),0,frandom(5,height),frandom(-0.5,0.5),0,frandom(-1,1),random(0,360));
+		A_SpawnItemEx("AbyssalSmoke",frandom(0,radius-10),0,frandom(0,5),frandom(0,1.5),0,0,random(0,360));
+		}
+	if(dmgtaken > 0 && dmgwait >= 35)
+		{
+		dmgtaken -= 25;
+		if(dmgtaken < 0)
+			dmgtaken = 0;
+		dmgwait = 0;
+		}
+	else
+		dmgwait++;
+	}
+
+  void AbyssalChase(int chasetic)
+	{
+	if(random(1,80) == 1 && !rush)
+		rush = 100;
+	if(rush)
+		{
+		A_Recoil(-1);
+		A_SpawnItemEx("AbyssalDashGhost",0,0,0,0,0,0,0,SXF_TRANSFERSCALE|SXF_TRANSFERSTENCILCOL|SXF_TRANSFERSPRITEFRAME);
+		A_SetTics(chasetic);
+		rush--;
+		}
+	if(CountInv("AbyssalDashCooldown"))
+		A_Chase(null,null);
+	else
+		A_Chase();
+	}
+
+  void AbyssalDash(int chance, int type = 1)
+	{
+	A_Stop();
+	if(random(1,100) <= chance && health > 0)
+		{
+		let oldspeed = speed;
+		A_SetSpeed(oldspeed*2);
+		A_SpawnItemEx("AbyssalDashEffect",flags:SXF_SETMASTER);
+		if(type < 3)
+			{
+			for(int a = 0;a<=30;a++)
+				{
+				if(type == 1)
+					A_Chase(null,null);
+				else if(type == 2)
+					A_Wander();
+				A_SpawnItemEx("AbyssalDashGhost",flags:SXF_TRANSFERSPRITEFRAME|SXF_TRANSFERSTENCILCOL|SXF_TRANSFERSCALE);
+				for(int a = 0;a<2;a++)
+					A_SpawnParticle("000FA6",SPF_FULLBRIGHT|SPF_RELATIVE,random(25,30),frandom(15,25),random(0,360),frandom(0,20),0,frandom(10,100),frandom(0,2),0,frandom(-2,2),0,0,0,1,-1,-1);
+				}
+			}
+		A_SetSpeed(oldspeed);
+		A_SpawnItemEx("AbyssalDashEffect",flags:SXF_SETMASTER);
+		}
+	}
+}
+
+Class AbyssalDashEffect : EcclesiarchDashEffect
+{
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_StartSound("Abyssal/Teleport",1);
+	TNT1 A 1
+		{
+		if(fxloop == 4)
+			SetStateLabel("Null");
+		//A_Warp(AAPTR_MASTER,0,0,32);
+		fxloop++;
+		A_SpawnItemEx("BlueBFGLightningTrail",0,0,random(10,90));
+		for(int a = 0;a<=5;a++)
+			A_SpawnParticle("000FA6",SPF_FULLBRIGHT|SPF_RELATIVE,random(25,30),frandom(20,30),random(0,360),frandom(0,20),0,frandom(10,100),frandom(0,4),0,frandom(-3,5),0,0,0,1,-1,-1);
+		A_SpawnItemEx("AbyssalEffectSmoke",random(0,radius-10),0,random(10,height),frandom(0,1),0,frandom(-0.5,0.5),random(0,360));
+		}
+	Goto Spawn+1;
+	}
+}
+
+Class AbyssalResistance : PowerProtection
+{
+  Default
+  {
+  +INVENTORY.AUTOACTIVATE;
+  +INVENTORY.ALWAYSPICKUP;
+  Powerup.Duration 8;
+  DamageFactor "Normal", 0.25;
+  }
+}
+
+Class AbyssalDashCooldown : Cooldown { Default { Powerup.Duration -3; } }

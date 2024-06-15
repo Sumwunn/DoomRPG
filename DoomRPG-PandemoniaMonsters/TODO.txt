@@ -1,0 +1,1 @@
+-fix the palette bug with Myrkura and Abyssal Savage AbyssalSavageDarkBeam & AbyssalSavagePhaseBall
