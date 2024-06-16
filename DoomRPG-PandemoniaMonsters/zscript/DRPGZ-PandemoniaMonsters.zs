@@ -60,27 +60,6 @@ Class WidowBigShotRPG : WidowBigShot replaces WidowBigShot
 	}
 }
 
-Class NewTeleportFogRPG : PandProjectile replaces NewTeleportFog
-{
-  Default
-  {
-  PandProjectile.ParticleColors "FFFFFF", "B2FFA5", "E1FF37", "86FB2E";
-  }
-  States
-  {
-  Spawn:
-	TNT1 A 0 NoDelay A_StartSound("Teleport/Normal",1);
-	TNT1 AAAAAA 5 Light("DTFOG1")
-		{
-		A_SpawnItemEx("BFGLightningTrail",0,0,32,0,0,0,0,0,128);
-		A_SpawnItemEx("BFGBallTrail",0,0,32,frandom(0,3),0,frandom(-3,3),random(0,360));
-		for(user_fx = 0;user_fx<=12;user_fx++)
-			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(10,17),frandom(12,14),random(0,360),0,0,32,frandom(0,6),0,frandom(-6,6),0,0,0,1,-1,-1.2);
-		}
-	Stop;
-	}
-}
-
 
 //Monsters Things (damage types, drop items and etc.)
 
