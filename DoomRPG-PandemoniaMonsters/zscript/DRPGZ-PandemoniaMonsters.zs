@@ -60,6 +60,28 @@ Class WidowBigShotRPG : WidowBigShot replaces WidowBigShot
 	}
 }
 
+Class NewTeleportFogRPG : PandProjectile replaces NewTeleportFog
+{
+  Default
+  {
+  PandProjectile.ParticleColors "FFFFFF", "B2FFA5", "E1FF37", "86FB2E";
+  }
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_StartSound("Teleport/Normal",1);
+	TNT1 AAAAAA 5 Light("DTFOG1")
+		{
+		A_SpawnItemEx("BFGLightningTrail",0,0,32,0,0,0,0,0,128);
+		A_SpawnItemEx("BFGBallTrail",0,0,32,frandom(0,3),0,frandom(-3,3),random(0,360));
+		for(user_fx = 0;user_fx<=12;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(10,17),frandom(12,14),random(0,360),0,0,32,frandom(0,6),0,frandom(-6,6),0,0,0,1,-1,-1.2);
+		}
+	Stop;
+	}
+}
+
+
 //Monsters Things (damage types, drop items and etc.)
 
 //Zombies
@@ -1265,9 +1287,22 @@ Class TankubusRPG : Mancubus
   {
   Spawn:
 	TCU1 A 15 A_Look;
+	TNT1 A 0
+		{
+		if(!tank2 || tank2.bISMONSTER == false)
+			{
+			ClearCounters();
+			Destroy();
+			}
+		}
 	Loop;
   See:
-	TCU1 AB 3 A_Chase(null,null);
+	TCU1 AB 3 
+		{
+		if(!tank2 || tank2.bISMONSTER == false)
+			Destroy();
+		A_Chase(null,null);
+		}
 	Loop;
 	}
 
@@ -1276,7 +1311,7 @@ Class TankubusRPG : Mancubus
 	Super.PostBeginPlay();
 	tank2 = Spawn("Tankubus2RPG",pos);
 	if(tank2) tank2.master = self;
-	A_PlaySound("Tankubus/Loop",7,1.0,1);
+	A_StartSound("Tankubus/Loop",7,CHANF_LOOPING);
 	}
 	
   override bool CanCollideWith(Actor other, bool passive)
@@ -1298,7 +1333,8 @@ Class Tankubus2RPG : Mancubus
   Speed 0;
   PainChance 40;
   PainChance "Bullet", 20;
-  DamageFactor "Bullet", 0.75;
+  DamageFactor "Bullet", 0.5;
+  DamageFactor "Plasma", 1.2;
   +BOSSDEATH;
   +DONTHARMSPECIES;
   +NOINFIGHTSPECIES;
@@ -1319,29 +1355,48 @@ Class Tankubus2RPG : Mancubus
   States
   {
   Spawn:
-    TCU2 A 15 A_Look;
-    Loop;
+	TCU2 A 15 A_Look;
+	TNT1 A 0
+		{
+		if(!master || master.bISMONSTER == false)
+			{
+			ClearCounters();
+			Destroy();
+			}
+		}
+	Loop;
   See:
-    TCU2 A 4 A_Chase();
-    Loop;
+	TCU2 A 4 
+		{
+		if(!master || master.bISMONSTER == false)
+			{
+			ClearCounters();
+			Destroy();
+			}
+		A_Chase();
+		}
+	Loop;
   Missile:
 	TNT1 A 0 A_SetSpeed(5,AAPTR_MASTER);
+	TNT1 A 0 A_StartSound("Mafibus/Attack",2,pitch:0.9);
 	TNT1 A 0 A_Jump(128,"Rockets");
 	TCU2 AA 6 A_FaceTarget;
-  StreetsweeperLoop:
-	TNT1 AAA 0 A_SpawnProjectile("EnemyBulletTracer",50,31,frandom(-10,10),CMF_OFFSETPITCH|CMF_TRACKOWNER,frandom(-5,5));
-	TCU2 B 5 Light("ZOMBIEATK")
+ StreetsweeperLoop:
+	TCU2 B 4 Light("ZOMBIEATK")
 		{
 		A_FaceTarget();
-		A_PlaySound("RapidShotgun/Fire",1);
+		A_StartSound("RapidShotgun/Fire",1);
 		A_SpawnItemEx("ShellCasing",10,34,47,Random(2,4),Random(3,6),Random(3,6),0);
+		for(int a = 0;a<4;a++)
+	  		A_SpawnProjectile("EnemyBulletTracer",50,31,frandom(-10,10),CMF_OFFSETPITCH|CMF_TRACKOWNER,frandom(-5,5));
 		}
-	TNT1 AAA 0 A_SpawnProjectile("EnemyBulletTracer",50,-31,frandom(-10,10),CMF_OFFSETPITCH|CMF_TRACKOWNER,frandom(-5,5));
-	TCU2 C 5 Light("ZOMBIEATK")
+	TCU2 C 4 Light("ZOMBIEATK")
 		{
 		A_FaceTarget();
-		A_PlaySound("RapidShotgun/Fire",1);
+		A_StartSound("RapidShotgun/Fire",1);
 		A_SpawnItemEx("ShellCasing",10,-34,47,Random(2,4),Random(-6,-3),Random(3,6),0);
+		for(int a = 0;a<4;a++)
+	  		A_SpawnProjectile("EnemyBulletTracer",50,-31,frandom(-10,10),CMF_OFFSETPITCH|CMF_TRACKOWNER,frandom(-5,5));
 		}
 	TNT1 A 0 A_MonsterRefire(0,"AttackEnd");
 	Loop;
@@ -1371,23 +1426,23 @@ Class Tankubus2RPG : Mancubus
 	TCU2 A 10 A_SetSpeed(10,AAPTR_MASTER);
 	Goto See;
   Pain:
-    TCU2 A 3 A_SetSpeed(10,AAPTR_MASTER);
-    TCU2 A 3 A_Pain;
-    Goto See;
+	TCU2 A 3 A_SetSpeed(10,AAPTR_MASTER);
+	TCU2 A 3 A_Pain;
+	Goto See;
   Death:
   XDeath:
 	TNT1 A 0 A_RemoveMaster(RMVF_EVERYTHING);
-    TCU3 A 6;
-    TCU3 B 6 A_Scream;
-    TCU3 C 6 A_NoBlocking;
-    TCU3 DEFG 6
+	TCU3 A 6;
+	TCU3 B 6 A_Scream;
+	TCU3 C 6 A_NoBlocking;
+	TCU3 DEFG 6
 		{
 		A_SpawnItemEx("NormalBossDeathExplode",random(-18,18),random(-18,18),random(15,40),0,0,0,0,0,0);
 		A_PandSmallGib();
 		}
 	TCU3 HIJK 6;
-    TCU3 L -1 A_BossDeath;
-    Stop;
+	TCU3 L -1 A_BossDeath;
+	Stop;
   Raise:
 	Stop;
 	}
@@ -1722,14 +1777,14 @@ Class MonolithDeployerRPG : MonolithDeployer replaces MonolithDeployer
 		{
 		A_Warp(AAPTR_DEFAULT,0,0,-1000);
 		A_SpawnItemEx("MonolithDeployerEffectSpawner");
-		A_PlaySound("Monolith/Spawn",1);
+		A_StartSound("Monolith/Spawn",1);
 		MonolithEnemySpawn();
 		}
 	Stop;
 	}
   void MonolithEnemySpawn()
 	{
-	spawnchance = random(1,50);
+	spawnchance = random(1,55);
 	if(spawnchance <= 10)
 		{
 		for(int i = 0;i<4;i++)
