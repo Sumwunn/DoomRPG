@@ -1,3 +1,3 @@
--fix the palette bug with Myrkura and Abyssal Savage AbyssalSavageDarkBeam & AbyssalSavagePhaseBall
--need a ballance revisions
--add a summons from Pandemonia into summoning skill
+- fix the palette bug with Myrkura and Abyssal Savage AbyssalSavageDarkBeam & AbyssalSavagePhaseBall
+- need a ballance revisions
+- reinforcement teleport effect is broken for some reason
