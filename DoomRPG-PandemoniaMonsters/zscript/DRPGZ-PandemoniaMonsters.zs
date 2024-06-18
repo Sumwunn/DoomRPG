@@ -572,7 +572,6 @@ Class AbyssalSavageDarkBeamRPG : AbyssalSavageDarkBeam replaces AbyssalSavageDar
 	Default
 	{
 		DamageType "Shadow";
-		Renderstyle "Shadow";
 	}
 }
 Class AbyssalSavagePhaseBallRPG : AbyssalSavagePhaseBall replaces AbyssalSavagePhaseBall
@@ -580,7 +579,6 @@ Class AbyssalSavagePhaseBallRPG : AbyssalSavagePhaseBall replaces AbyssalSavageP
 	Default
 	{
 		DamageType "Shadow";
-		Renderstyle "Shadow";
 	}
 }
 Class AbyssalSavageStrongBallRPG : AbyssalSavageStrongBall replaces AbyssalSavageStrongBall
@@ -612,13 +610,6 @@ Class AbyssalSavageMeleeRPG : AbyssalSavageMelee replaces AbyssalSavageMelee
 	{
 		DamageType "Shadow";
 		DamageType "Fire";
-	}
-}
-Class AbyssalSavageDarkBeamTrailRPG : AbyssalSavageDarkBeamTrail replaces AbyssalSavageDarkBeamTrail
-{
-	Default
-	{
-		Renderstyle "Shadow";
 	}
 }
 
@@ -1844,7 +1835,6 @@ Class MyrkuraRPG : Myrkura replaces Myrkura
 {
 	Default
 	{
-		Tag "Kaksoisolento Myrkura";
 		DropItem "DRPGBackpackRandomizer";
 	}
 }
