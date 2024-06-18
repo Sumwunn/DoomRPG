@@ -1,3 +1,4 @@
 - fix the palette bug with Myrkura and Abyssal Savage AbyssalSavageDarkBeam & AbyssalSavagePhaseBall
 - need a ballance revisions
 - reinforcement teleport effect is broken for some reason
+- fix the lost souls spawned from pain elementals give player expirience
