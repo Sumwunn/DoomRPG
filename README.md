@@ -1,3 +1,7 @@
+# Its my fork, for DRPG, and i try to add newest Pandemonia Monsters (2.4.1 for now) support, and not broke anything.
+
+## --------------------------------------------------------------------------------------
+
 # Sumwunn Rebalance-Sync *[WIP!]* - Rebalance saves not compatible!
 
 This is WNC12k's rebalance fork + my latest fixes and improvements (see commits). Text past the dashed line is original (except for updated mod versions and links).
