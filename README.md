@@ -1,4 +1,5 @@
 # Its my fork, for DRPG, and i try to add newest Pandemonia Monsters (2.4.1 for now) support, and not broke anything.
+Use rebalance-sync branch for testing. Thanks.
 
 ## --------------------------------------------------------------------------------------
 
