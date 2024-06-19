@@ -20,7 +20,7 @@ skill easy
     
     acsreturn = 1
     
-    name = "Easy"
+    name = "Hey, not too rough!"
     textcolor = "Green"
 }
 
@@ -36,7 +36,7 @@ skill normal
 
     acsreturn = 2
     
-    name = "Normal"
+    name = "Hurt me plenty!"
     textcolor = "Yellow"
 }
 
@@ -53,7 +53,7 @@ skill hard
 
     acsreturn = 3
     
-    name = "Hard"
+    name = "Ultra-Violence!"
     textcolor = "Orange"
 }
 
@@ -69,7 +69,7 @@ skill nightmare
 
     acsreturn = 4
     
-    name = "Nightmare"
+    name = "Overkill!"
     textcolor = "Red"
 }
 
@@ -85,6 +85,6 @@ skill hell
 
     acsreturn = 5
     
-    name = "Hell"
+    name = "NIGHTMARE!"
     textcolor = "Brick"
 }
