@@ -430,10 +430,10 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
 
     // Shotgunner
     { "NewShotgunguy",                     "Shotgun Zombie",                     12,      1, false, "You hear the sound of shotguns pumping!" },
-    { "SlugShotgunZombie",                 "Slug Shotgun Zombie",                18,      1, false, "You hear the sound of shotguns pumping!\nCorpses are lying around with a single hole in their heads..." },
+    { "SlugShotgunZombie",                 "Slug Shotgun Zombie",                50,      2, false, "You hear the sound of shotguns pumping!\nCorpses are lying around with a single hole in their heads..." },
     { "AutoShotgunZombie",                 "Auto Shotgun Zombie",                75,      5, false, "You see couple of 12cal. mags on the ground!" },
-    { "RocketZombie",                      "Rocket Zombie",                      78,      5, false, "A persistent smell of blood and rocket fuel is in the air." },
-    { "SuperShotgunZombie",                "Super Shotgun Zombie",               96,      8, false, "The sound of break action flies above splattered bodies!" },
+	{ "SuperShotgunZombie",                "Super Shotgun Zombie",               90,      7, false, "The sound of break action flies above splattered bodies!" },
+    { "RocketZombie",                      "Rocket Zombie",                     101,      8, false, "A persistent smell of blood and rocket fuel is in the air." },
     { "PyroZombie",                		   "Pyro Zombie",               		117,      9, false, "A ship with a flamethrower supplies crashed nearby." },
     { "SpecOpsShotgunner",                 "Spec Ops Shotgunner",               138,     10, false, "Systems catch a mumbling radio communications.\nYou hear the sound of shotguns pumping behind your back!" },
     { "ChaosWarrior",                      "Chaos Warrior",                     180,     15, false, "Something is wrong here...\nAn undead, silent warriors are stalking this place." },
@@ -447,9 +447,9 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
     { "ScourgeZombie",                 	   "Scourge Zombie",                  	 82,      7, false, "Radar detected toxicity infusion devices!" },
     { "SpecOpsGunner",                     "Spec Ops Gunner",                    88,      7, false, "Systems catch a mumbling radio communications.\nYou notice a lot of empty rifle magazines on the ground..." },
     { "BFGCommando",                       "BFG Commando",                      100,      8, false, "You notice some wasted power cells on the floor,\nused only by the most powerful weapons!" },
-    { "SpecOpsLieutenant",                 "Spec Ops Lieutenant",               125,     10, false, "An evil laughter echoes everywhere! \nThe infernal gods demand a sacrifice..." },
-    { "InfernalCommando",                  "Infernal Commando",                 150,     12, false, "Enemy uses lots of pyro blast devices!" },
+    { "InfernalCommando",                  "Infernal Commando",                 150,     11, false, "Enemy uses lots of pyro blast devices!" },
     { "ChaosDeathmark",                    "Chaos Deathmark",                   175,     14, false, "Something is wrong here...\nYou are marked for death!" },
+	{ "SpecOpsLieutenant",                 "Spec Ops Lieutenant",               200,     15, false, "An evil laughter echoes everywhere! \nThe infernal gods demand a sacrifice..." },
     { "BFG10kWarrior",                     "BFG10k Warrior",                    225,     18, false, "Walls around you are twisted with a huge plasma holes." },
 
     // Imp
