@@ -2110,7 +2110,7 @@ class Pandemonia_MonsterInit : EventHandler
 				"SentryRPG", "ApollyonRPG", "AncientGladiatorRPG",
 				
 				"AgathodemonRPG", "CacobotRPG", "NewCacodemonRPG", "CrackodemonRPG", "DarkCacodemonRPG",					//Cacodemons
-				"WitherdemonRPG", "ChaosStalkerRPG", 
+				"WitherdemonRPG", "AbaddonRPG", "ChaosStalkerRPG", 
 				
 				"ArachknightRPG", "NewArachnotronRPG", "AugmentedArachnotronRPG", "ChaosObserverRPG", 						//Arachnotrons
 				"FusionArachnotronRPG", "NailgunArachnotronRPG", "WidowRPG", "ArachnoscorcherRPG", 
