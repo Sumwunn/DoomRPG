@@ -484,6 +484,7 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
     { "DarkCacodemon",                     "Dark Cacodemon",                     86,      7, false, "Aggressive screeches drown out all other sound!" },
     { "Agathodemon",                       "Agathodemon",                       119,      9, false, "You hear the hum of an electrical substation...\nWhich is not there!" },
     { "Crackodemon",                       "Crackodemon",                       140,     11, false, "Your hair is on end from the electric field in this place!" },
+	{ "Abaddon",                           "Abaddon",                       	155,     12, false, "The fires are looking for you!" },
     { "Witherdemon",                       "Witherdemon",                       178,     13, false, "The local corpses melted from some infection!" },
     { "Cacobot",                           "Cacobot",                           238,     15, false, "Something is interrupting the incoming signal..." },
     { "ChaosStalker",                      "Chaos Stalker",                     250,     16, false, "Something is wrong here...\nScreeches drown out all other sound!" },
