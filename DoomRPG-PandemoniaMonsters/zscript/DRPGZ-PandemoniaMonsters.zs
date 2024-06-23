@@ -566,6 +566,30 @@ Class AbyssalSavageDarkBallRPG : AbyssalSavageDarkBall replaces AbyssalSavageDar
 	{
 		DamageType "Shadow";
 	}
+	
+	States
+  {
+  Spawn:
+	ABI1 AABB 1 Bright
+		{
+		A_SpawnItemEx("AbyssalGhostProj",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),0,SXF_TRANSFERSPRITEFRAME|SXF_TRANSFERSCALE);
+		A_SpawnItemEx("AbyssalSavageDarkBallTrail",0,0,0,frandom(-0.5,0.5),frandom(-0.5,0.5),frandom(-0.5,0.5),0,SXF_TRANSFERRENDERSTYLE);
+		A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(8,16),frandom(4,8),0,frandom(-6,0),frandom(-6,6),frandom(-6,6),frandom(-2,0),0,frandom(0,3),0,0,-0.03,1,-1,-0.6);
+		}
+	Loop;
+  Death:
+	TNT1 A 0 
+		{
+		for(user_fx = 0;user_fx<=20;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(10,17),frandom(12,14),random(0,360),frandom(0,6),0,frandom(-6,6),frandom(0,6),0,frandom(-6,6),0,0,0,1,-1,-0.75);
+		}
+	ABI1 CCCDDDEEEFFF 1 Bright 
+		{
+		A_SpawnItemEx("AbyssalGhostProj",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),0,SXF_TRANSFERSPRITEFRAME|SXF_TRANSFERSCALE);
+		A_SetScale(Scale.X+0.08);
+		}
+	Stop;
+	}
 }
 Class AbyssalSavageDarkBeamRPG : AbyssalSavageDarkBeam replaces AbyssalSavageDarkBeam
 {
@@ -581,20 +605,64 @@ Class AbyssalSavagePhaseBallRPG : AbyssalSavagePhaseBall replaces AbyssalSavageP
 		DamageType "Shadow";
 	}
 }
-Class AbyssalSavageStrongBallRPG : AbyssalSavageStrongBall replaces AbyssalSavageStrongBall
+Class AbyssalSavageStrongBallRPG : AbyssalSavageStrongBall replaces AbyssalSavageStrongBall //
 {
 	Default
 	{
 		DamageType "Shadow";
 		DamageType "Fire";
 	}
+  
+  States
+  {
+  Spawn:
+	ABI2 ABC 2 Bright
+		{
+		A_SpawnItemEx("BlueFireProjectileTrail2",frandom(-6,0),frandom(-6,6),frandom(-2,6),0,0,frandom(0,3),0,0,128);
+		A_SpawnItemEx("AbyssalSavageBallTrail",0,0,0,frandom(-0.5,0.5),frandom(-0.5,0.5),frandom(-0.5,0.5));
+		for(user_fx = 0;user_fx<2;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(8,16),frandom(4,8),0,frandom(-6,0),frandom(-8,8),frandom(-8,8),frandom(-4,0),0,frandom(0,4),0,0,-0.03,1,-1,-0.6);
+		}
+	Loop;
+  Death:
+	TNT1 A 0 
+		{
+		A_Explode(40,100,0,0,60);
+		A_SpawnItemEx("BlueBossDeathExplode");
+		A_SpawnItemEx("BlueFireProjectileExplode");
+		for(user_fx = 0;user_fx<=20;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(10,17),frandom(12,14),random(0,360),frandom(0,6),0,frandom(-6,6),frandom(0,6),0,frandom(-6,6),0,0,0,1,-1,-0.75);
+		}
+	ABI2 DEFGH 2 Bright;
+	Stop;
+	}
 }
-Class AbyssalSavageFlareRPG : AbyssalSavageFlare replaces AbyssalSavageFlare
+Class AbyssalSavageFlareRPG : AbyssalSavageFlare replaces AbyssalSavageFlare //
 {
 	Default
 	{
 		DamageType "Shadow";
 		DamageType "Fire";
+	}
+	States
+  {
+  Spawn:
+	ABI3 AABB 2
+		{
+		A_ChangeVelocity(1,frandom(-3,3),frandom(-1,1),CVF_RELATIVE);
+		A_SpawnItemEx("BlueFireProjectileTrail",frandom(-3,0),frandom(-3,3),frandom(-1,3),0,0,frandom(0,1.5),0,0,128);
+		A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(8,16),frandom(4,8),0,frandom(-6,0),frandom(-3,3),frandom(-3,3),frandom(-2,0),0,frandom(0,3),0,0,-0.03,1,-1,-0.6);
+		}
+	Loop;
+  Death:
+	TNT1 A 0
+		{
+		A_SpawnItemEx("BlueFireProjectileExplode");
+		for(user_fx = 0;user_fx<=15;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,random(10,17),frandom(12,14),random(0,360),frandom(0,6),0,frandom(-6,6),frandom(0,6),0,frandom(-6,6),0,0,0,1,-1,-0.75);
+		}
+	ABI3 CDEFG 3;
+	Stop;
 	}
 }
 Class AbyssalSavageDarkMeleeRPG : AbyssalSavageDarkMelee replaces AbyssalSavageDarkMelee
@@ -942,7 +1010,6 @@ Class ChaosHollowRPG : ChaosHollow replaces ChaosHollow
 	Default
 	{
 		DropItem "DRPGCellSpawner", 128;
-		DamageType "Radiation";
 		DamageFactor "Radiation", 0.2;
 	}
 }
