@@ -496,7 +496,7 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
     { "CyberHellKnight",                   "Cyber Hell Knight",                 182,     15, false, "Clanking footsteps herald Hell's mechanical legions!" },
     { "CyberHellViscount",                 "Cyber Hell Viscount",               204,     16, false, "You hear the clanking of metal hooves and the smell of burnt flesh!" },
     { "Infernoble",                        "Infernoble",                        244,     17, false, "An evil laugh can be heard through the flames!" },
-    { "HellPrinceAsch",                    "Hell Prince Asch",                  270,     20, false, "Beware!\nRoyalty descended on this place!" },
+    { "HellPrinceAsch",                    "Hell Prince Asch",                  300,     21, true,  "Beware!\nRoyalty descended on this place!" },
 
     // Baron of Hell
     { "NewBaronOfHell",                    "Baron Of Hell",                      72,     14, false, "Seems you've found Hell's nobility!" },
@@ -533,7 +533,7 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
     { "Apollyon",                          "Apollyon",                          170,     17, false, "A scout drone saw burning bones in this location!" },
     { "ChaosHollow",                       "Chaos Hollow",                      212,     18, false, "Something is wrong here...\nEmpty eye sockets are looking straight into your soul!" },
     { "PandSentinel",                      "Sentinel",                          240,     19, false, "Incoming radio transmission...\nEnemy heavy machines have been detected in your sector!" },
-    { "AncientGladiator",                  "Ancient Gladiator",                 270,     21, false, "Incoming radio transmission...\nYou hear the shout of the stands!" },
+    { "AncientGladiator",                  "Ancient Gladiator",                 300,     21, true,  "Incoming radio transmission...\nYou hear the shout of the stands!" },
 
     // Mancubus
     { "Mancubus",                          "Mancubus",                          102,     16, false, "You hear deep, guttural noises!" },
@@ -590,7 +590,7 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
 
     // Special Bosses
     { "GeneralRoasterock",                 "General Roasterock",                244,     24, true, "You feel like you're about to get roasted!" },
-    { "Myrkura",                           "Myrkura",                           260,     24, true, "Bloodthirsty anomalous entities filled this place!" },
+    { "Myrkura",                           "Myrkura",                           280,     24, true, "Bloodthirsty anomalous entities filled this place!" },
 
 };
 
