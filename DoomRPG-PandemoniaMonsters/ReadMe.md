@@ -7,7 +7,7 @@ New:
 - Added skills description
 - Added some sprite replacement from Pandemonia (medkit, stimpack, health/armor bonuses, small bullet mag and medium shells packs) (berserk sprite don`t replaces correctly)
 - Added part of fonts from Pandemonia (to fix Pandemonia events don`t shows up on the level start - pand bug itself) (DBIGFONT.fon2 to big for DRPG menus)
-- Fixed Abbysal Savage projectiles sprite conflict with DRLA
+- Fixed Abyssal Savage projectiles sprite conflict with DRLA
 
 Knowing bugs:
 - The palette bug is on GZDoom 4.11.3 and higher (works ok on VKDoom)
