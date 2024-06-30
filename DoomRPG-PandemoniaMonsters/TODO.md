@@ -1,4 +1,0 @@
-- the palette bug is on GZDoom 4.11.3 and higher
-- need a ballance revisions
-- reinforcement teleport effect is broken for some reason
-- fix the lost souls spawned from pain elementals give player expirience
