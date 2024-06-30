@@ -2193,11 +2193,11 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
         }
     };
 	
-	    str const PandemoniaSummons[][11] =
+	    str const PandemoniaSummons[][7] =
     {
         // Former Human
         {
-            "PistolZombie",
+            //"PistolZombie",
             "PlasmaPistolZombie",
             "LaserRifleZombie",
 			"CinderZombie",
@@ -2206,66 +2206,66 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
 
         // Former Sergeant
         {
-            "NewShotgunguy",
+            //"NewShotgunguy",
             "SlugShotgunZombie",
-            "AutoShotgunZombie",
-			"RocketZombie",
+            //"AutoShotgunZombie",
 			"SuperShotgunZombie",
-			"PyroZombie",
+			"RocketZombie",
+			//"PyroZombie",
 			"SpecOpsShotgunner",
-			"ChaosWarrior",
+			//"ChaosWarrior",
 			"ShotgunAdmiral"
         },
 
         // Former Commando
         {
             "AssaultGunner",
-            "ChaingunZombie",
+            //"ChaingunZombie",
             "PlasmaRifleZombie",
-			"NailborgCommando",
-			"ScourgeZombie",
+			//"NailborgCommando",
+			//"ScourgeZombie",
 			"SpecOpsGunner",
 			"BFGCommando",
-			"SpecOpsLieutenant",
+			//"SpecOpsLieutenant",
 			"InfernalCommando",
-			"ChaosDeathmark",
-			"BFG10kWarrior",
+			//"ChaosDeathmark",
+			"BFG10kWarrior"
         },
 
         // Imp
         {
-            "NewImp",
+            //"NewImp",
             "DarkImp",
-            "Devil",
+            //"Devil",
 			"Scoundrel",
-			"PhaseImp",
+			//"PhaseImp",
 			"BrimstoneImp",
 			"Plagueling",
-			"ChaosImp",
+			//"ChaosImp",
 			"AbyssalSavage"
         },
 
         // Demon
         {
             "NewDemon",
-            "BloodFiend",
+            //"BloodFiend",
             "NightmareDemon",
 			"MagmaDemon",
 			"PandMauler",
-			"Darkbeast",
-			"ChaosFlayer",
-			"ChaosOphydian"
+			"Darkbeast"
+			//"ChaosFlayer",
+			//"ChaosOphydian"
         },
 
         // Cacodemon
         {
             "NewCacodemon",
-            "DarkCacodemon",
+            //"DarkCacodemon",
             "Agathodemon",
 			"Crackodemon",
 			"Witherdemon",
-			"Cacobot",
-			"ChaosStalker"
+			"Cacobot"
+			//"ChaosStalker"
         },
 
         // Hell Knight
@@ -2275,19 +2275,19 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
             "HellWarden",
 			"CyberHellKnight",
 			"CyberHellViscount",
-			"Infernoble",
-			"HellPrinceAsch"
+			"Infernoble"
+			//"HellPrinceAsch"
         },
 
         // Baron of Hell
         {
             "NewBaronOfHell",
-            "Afrit",
+            //"Afrit",
             "Cybruiser",
 			"ArchonOfHell",
 			"BruiserDemon",
 			"DarkCybruiser",
-			"Cyberwarden",
+			//"Cyberwarden",
 			"Pyrobruiser",
 			"Cydestructor"
         },
@@ -2298,30 +2298,30 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
             "Phantasm",
             "Electrosoul",
 			"SoullessDrone",
-			"PandWraith",
-			"ChaosUmbra"
+			"PandWraith"
+			//"ChaosUmbra"
         },
 
         // Pain Elemental
         {
             "NewPainElemental",
-            "DarkElemental",
+            //"DarkElemental",
             "PlasmaticElemental",
 			"HadesElemental",
-			"AutomatonElemental",
-			"ChaosBeholder"
+			"AutomatonElemental"
+			//"ChaosBeholder"
         },
 
         // Revenant
         {
             "NewRevenant",
-            "DarkRevenant",
+            //"DarkRevenant",
             "MissileRevenant",
 			"Sentry",
 			"Apollyon",
-			"ChaosHollow",
-			"PandSentinel",
-			"AncientGladiator"
+			//"ChaosHollow",
+			"PandSentinel"
+			//"AncientGladiator"
         },
 
         // Mancubus
@@ -2330,20 +2330,21 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
             "Hectebus",
             "Mafibus",
 			"Corpulent",
-			"Maxibus",
-			"ChaosPylon"
+			"Maxibus"
+			//"ChaosPylon"
         },
 
         // Arachnotron
         {
             "NewArachnotron",
             "NailgunArachnotron",
-            "FusionArachnotron",
+            //"FusionArachnotron",
 			"AugmentedArachnotron",
-			"Widow",
+			//"Widow",
 			"Arachnoscorcher",
 			"Arachknight",
-			"ChaosObserver"
+			//"ChaosObserver"
+			"Demolitron"
         },
 
         // Arch-Vile
@@ -2352,20 +2353,20 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
             "DarkVile",
             "Diabolist",
 			"Infernalist",
-			"Distortionist",
-			"Cryptek"
+			"Distortionist"
+			//"Cryptek"
         },
 
         // Cyberdemon
         {
             "NewCyberdemon",
-            "Annihilator",
+            //"Annihilator",
             "DarkCyberdemon",
-			"DarkCardinal",
+			//"DarkCardinal",
 			"Terminator",
-			"Dreamweaver",
+			//"Dreamweaver",
 			"Plamexis",
-			"ChaosEcclesiarch",
+			//"ChaosEcclesiarch",
 			"Eradicator"
         },
 
@@ -2374,8 +2375,8 @@ NamedScript Console bool Summon(SkillLevelInfo *SkillLevel, void *Data)
             "NewSpiderMastermind",
             "Demolisher",
             "Arachnophyte",
-			"SpiderMasterspark",
-			"ChaosMonolith"
+			"SpiderMasterspark"
+			//"ChaosMonolith"
         }
     };
 
@@ -3467,78 +3468,78 @@ void BuildSkillData()
     else if (CompatMonMode == COMPAT_PANDEMONIA)
     {
         // Summoning Skills - Levels
-        Skills[4][1].MaxLevel = 5; 	//Zombies
-        Skills[4][2].MaxLevel = 9; 	//Shotguners
-        Skills[4][3].MaxLevel = 11; //Chaingunners
-        Skills[4][4].MaxLevel = 9; 	//Imps
-        Skills[4][5].MaxLevel = 8;	//Demons
-        Skills[4][6].MaxLevel = 7;	//Cacodemons
-        Skills[4][7].MaxLevel = 7;	//Hell Knights
-        Skills[4][8].MaxLevel = 9;	//Barons of Hell
-        Skills[4][9].MaxLevel = 6;	//Lost Souls
-        Skills[4][10].MaxLevel = 6;	//Pain Elementals
-        Skills[4][11].MaxLevel = 8;	//Revenants
-        Skills[4][12].MaxLevel = 6;	//Mancubuses
-        Skills[4][13].MaxLevel = 8;	//Arachnotrons
-        Skills[4][14].MaxLevel = 6;	//Arch-Viles
-        Skills[4][15].MaxLevel = 9;	//Cyberdemons
-        Skills[4][16].MaxLevel = 5;	//Spider Masterminds
+        Skills[4][1].MaxLevel = 4; 	//Zombies
+        Skills[4][2].MaxLevel = 5; 	//Shotguners
+        Skills[4][3].MaxLevel = 6;  //Chaingunners
+        Skills[4][4].MaxLevel = 5; 	//Imps
+        Skills[4][5].MaxLevel = 5;	//Demons
+        Skills[4][6].MaxLevel = 5;	//Cacodemons
+        Skills[4][7].MaxLevel = 6;	//Hell Knights
+        Skills[4][8].MaxLevel = 7;	//Barons of Hell
+        Skills[4][9].MaxLevel = 5;	//Lost Souls
+        Skills[4][10].MaxLevel = 4;	//Pain Elementals
+        Skills[4][11].MaxLevel = 5;	//Revenants
+        Skills[4][12].MaxLevel = 5;	//Mancubuses
+        Skills[4][13].MaxLevel = 6;	//Arachnotrons
+        Skills[4][14].MaxLevel = 5;	//Arch-Viles
+        Skills[4][15].MaxLevel = 5;	//Cyberdemons
+        Skills[4][16].MaxLevel = 4;	//Spider Masterminds
 
         // Summoning Skills - Descriptions
-        Skills[4][1].Description[0] = "Summons a Pistol Zombie";
-        Skills[4][1].Description[1] = "Summons a Plasma Pistol Zombie";
-        Skills[4][1].Description[2] = "Summons a Laser Rifle Zombie";
-		Skills[4][1].Description[3] = "Summons a Cinder Zombie";
-		Skills[4][1].Description[4] = "Summons a Spec Ops Rifleman";
+			//Skills[4][1].Description[0] = "Summons a Pistol Zombie";
+        Skills[4][1].Description[0] = "Summons a Plasma Pistol Zombie";
+        Skills[4][1].Description[1] = "Summons a Laser Rifle Zombie";
+		Skills[4][1].Description[2] = "Summons a Cinder Zombie";
+		Skills[4][1].Description[3] = "Summons a Spec Ops Rifleman";
 
-        Skills[4][2].Description[0] = "Summons a Former Sergeant";
-        Skills[4][2].Description[1] = "Summons a Slug Shotgun Zombie";
-        Skills[4][2].Description[2] = "Summons a Auto Shotgun Zombie";
-		Skills[4][2].Description[3] = "Summons a Rocket Zombie";
-		Skills[4][2].Description[4] = "Summons a Super Shotgun Zombie";
-		Skills[4][2].Description[5] = "Summons a Pyro Zombie";
-		Skills[4][2].Description[6] = "Summons a Spec Ops Shotgunner";
-		Skills[4][2].Description[7] = "Summons a Chaos Warrior";
-		Skills[4][2].Description[8] = "Summons a Shotgun Admiral";
+			//Skills[4][2].Description[0] = "Summons a Former Sergeant";
+        Skills[4][2].Description[0] = "Summons a Slug Shotgun Zombie";
+			//Skills[4][2].Description[2] = "Summons a Auto Shotgun Zombie";
+		Skills[4][2].Description[1] = "Summons a Super Shotgun Zombie";
+		Skills[4][2].Description[2] = "Summons a Rocket Zombie";
+			//Skills[4][2].Description[5] = "Summons a Pyro Zombie";
+		Skills[4][2].Description[3] = "Summons a Spec Ops Shotgunner";
+			//Skills[4][2].Description[7] = "Summons a Chaos Warrior";
+		Skills[4][2].Description[4] = "Summons a Shotgun Admiral";
 
         Skills[4][3].Description[0] = "Summons a Assault Gunner";
-        Skills[4][3].Description[1] = "Summons a Former Commando";
-        Skills[4][3].Description[2] = "Summons a Plasma Rifle Zombie";
-		Skills[4][3].Description[3] = "Summons a Nailborg Commando";
-		Skills[4][3].Description[4] = "Summons a Scourge Zombie";
-		Skills[4][3].Description[5] = "Summons a Spec Ops Gunner";
-		Skills[4][3].Description[6] = "Summons a BFG Commando";
-		Skills[4][3].Description[7] = "Summons a Spec Ops Lieutenant";
-		Skills[4][3].Description[8] = "Summons a Infernal Commando";
-		Skills[4][3].Description[9] = "Summons a Chaos Deathmark";
-		Skills[4][3].Description[10] = "Summons a BFG10k Warrior";
+			//Skills[4][3].Description[1] = "Summons a Former Commando";
+        Skills[4][3].Description[1] = "Summons a Plasma Rifle Zombie";
+			//Skills[4][3].Description[3] = "Summons a Nailborg Commando";
+			//Skills[4][3].Description[4] = "Summons a Scourge Zombie";
+		Skills[4][3].Description[2] = "Summons a Spec Ops Gunner";
+		Skills[4][3].Description[3] = "Summons a BFG Commando";
+			//Skills[4][3].Description[7] = "Summons a Spec Ops Lieutenant";
+		Skills[4][3].Description[4] = "Summons a Infernal Commando";
+			//Skills[4][3].Description[9] = "Summons a Chaos Deathmark";
+		Skills[4][3].Description[5] = "Summons a BFG10k Warrior";
 
-        Skills[4][4].Description[0] = "Summons a Imp";
-        Skills[4][4].Description[1] = "Summons a Dark Imp";
-        Skills[4][4].Description[2] = "Summons a Devil";
-		Skills[4][4].Description[3] = "Summons a Scoundrel";
-		Skills[4][4].Description[4] = "Summons a Phase Imp";
-		Skills[4][4].Description[5] = "Summons a Brimstone Imp";
-		Skills[4][4].Description[6] = "Summons a Plagueling";
-		Skills[4][4].Description[7] = "Summons a Chaos Imp";
-		Skills[4][4].Description[8] = "Summons a Abyssal Savage";
+			//Skills[4][4].Description[0] = "Summons a Imp";
+        Skills[4][4].Description[0] = "Summons a Dark Imp";
+			//Skills[4][4].Description[2] = "Summons a Devil";
+		Skills[4][4].Description[1] = "Summons a Scoundrel";
+			//Skills[4][4].Description[4] = "Summons a Phase Imp";
+		Skills[4][4].Description[2] = "Summons a Brimstone Imp";
+		Skills[4][4].Description[3] = "Summons a Plagueling";
+			//Skills[4][4].Description[7] = "Summons a Chaos Imp";
+		Skills[4][4].Description[4] = "Summons a Abyssal Savage";
 
         Skills[4][5].Description[0] = "Summons a Demon";
-        Skills[4][5].Description[1] = "Summons a Blood Fiend";
-        Skills[4][5].Description[2] = "Summons a Nightmare Demon";
-		Skills[4][5].Description[3] = "Summons a Magma Demon";
-		Skills[4][5].Description[4] = "Summons a Mauler";
-		Skills[4][5].Description[5] = "Summons a Darkbeast";
-		Skills[4][5].Description[6] = "Summons a Chaos Flayer";
-		Skills[4][5].Description[7] = "Summons a Chaos Ophydian";
+			//Skills[4][5].Description[1] = "Summons a Blood Fiend";
+        Skills[4][5].Description[1] = "Summons a Nightmare Demon";
+		Skills[4][5].Description[2] = "Summons a Magma Demon";
+		Skills[4][5].Description[3] = "Summons a Mauler";
+		Skills[4][5].Description[4] = "Summons a Darkbeast";
+			//Skills[4][5].Description[6] = "Summons a Chaos Flayer";
+			//Skills[4][5].Description[7] = "Summons a Chaos Ophydian";
 
         Skills[4][6].Description[0] = "Summons a Cacodemon";
-        Skills[4][6].Description[1] = "Summons a Dark Cacodemon";
-        Skills[4][6].Description[2] = "Summons a Agathodemon";
-		Skills[4][6].Description[3] = "Summons a Crackodemon";
-		Skills[4][6].Description[4] = "Summons a Witherdemon";
-		Skills[4][6].Description[5] = "Summons a Cacobot";
-		Skills[4][6].Description[6] = "Summons a Chaos Stalker";
+			//Skills[4][6].Description[1] = "Summons a Dark Cacodemon";
+        Skills[4][6].Description[1] = "Summons a Agathodemon";
+		Skills[4][6].Description[2] = "Summons a Crackodemon";
+		Skills[4][6].Description[3] = "Summons a Witherdemon";
+		Skills[4][6].Description[4] = "Summons a Cacobot";
+			//Skills[4][6].Description[6] = "Summons a Chaos Stalker";
 
         Skills[4][7].Description[0] = "Summons a Hell Knight";
         Skills[4][7].Description[1] = "Summons a Hell Viscount";
@@ -3546,79 +3547,80 @@ void BuildSkillData()
 		Skills[4][7].Description[3] = "Summons a Cyber Hell Knight";
 		Skills[4][7].Description[4] = "Summons a Cyber Hell Viscount";
 		Skills[4][7].Description[5] = "Summons a Infernoble";
-		Skills[4][7].Description[6] = "Summons a Hell Prince Asch";
+			//Skills[4][7].Description[6] = "Summons a Hell Prince Asch";
 
         Skills[4][8].Description[0] = "Summons a Baron of Hell";
-        Skills[4][8].Description[1] = "Summons a Afrit";
-        Skills[4][8].Description[2] = "Summons a Cybruiser";
-		Skills[4][8].Description[3] = "Summons a Archon Of Hell";
-		Skills[4][8].Description[4] = "Summons a Bruiser Demon";
-		Skills[4][8].Description[5] = "Summons a Dark Cybruiser";
-		Skills[4][8].Description[6] = "Summons a Cyberwarden";
-		Skills[4][8].Description[7] = "Summons a Pyrobruiser";
-		Skills[4][8].Description[8] = "Summons a Cydestructor";
+			//Skills[4][8].Description[1] = "Summons a Afrit";
+        Skills[4][8].Description[1] = "Summons a Cybruiser";
+		Skills[4][8].Description[2] = "Summons a Archon Of Hell";
+		Skills[4][8].Description[3] = "Summons a Bruiser Demon";
+		Skills[4][8].Description[4] = "Summons a Dark Cybruiser";
+			//Skills[4][8].Description[6] = "Summons a Cyberwarden";
+		Skills[4][8].Description[5] = "Summons a Pyrobruiser";
+		Skills[4][8].Description[6] = "Summons a Cydestructor";
 
         Skills[4][9].Description[0] = "Summons a Lost Soul";
         Skills[4][9].Description[1] = "Summons a Phantasm";
         Skills[4][9].Description[2] = "Summons a Electrosoul";
 		Skills[4][9].Description[3] = "Summons a Soulless Drone";
 		Skills[4][9].Description[4] = "Summons a Wraith";
-		Skills[4][9].Description[5] = "Summons a Chaos Umbra";
+			//Skills[4][9].Description[5] = "Summons a Chaos Umbra";
 
         Skills[4][10].Description[0] = "Summons a Pain Elemental";
-        Skills[4][10].Description[1] = "Summons a Dark Elemental";
-        Skills[4][10].Description[2] = "Summons a Plasmatic Elemental";
-		Skills[4][10].Description[3] = "Summons a Hades Elemental";
-		Skills[4][10].Description[4] = "Summons a Automaton Elemental";
-		Skills[4][10].Description[5] = "Summons a Chaos Beholder";
+			//Skills[4][10].Description[1] = "Summons a Dark Elemental";
+        Skills[4][10].Description[1] = "Summons a Plasmatic Elemental";
+		Skills[4][10].Description[2] = "Summons a Hades Elemental";
+		Skills[4][10].Description[3] = "Summons a Automaton Elemental";
+			//Skills[4][10].Description[5] = "Summons a Chaos Beholder";
 
         Skills[4][11].Description[0] = "Summons a Revenant";
-        Skills[4][11].Description[1] = "Summons a Dark Revenant";
-        Skills[4][11].Description[2] = "Summons a Missile Revenant";
-		Skills[4][11].Description[3] = "Summons a Sentry";
-		Skills[4][11].Description[4] = "Summons a Apollyon";
-		Skills[4][11].Description[5] = "Summons a Chaos Hollow";
-		Skills[4][11].Description[6] = "Summons a Sentinel";
-		Skills[4][11].Description[7] = "Summons a Ancient Gladiator";
+			//Skills[4][11].Description[1] = "Summons a Dark Revenant";
+        Skills[4][11].Description[1] = "Summons a Missile Revenant";
+		Skills[4][11].Description[2] = "Summons a Sentry";
+		Skills[4][11].Description[3] = "Summons a Apollyon";
+			//Skills[4][11].Description[5] = "Summons a Chaos Hollow";
+		Skills[4][11].Description[4] = "Summons a Sentinel";
+			//Skills[4][11].Description[7] = "Summons a Ancient Gladiator";
 
         Skills[4][12].Description[0] = "Summons a Mancubus";
         Skills[4][12].Description[1] = "Summons a Hectebus";
         Skills[4][12].Description[2] = "Summons a Mafibus";
 		Skills[4][12].Description[3] = "Summons a Corpulent";
 		Skills[4][12].Description[4] = "Summons a Maxibus";
-		Skills[4][12].Description[5] = "Summons a Chaos Pylon";
+			//Skills[4][12].Description[5] = "Summons a Chaos Pylon";
 
         Skills[4][13].Description[0] = "Summons a Arachnotron";
         Skills[4][13].Description[1] = "Summons a Nailgun Arachnotron";
-        Skills[4][13].Description[2] = "Summons a Fusion Arachnotron";
-		Skills[4][13].Description[3] = "Summons a Augmented Arachnotron";
-		Skills[4][13].Description[4] = "Summons a Widow";
-		Skills[4][13].Description[5] = "Summons a Arachnoscorcher";
-		Skills[4][13].Description[6] = "Summons a Arachknight";
-		Skills[4][13].Description[7] = "Summons a Chaos Observer";
+			//Skills[4][13].Description[2] = "Summons a Fusion Arachnotron";
+		Skills[4][13].Description[2] = "Summons a Augmented Arachnotron";
+			//Skills[4][13].Description[4] = "Summons a Widow";
+		Skills[4][13].Description[3] = "Summons a Arachnoscorcher";
+		Skills[4][13].Description[4] = "Summons a Arachknight";
+			//Skills[4][13].Description[7] = "Summons a Chaos Observer";
+		Skills[4][13].Description[5] = "Summons a Demolitron";
 
         Skills[4][14].Description[0] = "Summons a Archvile";
         Skills[4][14].Description[1] = "Summons a Darkvile";
         Skills[4][14].Description[2] = "Summons a Diabolist";
 		Skills[4][14].Description[3] = "Summons a Infernalist";
 		Skills[4][14].Description[4] = "Summons a Distortionist";
-		Skills[4][14].Description[5] = "Summons a Cryptek";
+			//Skills[4][14].Description[5] = "Summons a Cryptek";
 
         Skills[4][15].Description[0] = "Summons a Cyberdemon";
-        Skills[4][15].Description[1] = "Summons a Annihilator";
-        Skills[4][15].Description[2] = "Summons a Dark Cyberdemon";
-		Skills[4][15].Description[3] = "Summons a Dark Cardinal";
-		Skills[4][15].Description[4] = "Summons a Terminator";
-		Skills[4][15].Description[5] = "Summons a Dreamweaver";
-		Skills[4][15].Description[6] = "Summons a Plamexis";
-		Skills[4][15].Description[7] = "Summons a Chaos Ecclesiarch";
-		Skills[4][15].Description[8] = "Summons a Eradicator";
+			//Skills[4][15].Description[1] = "Summons a Annihilator";
+        Skills[4][15].Description[1] = "Summons a Dark Cyberdemon";
+			//Skills[4][15].Description[3] = "Summons a Dark Cardinal";
+		Skills[4][15].Description[2] = "Summons a Terminator";
+			//Skills[4][15].Description[5] = "Summons a Dreamweaver";
+		Skills[4][15].Description[3] = "Summons a Plamexis";
+			//Skills[4][15].Description[7] = "Summons a Chaos Ecclesiarch";
+		Skills[4][15].Description[4] = "Summons a Eradicator";
 
         Skills[4][16].Description[0] = "Summons a Spider Mastermind";
         Skills[4][16].Description[1] = "Summons a Demolisher";
         Skills[4][16].Description[2] = "Summons a Arachnophyte";
 		Skills[4][16].Description[3] = "Summons a Spider Masterspark";
-		Skills[4][16].Description[4] = "Summons a Chaos Monolith";
+			//Skills[4][16].Description[4] = "Summons a Chaos Monolith";
     }
     // Rampancy Compatibility
     else if (CompatMonMode == COMPAT_RAMPANCY || CompatMonMode == COMPAT_DEHACKED)
