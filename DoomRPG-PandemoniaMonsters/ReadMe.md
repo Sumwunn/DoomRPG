@@ -7,17 +7,17 @@ New:
 - Added skills description
 - Added some sprite replacement from Pandemonia (medkit, stimpack, health/armor bonuses, small bullet mag and medium shells packs) (berserk sprite don`t replaces correctly)
 - Added part of fonts from Pandemonia (to fix Pandemonia events don`t shows up on the level start - pand bug itself) (DBIGFONT.fon2 to big for DRPG menus)
-- Fixed Abbysal Savage projectles sprite conflict with DRLA
+- Fixed Abbysal Savage projectiles sprite conflict with DRLA
 
 Knowing bugs:
 - The palette bug is on GZDoom 4.11.3 and higher (works ok on VKDoom)
-- Need a ballance revisions
+- Need a balance revisions
 - Reinforcement teleport effect is broken for some reason (reinforcement spawns silently)
-- Lost souls spawned from pain elementals give player expirience (probably other summons do that as well)
+- Lost souls spawned from pain elementals give player experience (probably other summons do that as well)
 
 Knowing issues (my opinion):
 - Monsters deal little bit lot of damage (they do in Pandemonia as well)
 - Monsters difficulty overwhelm a player to fast (some high tier monsters spawn to soon)
 - Pandemonia monster spawn events and pursuer bosses is separate thing from DRPG
 - Pursuer bosses can appear on the arena maps
-- Pursuer bosses count maps that player enters again (exept Outpost, i think) (they don`t appear there, because Dusted coded that)
+- Pursuer bosses count maps that player enters again (except Outpost, i think) (they don`t appear there, because Dusted coded that)
