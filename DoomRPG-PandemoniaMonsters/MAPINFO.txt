@@ -21,7 +21,7 @@ skill easy
     acsreturn = 1
 	Key = "h"
     
-	MustConfirm = "75% of monsters health, less agressive monsters, normal damage taken, nerfed Icon of Sin, can see keys on the map"
+	MustConfirm = "75% of monsters health, less aggressive monsters, normal damage taken, nerfed Icon of Sin, can see keys on the map"
     name = "Hey, not too rough!"
     textcolor = "Green"
 }
@@ -39,7 +39,7 @@ skill normal
     acsreturn = 2
 	Key = "p"
     
-	MustConfirm = "Full monsters health, more agressive monsters, normal damage taken, harder spawns."
+	MustConfirm = "Full monsters health, more aggressive monsters, normal damage taken, harder spawns."
     name = "Hurt me plenty!"
     textcolor = "Yellow"
 }
@@ -58,7 +58,7 @@ skill hard
     acsreturn = 3
 	Key = "u"
     
-	MustConfirm = "125% of monsters health, medium agressive monsters, normal damage taken, more harder spawns."
+	MustConfirm = "125% of monsters health, medium aggressive monsters, normal damage taken, more harder spawns."
     name = "Ultra-Violence!"
     textcolor = "Orange"
 }
@@ -76,7 +76,7 @@ skill nightmare
     acsreturn = 4
 	Key = "o"
     
-	MustConfirm = "150% of monsters health, very agressive monsters, +25% damage taken, nightmare spawns."
+	MustConfirm = "150% of monsters health, very aggressive monsters, +25% damage taken, nightmare spawns."
     name = "Overkill!"
     textcolor = "Red"
 }
@@ -94,7 +94,7 @@ skill hell
     acsreturn = 5
 	Key = "n"
     
-	MustConfirm = "2x monsters health, very agressive monsters, +50% damage taken, nightmare spawns."
+	MustConfirm = "200% monsters health, very aggressive monsters, +50% damage taken, nightmare spawns."
     name = "NIGHTMARE!"
     textcolor = "Brick"
 }
