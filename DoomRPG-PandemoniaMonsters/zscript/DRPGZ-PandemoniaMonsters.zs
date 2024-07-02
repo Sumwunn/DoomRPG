@@ -1979,8 +1979,6 @@ Class PandPursuerBossSpawnerRPG : PandPursuerBossSpawner replaces PandPursuerBos
 			rockerstocker.health = 5000;
 		else
 			rockerstocker.health = (rockerstocker.health) + (BeatRoast*500);
-		rockerstocker.target = target;
-		rockerstocker.A_StartSound("Roasterock/Sight",2,0,1.0,0);
 		if(pan_bossmusic)
 			S_ChangeMusic("P_ROAST");
 		}	
@@ -2003,41 +2001,34 @@ Class MyrkuraSpawnerRPG : MyrkuraSpawner replaces MyrkuraSpawner
 	TNT1 A 0 NoDelay 
 		{
 		A_StartSound("Myrkura/Spawn2",15,0,1.0,0);
+		A_QuakeEx(4,4,4,88,0,3500,"",QF_SCALEUP,0,1500,0,256);
 		if(pan_bossmusic)
 			S_ChangeMusic("P_MYRKRA");
 		}
-	MRC3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1
+	MRC3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1
 		{
-		for(user_fx = 0;user_fx<=3;user_fx++)
-			{
-			user_pcolor = random(1,4);
-			if(user_pcolor == 1) { A_SpawnParticle("FF4949",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			else if(user_pcolor == 2) { A_SpawnParticle("FF2424",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			else if(user_pcolor == 3) { A_SpawnParticle("FF6D6D",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			else if(user_pcolor == 4) { A_SpawnParticle("FF0000",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			}
+		if(alpha < 1)
+			A_FadeIn(0.03);
+		if(Scale.X < 1)
+			A_SetScale(Scale.X+0.025);
+		for(user_fx = 0;user_fx<3;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1);
 		}
 	MRC3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1
 		{
-		for(user_fx = 0;user_fx<=3;user_fx++)
-			{
-			user_pcolor = random(1,4);
-			if(user_pcolor == 1) { A_SpawnParticle("FF4949",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			else if(user_pcolor == 2) { A_SpawnParticle("FF2424",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			else if(user_pcolor == 3) { A_SpawnParticle("FF6D6D",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			else if(user_pcolor == 4) { A_SpawnParticle("FF0000",SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1); }
-			}
 		A_SpawnItemEx("RedFireProjectileTrail2",frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),random(0,360));
+		for(user_fx = 0;user_fx<3;user_fx++)
+			A_SpawnParticle(GetParticleColor(),SPF_FULLBRIGHT|SPF_RELATIVE,25,frandom(15,16),random(0,360),frandom(0,250),0,frandom(0,4),0,0,frandom(5,10),0,0,0,1,-1,-1);
 		}
 	TNT1 A 0
 		{
+		A_QuakeEx(10,10,10,50,0,4500,"",QF_SCALEDOWN,0,0,0,256);
 		A_StartSound("Myrkura/Spawn",1,0,1.0,0);
 		for(fxloop = 0;fxloop<=360;fxloop = fxloop+3)
-			{
 			A_SpawnItemEx("RedFireProjectileTrail2",265,0,random(0,4),0,0,frandom(2,6),fxloop);
-			}
 		let mykura = Spawn("MyrkuraRPG",pos);
-		mykura.target = target;
+		if(target)
+			mykura.target = target;
 		}
 	MRC3 A 1 A_FadeOut;
 	Wait;
