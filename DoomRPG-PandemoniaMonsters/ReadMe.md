@@ -12,7 +12,7 @@ New:
 Knowing bugs:
 - The palette bug is on GZDoom 4.11.3 and higher (works ok on VKDoom)
 - Need a balance revisions
-- Reinforcement teleport effect is broken for some reason (reinforcement spawns silently)
+- Reinforcement teleport effect is broken for some reason (reinforcement spawns silently) (upd.1: drpg script works fine, class just don`t spawn, even in 0.0.0 coordinate)
 - Lost souls spawned from pain elementals give player experience (probably other summons do that as well)
 
 Knowing issues (my opinion):
