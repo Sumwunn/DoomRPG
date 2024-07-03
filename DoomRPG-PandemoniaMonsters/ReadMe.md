@@ -1,3 +1,8 @@
+03.07.2024
+
+New:
+- Reinforcements teleport bug fixed
+
 30.06.2024
 
 New:
