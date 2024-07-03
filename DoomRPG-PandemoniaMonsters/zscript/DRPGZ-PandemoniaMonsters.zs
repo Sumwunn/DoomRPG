@@ -59,7 +59,23 @@ Class WidowBigShotRPG : WidowBigShot replaces WidowBigShot
 	Stop;
 	}
 }
+//Pand teleport fog fix (not spawning when reinforcements arrive)
 
+Class PandTeleportFogRPG : TeleportFog replaces NewTeleportFog
+{
+
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_PlaySound("Teleport/Normal",1);
+	TNT1 AAAAAA 5 Light("DTFOG1")
+		{
+		A_SpawnItemEx("BFGLightningTrail",0,0,32,0,0,0,0,0,128);
+		A_SpawnItemEx("BFGBallTrail",0,0,32,frandom(0,3),0,frandom(-3,3),random(0,360));
+		}
+	Stop;
+	}
+}
 
 //Monsters Things (damage types, drop items and etc.)
 
