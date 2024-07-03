@@ -3,6 +3,9 @@
 New:
 - Reinforcements teleport bug fixed
 
+Knowing issues (my opinion):
+- Monsters HP in defolt hpbar is not that visible with SMALLFNT (don`t know how to fix it - replacing a class is not work)
+
 30.06.2024
 
 New:
