@@ -67,7 +67,7 @@ Class PandTeleportFogRPG : TeleportFog replaces NewTeleportFog
   States
   {
   Spawn:
-	TNT1 A 0 NoDelay A_PlaySound("Teleport/Normal",1);
+	TNT1 A 0 NoDelay A_StartSound("Teleport/Normal",1);
 	TNT1 AAAAAA 5 Light("DTFOG1")
 		{
 		A_SpawnItemEx("BFGLightningTrail",0,0,32,0,0,0,0,0,128);
