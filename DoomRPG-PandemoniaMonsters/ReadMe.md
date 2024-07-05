@@ -1,15 +1,8 @@
-03.07.2024
-
-New:
-- Reinforcements teleport bug fixed
-
-Knowing issues (my opinion):
-- Monsters HP in defolt hpbar is not that visible with SMALLFNT (don`t know how to fix it - replacing a class is not work)
-
-30.06.2024
+05.07.2024
 
 New:
 - Added support 2.4.1 Pandemonia monsterpack
+- Reinforcements teleport bug fixed
 - Added Pandemonia summons
 - Matching difficulty skill names with Pandemonia 
 - Added skills description
@@ -20,7 +13,6 @@ New:
 Knowing bugs:
 - The palette bug is on GZDoom 4.11.3 and higher (works ok on VKDoom)
 - Need a balance revisions
-- Reinforcement teleport effect is broken for some reason (reinforcement spawns silently)
 - Lost souls spawned from pain elementals give player experience (probably other summons do that as well)
 
 Knowing issues (my opinion):
@@ -29,3 +21,4 @@ Knowing issues (my opinion):
 - Pandemonia monster spawn events and pursuer bosses is separate thing from DRPG
 - Pursuer bosses can appear on the arena maps
 - Pursuer bosses count maps that player enters again (except Outpost, i think) (they don`t appear there, because Dusted coded that)
+- Monsters HP in default hpbar is not that visible with SMALLFNT (don`t know how to fix it - replacing a class is not work) (SMALLFNT need for Pandemonia in events names)
