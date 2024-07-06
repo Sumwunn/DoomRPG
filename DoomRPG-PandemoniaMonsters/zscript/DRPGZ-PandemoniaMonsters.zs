@@ -2182,7 +2182,7 @@ class Pandemonia_MonsterInit : EventHandler
 				"PandWraithRPG",			
 				
 				"ChaosHollowRPG", "DarkRevenantRPG", "MissileRevenantRPG", "NewRevenantRPG", "PandSentinelRPG",				//Revevants
-				"SentryRPG", "ApollyonRPG", "AncientGladiatorRPG",
+				"SentryRPG", "ApollyonRPG",
 				
 				"AgathodemonRPG", "CacobotRPG", "NewCacodemonRPG", "CrackodemonRPG", "DarkCacodemonRPG",					//Cacodemons
 				"WitherdemonRPG", "AbaddonRPG", "ChaosStalkerRPG", 
@@ -2198,7 +2198,7 @@ class Pandemonia_MonsterInit : EventHandler
 				"ChaosPylonRPG",
 				
 				"CyberHellKnightRPG", "CyberHellViscountRPG", "NewHellKnightRPG", "HellViscountRPG", 						//Knights
-				"HellWardenRPG", "InfernobleRPG", "HellPrinceAschRPG",
+				"HellWardenRPG", "InfernobleRPG",
 				
 				"AfritRPG", "ArchonOfHellRPG", "NewBaronOfHellRPG", "BruiserDemonRPG", "CyberwardenRPG", 					//Barons
 				"CybruiserRPG",	"DarkCybruiserRPG", "PyrobruiserRPG", "CydestructorRPG",
@@ -2213,7 +2213,9 @@ class Pandemonia_MonsterInit : EventHandler
 			
             static const string PandemoniaBosses[] =
             {
-               			"AnnihilatorRPG", "NewCyberdemonRPG", "DarkCardinalRPG", "DarkCyberdemonRPG", "DreamweaverRPG",		//Cyberdemons
+				"AncientGladiatorRPG", "HellPrinceAschRPG",																	//Normal Bosses
+				
+               	"AnnihilatorRPG", "NewCyberdemonRPG", "DarkCardinalRPG", "DarkCyberdemonRPG", "DreamweaverRPG",				//Cyberdemons
 				"EradicatorRPG", "PlamexisRPG", "TerminatorRPG", "ChaosEcclesiarchRPG",
 				
 				"ArachnophyteRPG", "ChaosMonolithRPG", "DemolisherRPG", "NewSpiderMastermindRPG", 							//Masterminds
