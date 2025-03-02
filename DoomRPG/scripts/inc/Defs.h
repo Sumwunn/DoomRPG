@@ -443,7 +443,7 @@ typedef enum
 #define MAX_DEF_MONSTERS_CH     135
 #define MAX_DEF_MONSTERS_RM     38
 #define MAX_TEMP_MONSTERS       150
-#define MAX_DEF_MONSTERS_PANDM  113
+#define MAX_DEF_MONSTERS_PANDM  132
 #define MAX_MEGABOSSES_DF       2
 #define MAX_MEGABOSSES_CH       2
 #define MAX_SKILLLEVELS_DF		6
