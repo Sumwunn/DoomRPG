@@ -4,7 +4,11 @@
 
 --------------------------
 
-Fork to maintain Pandemonia Monsters updated (2.4.1 current).
+This is WNC12k's Rebalance + my WIP changes. Text past the dashed line is original (except for updated mod versions and links).
+
+*Also, this build is considered WIP so please be aware that stuff may break. I don't recommend for normal playthroughs. Overtime, this build will probably be merged into Rebalance itself.*
+
+- Current Merged Rebalance: v1.34 (Mar 8, 2024)
 
 ## --------------------------------------------------------------------------------------
 
