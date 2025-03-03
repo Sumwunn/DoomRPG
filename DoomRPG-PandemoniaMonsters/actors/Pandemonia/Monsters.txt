@@ -1,0 +1,17 @@
+actor ZombiemanDRPGReplacer : ZombiemanReplacer replaces DRPGZombieMan {}
+actor ShotgunguyDRPGReplacer : ShotgunguyReplacer replaces DRPGShotgunGuy {}
+actor ChaingunguyDRPGReplacer : ChaingunguyReplacer replaces DRPGChaingunGuy {}
+actor ImpDRPGReplacer : ImpReplacer replaces DRPGDoomImp {}
+actor DemonDRPGReplacer : DemonReplacer replaces DRPGDemon {}
+actor SpectreDRPGReplacer : SpectreReplacer replaces DRPGSpectre {}
+actor CacodemonDRPGReplacer : CacodemonReplacer replaces DRPGCacodemon {}
+actor PainElementalDRPGReplacer : PainElementalReplacer replaces DRPGPainElemental {}
+actor LostSoulDRPGReplacer : LostSoulReplacer replaces DRPGLostSoul {}
+actor HellKnightDRPGReplacer : HellKnightReplacer replaces DRPGHellKnight {}
+actor BaronOfHellDRPGReplacer : BaronOfHellReplacer replaces DRPGBaronOfHell {}
+actor RevenantDRPGReplacer : RevenantReplacer replaces DRPGRevenant {}
+actor FatsoDRPGReplacer : FatsoReplacer replaces DRPGFatso {}
+actor ArachnotronDRPGReplacer : ArachnotronReplacer replaces DRPGArachnotron {}
+actor ArchVileDRPGReplacer : ArchVileReplacer replaces DRPGArchvile {}
+actor CyberdemonDRPGReplacer : CyberdemonReplacer replaces DRPGCyberdemon {}
+actor SpiderMastermindDRPGReplacer : SpiderMastermindReplacer replaces DRPGSpiderMastermind {}

@@ -1,0 +1,6 @@
+Name=Pandemonia - Monster Pack
+Conflicts=Colourful Hell
+Conflicts=Rampancy
+Conflicts=Dehacked Attack
+Conflicts=DoomRL Arsenal - Monster Pack
+Mods=Pandemonia-v2.4.1-Monsters.pk3

@@ -1,0 +1,100 @@
+GameInfo
+{
+    AddEventHandlers = "Pandemonia_MonsterInit"
+}
+
+// Rejigger the skills
+clearskills
+
+// Easy skill
+skill easy
+{
+    damagefactor = 1.0
+    monsterhealth = 0.75
+    aggressiveness = 0.0
+    spawnfilter = normal
+
+    easybossbrain
+    easykey
+    autousehealth
+    
+    acsreturn = 1
+	Key = "h"
+    
+	MustConfirm = "75% of monsters health, less aggressive monsters, normal damage taken, nerfed Icon of Sin, can see keys on the map"
+    name = "Hey, not too rough!"
+    textcolor = "Green"
+}
+
+// Normal skill
+skill normal
+{
+    damagefactor = 1.0
+    monsterhealth = 1.0
+    aggressiveness = 0.25
+    spawnfilter = hard
+    
+    autousehealth
+
+    acsreturn = 2
+	Key = "p"
+    
+	MustConfirm = "Full monsters health, more aggressive monsters, normal damage taken, harder spawns."
+    name = "Hurt me plenty!"
+    textcolor = "Yellow"
+}
+
+// Hard skill
+skill hard
+{
+    damagefactor = 1.0
+    monsterhealth = 1.25
+    aggressiveness = 0.5
+    spawnfilter = nightmare
+    
+    autousehealth
+    defaultskill
+
+    acsreturn = 3
+	Key = "u"
+    
+	MustConfirm = "125% of monsters health, medium aggressive monsters, normal damage taken, more harder spawns."
+    name = "Ultra-Violence!"
+    textcolor = "Orange"
+}
+
+// Nightmare skill
+skill nightmare
+{
+    damagefactor = 1.25
+    monsterhealth = 1.5
+    aggressiveness = 1.0
+    spawnfilter = nightmare
+    
+    autousehealth
+
+    acsreturn = 4
+	Key = "o"
+    
+	MustConfirm = "150% of monsters health, very aggressive monsters, +25% damage taken, nightmare spawns."
+    name = "Overkill!"
+    textcolor = "Red"
+}
+
+// Hell skill
+skill hell
+{
+    damagefactor = 1.5
+    monsterhealth = 2.0
+    aggressiveness = 1.0
+    spawnfilter = nightmare
+    
+    autousehealth
+
+    acsreturn = 5
+	Key = "n"
+    
+	MustConfirm = "200% monsters health, very aggressive monsters, +50% damage taken, nightmare spawns."
+    name = "NIGHTMARE!"
+    textcolor = "Brick"
+}
