@@ -572,6 +572,7 @@ MonsterInfo const MonsterDataPANDM[MAX_DEF_MONSTERS_PANDM] =
 
     // Mastermind
     { "NewSpiderMastermind",               "Spider Mastermind",                 278,     24, true, "The smell of metal and gunpowder hangs in the air, the war machine is close." },
+	{ "DarkMastermind",              	   "Dark Mastermind",                   285,     24, true, "Sensors detected massive dark technology in this location!" },
     { "Demolisher",                        "Demolisher",                        298,     24, true, "Superheavy weapon platforms detected in this area." },
     { "Arachnophyte",                      "Arachnophyte",                      299,     24, true, "Infernal aviation razes this place to the ground!" },
     { "SpiderMasterspark",                 "Spider Masterspark",                305,     24, true, "Some thoughts of hell have reached space..." },
