@@ -3,6 +3,9 @@
 The main goal of this fork is bugfixing/stability & performance improvements; however, some usability/gameplay tweaks have been made.
 I recommend reading CHANGELOG.txt and the commits for all the changes.
 
+# <ins>Note</ins>
+- This fork's branch predates WNC12k's Rebalance and lacks a lot of fixes and improvements. However, it's relatively playable and is similar (gameplay-wise) to Kyle873's last release.
+
 ## Installing
 
 Compatible source ports:
